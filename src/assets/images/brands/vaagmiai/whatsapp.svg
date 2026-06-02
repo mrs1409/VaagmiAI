@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 80" fill="none">
+  <!-- WhatsApp phone in bubble mark -->
+  <path d="M36 14 A22 22 0 1 0 58 36 A22 22 0 0 0 36 14Z M36 20 A16 16 0 1 1 20 36 A16 16 0 0 1 36 20Z" fill="#2A2A2A"/>
+  <path d="M28 32 Q28 26 34 26 Q36 26 38 28 L35 31 Q34 30 33 30 Q30 30 30 33 L30 40 Q30 44 34 44 Q36 44 38 42 L40 45 Q38 48 34 48 Q28 48 28 41Z" fill="white"/>
+  <path d="M36 62 L30 72 L48 68Z" fill="#2A2A2A"/>
+  <!-- Wordmark -->
+  <text x="72" y="52" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif" font-size="22" font-weight="600" fill="#2A2A2A" letter-spacing="0">WhatsApp</text>
+</svg>

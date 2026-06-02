@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 80" fill="none">
+  <!-- Retell AI minimal waveform mark -->
+  <rect x="10" y="32" width="8" height="16" rx="4" fill="#2A2A2A"/>
+  <rect x="24" y="22" width="8" height="36" rx="4" fill="#2A2A2A"/>
+  <rect x="38" y="28" width="8" height="24" rx="4" fill="#2A2A2A"/>
+  <!-- Wordmark -->
+  <text x="60" y="52" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="700" fill="#2A2A2A" letter-spacing="0.3">Retell AI</text>
+</svg>

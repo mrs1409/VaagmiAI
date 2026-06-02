@@ -1,0 +1,127 @@
+/* ============================================================================
+   SCROLL-SMOOTHNESS TEST LAYER  -  loaded ONLY by scroll-test.html
+   ----------------------------------------------------------------------------
+   Goal: make section-to-section scrolling feel buttery (high perceived
+   FPS, no "block-y" stutter) WITHOUT touching index.html or any of the
+   shared CSS. Everything here is additive overrides scoped via the
+   <body> so it can't leak into the live site (the live site never
+   loads this file).
+
+   Techniques:
+   1. content-visibility:auto on the big sections - the browser SKIPS
+      layout + paint for sections that are off-screen, so each scroll
+      frame has far less work to do. contain-intrinsic-size gives the
+      skipped section a placeholder height so the scrollbar doesn't
+      jump as sections enter/leave the render budget.
+   2. GPU compositing hints on the scroll-driven / sticky elements so
+      their transforms run on the compositor thread, not the main
+      thread (main-thread work = dropped frames during scroll).
+   3. A subtle scroll-behavior fallback + overscroll containment.
+   ============================================================================ */
+
+/* ── 1. content-visibility: skip offscreen section render ────────────
+   Applied to the heavy stacked sections. The intrinsic-size values are
+   rough "this section is about this tall" hints so the page height
+   stays stable while a section is render-skipped. They don't need to
+   be exact - just close enough that the scrollbar doesn't lurch. */
+.who-we-are,
+.brands-marquee,
+.testimonials,
+.standards,
+.gallery-pin-stack,
+.contact {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 900px;
+}
+
+/* The events + choose-band sections are very tall (multi-viewport
+   sticky runways). Give them a taller intrinsic size so the skip
+   placeholder matches their real footprint better. */
+#events {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 400vh;
+}
+#chooseBand {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 500vh;
+}
+#worldwide {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 150vh;
+}
+
+/* ── 2. GPU compositing for the scroll-driven movers ──────────────────
+   Promote the elements main.js mutates every scroll frame to their own
+   compositor layer so the transform/clip updates don't trigger
+   main-thread paint. translateZ(0) forces the layer; will-change tells
+   the browser to keep it promoted. */
+.events__photo-stack,
+.events__photo,
+.band-selector__list,
+.band-selector__bg-image,
+.gallery-track,
+.hero-intro__tagline,
+.hero-center-title,
+.contact__marquee-track,
+.brands-marquee__track {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* ── 3. Scroll containment ────────────────────────────────────────────
+   overscroll-behavior:none stops the scroll "chaining"/bounce that can
+   make the page feel like it stutters at section boundaries. */
+html {
+  overscroll-behavior-y: none;
+}
+
+/* scroll-behavior MUST be auto for Lenis - the shared base CSS sets it
+   to "smooth", which fights Lenis (Lenis drives the scroll itself) and
+   causes janky anchor jumps. Force it back to auto here (test page only;
+   this file loads last and index.html never loads it). */
+html {
+  scroll-behavior: auto !important;
+}
+
+/* ── G2 STRICT-ALIGNMENT TRIAL (TEST PAGE ONLY) ───────────────────────
+   Client G2: "Left and right margins aligned across all sections so
+   every text block / graphic starts at the same position."
+
+   The live homepage already does this everywhere EXCEPT the Events
+   section, which uses a wider bespoke inset
+   (padding-inline: clamp(2.5rem, 6vw, 7rem)) so its content starts
+   further in than every other section on wide screens.
+
+   This override (loaded only by scroll-test.html - index.html never
+   loads this file) makes Events use the SAME container metrics as
+   .container / .header__inner: full-bleed sticky bg kept, but the
+   inner title + layout are capped to --container-max and use the
+   global --container-padding gutter, so the Events text/graphics line
+   up exactly with Who We Are, Standards, Testimonials, Contact, etc.
+   Compare against the live homepage to A/B the alignment. */
+.events__sticky {
+  padding-inline: 0;
+}
+.events__title,
+.events__layout {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-padding);
+}
+
+/* ── SENSITIVITY TRIAL (TEST PAGE ONLY) ───────────────────────────────
+   Client: "I need to scroll 2-3 times to move a little bit." The biggest
+   culprit is the very tall pinned scroll-runways - you scroll a lot but
+   the page only progresses a little because the scroll is feeding the
+   pinned animation. Shortening the runways means each wheel notch makes
+   visibly more progress = higher perceived sensitivity.
+   The JS (band selector / events scrub) reads section.offsetHeight for
+   progress, so it auto-adapts to these shorter heights - animations stay
+   correct, just complete over less scroll. index.html keeps the original
+   (taller) heights; this only affects the test page.
+   Choose Your Band: 500vh -> 320vh.  Globe was already trimmed live. */
+#chooseBand {
+  height: 320vh;
+}

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 80" fill="none">
+  <!-- Shopify bag mark -->
+  <path d="M46 16 Q44 10 38 10 Q32 10 30 16 L26 16 L22 66 L58 66 L54 16Z" stroke="#2A2A2A" stroke-width="5" fill="none" stroke-linejoin="round"/>
+  <path d="M30 26 Q30 18 38 18 Q46 18 46 26" stroke="#2A2A2A" stroke-width="4" fill="none"/>
+  <!-- Wordmark -->
+  <text x="72" y="52" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif" font-size="22" font-weight="700" fill="#2A2A2A" letter-spacing="0">Shopify</text>
+</svg>

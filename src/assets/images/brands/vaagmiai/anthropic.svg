@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 80" fill="none">
+  <!-- Anthropic diamond mark -->
+  <path d="M40 12L62 68H18L40 12Z" fill="#2A2A2A"/>
+  <!-- Wordmark -->
+  <text x="78" y="52" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="600" fill="#2A2A2A" letter-spacing="0.5">Anthropic</text>
+</svg>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 80" fill="none">
+  <!-- ClickUp C arrow mark -->
+  <path d="M54 26 A22 22 0 1 0 54 54 L46 54 A14 14 0 1 1 46 26Z" fill="#2A2A2A"/>
+  <path d="M54 26 L44 34 L54 42" stroke="#2A2A2A" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Wordmark -->
+  <text x="70" y="52" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="700" fill="#2A2A2A" letter-spacing="0">ClickUp</text>
+</svg>

@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="VaagmiAi - AI Employees That Never Miss A Lead. Voice Agents, Lead Qualification, Appointment Booking, Customer Support, and Business Automation. Available 24/7.">
+  <meta name="keywords" content="AI voice agents, lead qualification, appointment booking automation, AI receptionist, business workflow automation, CRM integration">
+
+  <title>VaagmiAi - AI Employees That Never Miss A Lead</title>
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://vaagmiai.com/">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="VaagmiAi - AI Employees That Never Miss A Lead">
+  <meta property="og:description" content="AI Voice Agents, Lead Qualification, Appointment Booking, Customer Support, and Business Automation. Available 24/7.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://vaagmiai.com/">
+  <meta property="og:image" content="https://vaagmiai.com/src/assets/images/hero-banner.jpg">
+  <meta property="og:locale" content="en_GB">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="VaagmiAi - AI Employees That Never Miss A Lead">
+  <meta name="twitter:description" content="AI Voice Agents, Lead Qualification, Appointment Booking, and Business Automation. Available 24/7.">
+  <meta name="twitter:image" content="https://vaagmiai.com/src/assets/images/hero-banner.jpg">
+
+  <!-- Robots / SEO hints -->
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="author" content="VaagmiAi">
+  <meta name="theme-color" content="#2A2A2A">
+
+  <!-- Structured data - Organization + LocalBusiness for Google Knowledge Panel
+       and rich-result eligibility on local searches. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://vaagmiai.com/#organization",
+        "name": "VaagmiAi",
+        "url": "https://vaagmiai.com/",
+        "logo": "https://vaagmiai.com/src/assets/images/hero-banner.jpg",
+        "description": "AI Employees That Never Miss A Lead. Voice Agents, Lead Qualification, Appointment Booking, Customer Support, and Business Automation.",
+        "areaServed": "Worldwide",
+        "knowsLanguage": ["English"],
+        "sameAs": []
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://vaagmiai.com/#website",
+        "url": "https://vaagmiai.com/",
+        "name": "VaagmiAi",
+        "publisher": { "@id": "https://vaagmiai.com/#organization" },
+        "inLanguage": ["en"]
+      }
+    ]
+  }
+  </script>
+
+  <!-- Favicon placeholder -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
+
+
+  <!-- Stylesheets - Nohemi (self-hosted, all 9 weights) is loaded inside
+       variables.css via @font-face. -->
+  <link rel="stylesheet" href="src/css/variables.css">
+  <link rel="stylesheet" href="src/css/reset.css">
+  <link rel="stylesheet" href="src/css/style.css">
+
+  <!-- GSAP + ScrollTrigger (needed early for hero animations).
+       Three.js is NOT loaded here - main.js dynamically injects it only
+       when the user scrolls near the globe section, saving ~150 KB on
+       initial page load. -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
+
+  <!-- ===== PAGE LOADER ===== -->
+  <div class="page-loader" id="pageLoader">
+    <div class="page-loader__spinner"></div>
+  </div>
+
+  
+
+  <!-- ===== WHATSAPP BUTTON ===== -->
+  <a href="https://api.whatsapp.com/send?phone=919019265595" target="_blank" rel="noopener" class="whatsapp-btn" aria-label="Contact us on WhatsApp">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    <span class="whatsapp-btn__label">Let's chat.</span>
+  
+  </a>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header" id="mainHeader">
+    <div class="header__inner">
+      <!-- Logo -->
+      <a href="/" class="logo logo--hero" id="mainLogo">
+        <!-- Measurement proxy for JS dock animation (never visible, just measured) -->
+        <span class="logo__text">VaagmiAi</span>
+        <span class="logo__tagline">AI Employees That Never Miss A Lead</span>
+      </a>
+
+      <!-- Navigation - top-level categories with dropdowns on Events + Bands.
+           Per client v2 brief: 6 items max horizontally, individual band
+           names live INSIDE the Bands dropdown. -->
+      <nav class="nav" id="mainNav" aria-label="Site navigation">
+        <ul class="nav__list">
+          <li class="nav__item nav__item--has-dropdown">
+            <a href="#events" class="nav__link">Services</a>
+            <ul class="nav__dropdown" role="menu">
+              <li><a href="#events">AI Receptionist</a></li>
+              <li><a href="#events">Lead Qualification</a></li>
+              <li><a href="#events">Appointment Booking</a></li>
+              <li><a href="#events">Customer Support</a></li>
+            </ul>
+          </li>
+          <li class="nav__item nav__item--has-dropdown">
+            <a href="#chooseBand" class="nav__link">Industries</a>
+            <ul class="nav__dropdown" role="menu">
+              <li><a href="#chooseBand">Real Estate</a></li>
+              <li><a href="#chooseBand">Healthcare</a></li>
+              <li><a href="#chooseBand">Recruitment</a></li>
+              <li><a href="#chooseBand">Education</a></li>
+              <li><a href="#chooseBand">Restaurants</a></li>
+              <li><a href="#chooseBand">Gyms &amp; Fitness</a></li>
+              <li><a href="#chooseBand">Automotive</a></li>
+              <li class="nav__dropdown-divider" aria-hidden="true"></li>
+              <li><a href="#contact">Book A Call</a></li>
+            </ul>
+          </li>
+          <li class="nav__item">
+            <a href="#worldwide" class="nav__link">How It Works</a>
+          </li>
+          <li class="nav__item">
+            <a href="#standards" class="nav__link">Why VaagmiAi</a>
+          </li>
+          <li class="nav__item">
+            <a href="#testimonials" class="nav__link">Results</a>
+          </li>
+          <li class="nav__item">
+            <a href="#contact" class="nav__link">Book A Call</a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Language toggle hidden for VaagmiAi (English only) -->
+      <!-- <button class="lang-toggle lang-toggle--fixed" id="langToggleFixed" aria-label="Switch language">FR</button> -->
+
+      <!-- Mobile hamburger -->
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ===== HERO TITLE / LOGO =====
+       Single fixed element. Sits center-top on the black hero intro
+       initially, then travels to the header's top-left logo slot as
+       the user scrolls. JS in initHeroIntro() drives the position +
+       font-size each frame from the scroll progress. -->
+  <!-- Hero logo: inline SVG VA mark (white) + gold-shimmer wordmark.
+       JS animates font-size on .hero-center-title so height:2em
+       and font-size:1em both scale correctly each scroll frame. -->
+  <a href="/" class="hero-center-title" id="heroCenterTitle">
+    <span class="vaagmiai-lockup">
+      <svg class="vaagmiai-lockup__mark vaagmiai-lockup__mark--light"
+           viewBox="0 0 90 82" fill="none"
+           xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <!-- Bold left leg of V -->
+        <path d="M3,6 L20,6 Q23,11 44,77 Q42,83 36,81 Q30,78 3,16 Z" fill="currentColor"/>
+        <!-- Centre rise: V-bottom to A-peak -->
+        <path d="M44,77 Q42,83 36,81 Q47,57 56,14 L66,16 Q54,54 44,77 Z" fill="currentColor"/>
+        <!-- Bold right leg of A -->
+        <path d="M56,14 L66,16 L88,81 L73,81 Q63,47 56,14 Z" fill="currentColor"/>
+        <!-- Dot inside A -->
+        <circle cx="41" cy="73" r="5.5" fill="currentColor"/>
+      </svg>
+      <span class="hero-center-title__text vaagmiai-lockup__wordmark">Vaagmiai</span>
+    </span>
+  </a>
+
+  <!-- ===== DOOR PORTAL REMOVED (revision round 2, item 1.1) =====
+       Client direction: drop the pre-hero door intro entirely - start the
+       page on the hero stack so visitors land directly on the brand video
+       and tagline. All door-portal HTML, CSS, JS (initDoorPortal) and the
+       door-reveal.mp4 / hero-door-bg.jpg assets have been removed.
+       The #main-content anchor target (for the skip-link) now lives on
+       the hero stack below. -->
+
+
+  <!-- ===== HERO STACK (now the first section on the page) =====
+       Original sticky black panel + sliding video + tagline. The user
+       lands here once they've passed through the door. The existing
+       initHeroIntro() drives the logo dock, header chrome reveal, and
+       tagline pin/drift - all unchanged. -->
+  <div class="hero-stack" id="heroStack">
+    <a id="main-content"></a>
+
+    <!-- Black panel - sticky, z:1 (deepest) -->
+    <section class="hero-intro" id="heroIntro"></section>
+
+    <!-- Riviera footage. z:2 - slides up OVER the sticky black panel. -->
+    <section class="hero-video" id="heroVideo">
+      <video class="hero-video__media" autoplay muted loop playsinline preload="auto">
+        <source src="src/assets/videos/hero1.mp4" type="video/mp4">
+      </video>
+    </section>
+
+    <!-- Tagline overlay - pinned via position: fixed, JS drifts it up. -->
+    <h1 class="hero-intro__tagline" id="heroTagline"
+        data-en="We Build AI Employees<br>That Never Miss A Lead">
+      We Build AI Employees<br>That Never Miss A Lead
+    </h1>
+  </div>
+
+  <!-- ===== WHO WE ARE =====
+       New light-on-white treatment per client brief. Text on the LEFT,
+       four animated counter stats arranged in a staggered zig-zag on
+       the RIGHT. The paragraph keeps the scroll-driven word-darkening
+       effect. Copy is a placeholder - final text comes from Pier. -->
+  <section class="section who-we-are" id="whoWeAre">
+    <div class="container who-we-are__grid">
+
+      <!-- LEFT - eyebrow + title + paragraph -->
+      <div class="who-we-are__intro">
+        <span class="section__label who-we-are__label reveal">Who We Are</span>
+        <!-- Brand logo image preserved, alt text updated -->
+        <!-- Who We Are: VA mark + wordmark, dark on white background -->
+        <h2 class="section__title who-we-are__title reveal">
+          <span class="vaagmiai-lockup vaagmiai-lockup--wwa">
+            <svg class="vaagmiai-lockup__mark"
+                 viewBox="0 0 90 82" fill="none"
+                 xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M3,6 L20,6 Q23,11 44,77 Q42,83 36,81 Q30,78 3,16 Z" fill="currentColor"/>
+              <path d="M44,77 Q42,83 36,81 Q47,57 56,14 L66,16 Q54,54 44,77 Z" fill="currentColor"/>
+              <path d="M56,14 L66,16 L88,81 L73,81 Q63,47 56,14 Z" fill="currentColor"/>
+              <circle cx="41" cy="73" r="5.5" fill="currentColor"/>
+            </svg>
+            <span class="vaagmiai-lockup__wordmark">Vaagmiai</span>
+          </span>
+        </h2>
+        <p class="section__subtitle who-we-are__copy reveal">
+          AI-powered employees for modern businesses. VaagmiAi captures every lead, responds instantly, qualifies prospects, books appointments, and automates your operations. Available 24/7. No days off.
+        </p>
+        <!-- CTA opens the popup form -->
+        <a href="#contact" class="btn btn--primary section-cta reveal" data-open-form>Book Free Strategy Call</a>
+      </div>
+
+      <!-- RIGHT - staggered stat grid with animated counters -->
+      <div class="who-we-are__stats">
+        <div class="stat stat--top-right">
+          <span class="stat__number" data-count="24" data-suffix="/7">0/7</span>
+          <span class="stat__label">Always Available</span>
+        </div>
+        <div class="stat stat--mid-left">
+          <span class="stat__number" data-count="100" data-suffix="%">0</span>
+          <span class="stat__label">Leads Captured</span>
+        </div>
+        <div class="stat stat--mid-right">
+          <span class="stat__number" data-count="10" data-suffix="+">0</span>
+          <span class="stat__label">AI Services</span>
+        </div>
+        <div class="stat stat--bottom-left">
+          <span class="stat__number" data-count="10" data-suffix="+">0</span>
+          <span class="stat__label">Industries Served</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ===== BRAND LOGOS - TWO-ROW MARQUEE =====
+       Per client v2:
+       • Row 1 scrolls LEFT - main brand set delivered by client
+         (src/assets/images/brands/v2/row1/*).
+       • Row 2 scrolls RIGHT - hotel set
+         (src/assets/images/brands/v2/row2/*).
+       • Default speed = fast, hover slows down (so users get a closer look
+         when they reach for the logos), motion outside the section stays
+         lively. No divider lines, no diamond dots. Logos render solid black
+         opacity (filter applied per-image only where needed).
+       • Each track is duplicated inline so the translate(-50%) loop seams. -->
+  <section class="brands-marquee" id="brandsMarquee" aria-label="Brands we work with">
+
+    <!-- Trusted By label -->
+    <p class="brands-marquee__label">
+      <span class="brands-marquee__label-strong">Trusted</span>
+      <span>By</span>
+    </p>
+
+    <!-- Row 1 - scrolls LEFT — VaagmiAi Tech Ecosystem (30 logos) -->
+    <div class="brands-marquee__row">
+      <div class="brands-marquee__track">
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/vaagmiai/openai.svg" alt="OpenAI" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/vaagmiai/anthropic.svg" alt="Anthropic" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/vaagmiai/elevenlabs.svg" alt="ElevenLabs" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/vaagmiai/vapi.svg" alt="Vapi" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/vaagmiai/retell-ai.svg" alt="Retell AI" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/vaagmiai/deepgram.svg" alt="Deepgram" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/vaagmiai/twilio.svg" alt="Twilio" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/vaagmiai/hubspot.svg" alt="HubSpot" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/vaagmiai/salesforce.svg" alt="Salesforce" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/vaagmiai/calendly.svg" alt="Calendly" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/vaagmiai/zapier.svg" alt="Zapier" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/vaagmiai/make.svg" alt="Make" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/vaagmiai/stripe.svg" alt="Stripe" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/vaagmiai/gohighlevel.svg" alt="GoHighLevel" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/vaagmiai/whatsapp.svg" alt="WhatsApp" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/vaagmiai/slack.svg" alt="Slack" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/vaagmiai/google-calendar.svg" alt="Google Calendar" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/vaagmiai/outlook.svg" alt="Outlook" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/vaagmiai/cal-com.svg" alt="Cal.com" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/vaagmiai/zoho-crm.svg" alt="Zoho CRM" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/vaagmiai/activecampaign.svg" alt="ActiveCampaign" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/vaagmiai/shopify.svg" alt="Shopify" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/vaagmiai/pipedrive.svg" alt="Pipedrive" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/vaagmiai/mailchimp.svg" alt="Mailchimp" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/vaagmiai/notion.svg" alt="Notion" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/vaagmiai/zendesk.svg" alt="Zendesk" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/vaagmiai/intercom.svg" alt="Intercom" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/vaagmiai/klaviyo.svg" alt="Klaviyo" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/vaagmiai/clickup.svg" alt="ClickUp" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/vaagmiai/airtable.svg" alt="Airtable" class="brands-marquee__logo"></span>
+        <!-- Loop duplicate (aria-hidden for screen readers) -->
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/vaagmiai/openai.svg" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/vaagmiai/anthropic.svg" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/vaagmiai/elevenlabs.svg" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/vaagmiai/vapi.svg" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/vaagmiai/retell-ai.svg" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/vaagmiai/deepgram.svg" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/vaagmiai/twilio.svg" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/vaagmiai/hubspot.svg" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/vaagmiai/salesforce.svg" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/vaagmiai/calendly.svg" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/vaagmiai/zapier.svg" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/vaagmiai/make.svg" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/vaagmiai/stripe.svg" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/vaagmiai/gohighlevel.svg" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/vaagmiai/whatsapp.svg" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/vaagmiai/slack.svg" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/vaagmiai/google-calendar.svg" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/vaagmiai/outlook.svg" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/vaagmiai/cal-com.svg" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/vaagmiai/zoho-crm.svg" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/vaagmiai/activecampaign.svg" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/vaagmiai/shopify.svg" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/vaagmiai/pipedrive.svg" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/vaagmiai/mailchimp.svg" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/vaagmiai/notion.svg" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/vaagmiai/zendesk.svg" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/vaagmiai/intercom.svg" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/vaagmiai/klaviyo.svg" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/vaagmiai/clickup.svg" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/vaagmiai/airtable.svg" alt="" class="brands-marquee__logo"></span>
+      </div>
+    </div>
+
+    <!-- Row 2 - scrolls RIGHT — VaagmiAi Tech Ecosystem continued (14 logos) -->
+    <div class="brands-marquee__row brands-marquee__row--reverse">
+      <div class="brands-marquee__track">
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/vaagmiai/stripe.svg" alt="Stripe" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/vaagmiai/gohighlevel.svg" alt="GoHighLevel" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/vaagmiai/whatsapp.svg" alt="WhatsApp" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/vaagmiai/slack.svg" alt="Slack" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/vaagmiai/google-calendar.svg" alt="Google Calendar" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/vaagmiai/outlook.svg" alt="Outlook" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/vaagmiai/zoho-crm.svg" alt="Zoho CRM" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/vaagmiai/pipedrive.svg" alt="Pipedrive" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/vaagmiai/mailchimp.svg" alt="Mailchimp" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/vaagmiai/notion.svg" alt="Notion" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/vaagmiai/zendesk.svg" alt="Zendesk" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/vaagmiai/intercom.svg" alt="Intercom" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/vaagmiai/klaviyo.svg" alt="Klaviyo" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/vaagmiai/airtable.svg" alt="Airtable" class="brands-marquee__logo"></span>
+        <!-- Loop duplicate -->
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/vaagmiai/stripe.svg" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/vaagmiai/gohighlevel.svg" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/vaagmiai/whatsapp.svg" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/vaagmiai/slack.svg" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/vaagmiai/google-calendar.svg" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/vaagmiai/outlook.svg" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/vaagmiai/zoho-crm.svg" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/vaagmiai/pipedrive.svg" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/vaagmiai/mailchimp.svg" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/vaagmiai/notion.svg" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/vaagmiai/zendesk.svg" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/vaagmiai/intercom.svg" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/vaagmiai/klaviyo.svg" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/vaagmiai/airtable.svg" alt="" class="brands-marquee__logo"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== EVENTS WE SERVE =====
+       Per client v2 brief + transcript:
+       • Frame, title, layout STAY FIXED while user scrolls - sticky outer
+         provides ~400vh of scroll runway, sticky inner is pinned for that
+         whole stretch.
+       • Content cycles through 4 categories on scroll; bg colour swaps
+         negative-style between white and black on alternate categories
+         so the section doesn't feel like one long white wedding planner
+         page.
+       • Left column: a thin vertical line that fills 0→100% as the user
+         scrolls the section, plus the active category's title + desc.
+       • Right column: TWO staggered photos per category (one front-left,
+         one back-right) - overlapping like in the mockup.
+       • The 4 categories: Weddings, Corporate Events, Private Parties,
+         and Artistic Direction (NEW per brief). -->
+  <section class="events" id="events">
+    <div class="events__sticky">
+
+      <!-- Big mixed-weight heading that stays in place -->
+      <h2 class="events__title">
+        <span class="events__title--bold">Services</span>
+        <span class="events__title--light">We Offer</span>
+      </h2>
+
+      <div class="events__layout">
+
+        <!-- LEFT: progress line + stacked service categories -->
+        <div class="events__left">
+          <div class="events__progress-line">
+            <div class="events__progress-fill" id="eventsProgressFill"></div>
+          </div>
+          <div class="events__cat-stack" id="eventsCatStack">
+            <article class="events__cat is-active" data-idx="0">
+              <h3 class="events__cat-title">
+                <span class="events__cat-mask"><span class="events__cat-text">AI</span></span>
+                <span class="events__cat-mask"><span class="events__cat-text">Receptionist</span></span>
+              </h3>
+              <p class="events__cat-desc">
+                Answer every call. Qualify every lead. Your AI Receptionist handles inbound inquiries 24/7 — so you never miss a business opportunity, day or night.
+              </p>
+            </article>
+            <article class="events__cat" data-idx="1">
+              <h3 class="events__cat-title">
+                <span class="events__cat-mask"><span class="events__cat-text">Lead</span></span>
+                <span class="events__cat-mask"><span class="events__cat-text">Qualification</span></span>
+              </h3>
+              <p class="events__cat-desc">
+                Stop wasting time on cold leads. Our AI agents ask the right questions, score prospects instantly, and hand off only the hottest opportunities to your team.
+              </p>
+            </article>
+            <article class="events__cat" data-idx="2">
+              <h3 class="events__cat-title">
+                <span class="events__cat-mask"><span class="events__cat-text">Appointment</span></span>
+                <span class="events__cat-mask"><span class="events__cat-text">Booking</span></span>
+              </h3>
+              <p class="events__cat-desc">
+                Book more meetings. Automatically. Our Voice Agents confirm schedules, send reminders, and reduce no-shows — keeping your calendar full without lifting a finger.
+              </p>
+            </article>
+            <article class="events__cat" data-idx="3">
+              <h3 class="events__cat-title">
+                <span class="events__cat-mask"><span class="events__cat-text">Customer</span></span>
+                <span class="events__cat-mask"><span class="events__cat-text">Support</span></span>
+              </h3>
+              <p class="events__cat-desc">
+                Consistent. Instant. Always on. AI-powered support handles FAQs, follow-ups, and CRM updates automatically — delivering a premium experience at scale.
+              </p>
+            </article>
+          </div>
+        </div>
+
+        <!-- RIGHT: 2-photo stacked stagger per category.
+             Decorative horizontal stripes removed per client - they
+             served no purpose and visually competed with the photo
+             stack during scroll. -->
+        <div class="events__right">
+          <div class="events__photo-stack" id="eventsPhotoStack">
+            <div class="events__photo-set" data-idx="0">
+              <img src="src/assets/images/events/event-01.jpg" alt="AI Receptionist dashboard" class="events__photo events__photo--front">
+              <img src="src/assets/images/events/event-02.jpg" alt="Voice agent in action" class="events__photo events__photo--back">
+            </div>
+            <div class="events__photo-set" data-idx="1">
+              <img src="src/assets/images/events/event-03.jpg" alt="Lead qualification workflow" class="events__photo events__photo--front">
+              <img src="src/assets/images/events/event-04.jpg" alt="CRM integration" class="events__photo events__photo--back">
+            </div>
+            <div class="events__photo-set" data-idx="2">
+              <img src="src/assets/images/events/event-05.jpg" alt="Appointment booking automation" class="events__photo events__photo--front">
+              <img src="src/assets/images/events/event-06.jpg" alt="Calendar management" class="events__photo events__photo--back">
+            </div>
+            <div class="events__photo-set" data-idx="3">
+              <img src="src/assets/images/events/event-07.jpg" alt="Customer support AI" class="events__photo events__photo--front">
+              <img src="src/assets/images/events/event-08.jpg" alt="Automated follow-up system" class="events__photo events__photo--back">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CHOOSE YOUR BAND =====
+       Per client v2: section is PINNED while the user scrolls; only the
+       right-hand band list translates upward, swapping the centred band
+       (gold) and crossfading the matching B&W background image. The
+       `.band-selector__sticky` inner is what stays fixed in the viewport.
+       Active-state line + dot indicator removed - gold colour alone
+       signals selection. Inspired by https://www.weavy.ai/. -->
+  <section class="band-selector" id="chooseBand">
+    <div class="band-selector__sticky">
+
+      <!-- Crossfading B&W background stack -->
+      <div class="band-selector__bg">
+        <div class="band-selector__bg-image is-active" data-band="brotherockers" style="background-image: url('src/assets/images/bands/brotherockers-bg.jpg');"></div>
+        <div class="band-selector__bg-image" data-band="kingsmen"     style="background-image: url('src/assets/images/bands/kingsmen-bg.jpg');"></div>
+        <div class="band-selector__bg-image" data-band="peppermints"  style="background-image: url('src/assets/images/bands/peppermints-bg.jpg');"></div>
+        <div class="band-selector__bg-image" data-band="gentlemen"    style="background-image: url('src/assets/images/bands/gentlemen-bg.jpg');"></div>
+        <div class="band-selector__bg-image" data-band="serenades"    style="background-image: url('src/assets/images/bands/serenades-bg.jpg');"></div>
+        <div class="band-selector__bg-image" data-band="supersonics"  style="background-image: url('src/assets/images/bands/supersonics-bg.jpg');"></div>
+        <div class="band-selector__bg-image" data-band="rendezvous"   style="background-image: url('src/assets/images/bands/rendezvous-bg.jpg');"></div>
+        <div class="band-selector__bg-image" data-band="cafecreme"    style="background-image: url('src/assets/images/bands/cafecreme-bg.jpg');"></div>
+        <div class="band-selector__bg-image" data-band="whysoserious" style="background-image: url('src/assets/images/bands/whysoserious-bg.jpg');"></div>
+        <div class="band-selector__bg-image" data-band="blackjacks"   style="background-image: url('src/assets/images/bands/blackjacks-bg.jpg');"></div>
+        <div class="band-selector__bg-image" data-band="dj"           style="background-image: url('src/assets/images/bands/dj-bg.jpg');"></div>
+        <div class="band-selector__bg-overlay"></div>
+      </div>
+
+      <div class="band-selector__content">
+        <div class="band-selector__inner">
+
+          <!-- Left column - heading + active industry description -->
+          <div class="band-selector__intro">
+            <h2 class="band-selector__heading">
+              <span>Industries</span><br>
+              <span>We Serve</span>
+            </h2>
+            <p class="band-selector__desc" id="bandDesc">
+              Real Estate agents using VaagmiAi respond to every lead instantly — qualifying buyers, booking viewings, and following up automatically. More deals. Less effort.
+            </p>
+            <!-- CTA opens the popup form -->
+            <a href="#contact" class="btn btn--primary section-cta" data-open-form>Book A Free Call</a>
+          </div>
+
+          <!-- Right column - industry list. JS translates this vertically. -->
+          <div class="band-selector__viewport">
+            <div class="band-selector__list" id="bandList">
+              <a class="band-selector__item is-active" data-band="brotherockers" href="#contact">Real Estate</a>
+              <a class="band-selector__item" data-band="kingsmen"     href="#contact">Healthcare</a>
+              <a class="band-selector__item" data-band="peppermints"  href="#contact">Recruitment</a>
+              <a class="band-selector__item" data-band="gentlemen"    href="#contact">Education</a>
+              <a class="band-selector__item" data-band="serenades"    href="#contact">Restaurants</a>
+              <a class="band-selector__item" data-band="supersonics"  href="#contact">Gyms &amp; Fitness</a>
+              <a class="band-selector__item" data-band="rendezvous"   href="#contact">Automotive</a>
+              <a class="band-selector__item" data-band="cafecreme"    href="#contact">Service Businesses</a>
+              <a class="band-selector__item" data-band="whysoserious" href="#contact">E-Commerce</a>
+              <a class="band-selector__item" data-band="blackjacks"   href="#contact">Professional Services</a>
+              <a class="band-selector__item" data-band="dj"           href="#contact">Enterprise</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== AVAILABLE WORLDWIDE (amra.com style 3D globe) ===== -->
+  <section class="section globe-section" id="worldwide">
+    <div class="container">
+      <div class="globe-layout">
+        <div class="globe-text">
+          <h2 class="section__title reveal globe-title">
+            <span class="globe-title__line">Deployed</span>
+            <span class="globe-title__line">Across Every</span>
+            <span class="globe-title__line">Industry.</span>
+            <span class="globe-title__line">Worldwide.</span>
+          </h2>
+          <p class="section__subtitle reveal">VaagmiAi Voice Agents work across borders, time zones, and languages. Scale without hiring. Operate without limits. Available everywhere your customers are.</p>
+          <!-- CTA opens the popup form -->
+          <a href="#contact" class="btn btn--primary section-cta reveal" data-open-form>Get Started</a>
+        </div>
+        <!-- Globe: Three.js canvas + JS-positioned cards -->
+        <div class="globe-container" id="globeContainer">
+          <canvas id="globeCanvas" class="globe-canvas"></canvas>
+          <div class="globe-cards" id="globeCards"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== OUR STANDARDS =====
+       Per client v2 brief:
+       • NO IMAGES - they didn't add value to each category
+       • Mixed-weight heading: "OUR" thin + "STANDARDS" bold
+       • 6 standards in a 3-column ZIGZAG grid (middle column offset down)
+       • Each item has a thin vertical line stub on the left, then bold
+         uppercase title, then description
+       • As the user scrolls, each item reveals one-by-one - text emerges
+         from BEHIND the vertical line and slides RIGHTWARD via animated
+         clip-path. The line stays put; the text "uncovers" itself.
+       • IntersectionObserver in main.js triggers `.is-revealed` per item. -->
+  <section class="standards" id="standards">
+    <div class="standards__inner">
+      <h2 class="standards__title">
+        <span class="standards__title--light">Why</span>
+        <span class="standards__title--bold">VaagmiAi</span>
+      </h2>
+
+      <div class="standards__grid">
+        <article class="standard">
+          <span class="standard__line" aria-hidden="true"></span>
+          <div class="standard__reveal">
+            <h3 class="standard__title">Always On</h3>
+            <p class="standard__desc">
+              Your AI employees work 24/7. No sick days. No holidays. No missed calls. Every lead gets answered, every time.
+            </p>
+          </div>
+        </article>
+
+        <article class="standard">
+          <span class="standard__line" aria-hidden="true"></span>
+          <div class="standard__reveal">
+            <h3 class="standard__title">Instant Response</h3>
+            <p class="standard__desc">
+              Speed wins deals. VaagmiAi responds to every inquiry in seconds — before your competitor even picks up the phone.
+            </p>
+          </div>
+        </article>
+
+        <article class="standard">
+          <span class="standard__line" aria-hidden="true"></span>
+          <div class="standard__reveal">
+            <h3 class="standard__title">Multi-Language</h3>
+            <p class="standard__desc">
+              Serve customers in their language. Our Voice Agents operate across multiple languages — expanding your reach without expanding your team.
+            </p>
+          </div>
+        </article>
+
+        <article class="standard">
+          <span class="standard__line" aria-hidden="true"></span>
+          <div class="standard__reveal">
+            <h3 class="standard__title">Fully Integrated</h3>
+            <p class="standard__desc">
+              Connects directly to your CRM, WhatsApp, and calendar. Every interaction logged. Every follow-up automated. Zero manual effort.
+            </p>
+          </div>
+        </article>
+
+        <article class="standard">
+          <span class="standard__line" aria-hidden="true"></span>
+          <div class="standard__reveal">
+            <h3 class="standard__title">Scale Without Hiring</h3>
+            <p class="standard__desc">
+              Handle ten leads or ten thousand. VaagmiAi scales instantly — no recruitment, no training, no overhead.
+            </p>
+          </div>
+        </article>
+
+        <article class="standard">
+          <span class="standard__line" aria-hidden="true"></span>
+          <div class="standard__reveal">
+            <h3 class="standard__title">Proven Results</h3>
+            <p class="standard__desc">
+              More appointments booked. Higher conversion rates. Lower operational costs. Real outcomes for real businesses.
+            </p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TESTIMONIALS =====
+       Per client v2 brief: "this is one of the few places where I introduce
+       the gold text… we want to keep gold usage to a minimum, only small
+       accents when truly necessary." So gold ONLY on the eyebrow label;
+       heading is bold black, body grey, the "See all reviews" link is
+       Google-blue. Light panel bg #f0f0f0.
+       Layout: 2-col grid - heading column on the left, horizontal-scroll
+       carousel on the right with a chevron nav button. -->
+  <section class="testimonials" id="testimonials">
+    <div class="testimonials__layout">
+
+      <!-- LEFT - gold eyebrow + huge bold black heading.
+           Each line wrapped in a span with `white-space: nowrap` so the
+           heading is forced to EXACTLY 3 lines (no mid-word breaks). The
+           data-en/data-fr lives on each span individually so the FR
+           toggle replaces line text without flattening the structure. -->
+      <div class="testimonials__intro">
+        <span class="testimonials__eyebrow">Client Results</span>
+        <h2 class="testimonials__title">
+          <span class="testimonials__title-line">They Chose</span>
+          <span class="testimonials__title-line">VaagmiAi.</span>
+          <span class="testimonials__title-line">They Won.</span>
+        </h2>
+        <!-- CTA opens the popup form -->
+        <a href="#contact" class="btn btn--primary section-cta reveal" data-open-form>Be Our Next Story</a>
+      </div>
+
+      <!-- RIGHT - viewport with horizontal-scrolling cards + nav arrow -->
+      <div class="testimonials__viewport">
+        <div class="testimonials__track" id="testimonialsTrack">
+
+          <article class="testimonial-card">
+            <div class="testimonial-card__inner">
+              <div>
+                <div class="testimonial-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <p class="testimonial-card__text">"VaagmiAi completely transformed our lead follow-up. We went from missing 40% of inbound calls to capturing every single one. Bookings are up 60%."</p>
+              </div>
+              <div>
+                <div class="testimonial-card__author">James K. — Real Estate Agency</div>
+                <div class="testimonial-card__source">
+                  <span class="testimonial-card__g-icon" aria-hidden="true">
+                    <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                      <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/>
+                      <path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/>
+                      <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0124 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/>
+                      <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 01-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/>
+                    </svg>
+                  </span>
+                  Verified Client Review
+                </div>
+                <a href="#contact" class="testimonial-card__gmb-link">Book A Free Call →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="testimonial-card">
+            <div class="testimonial-card__inner">
+              <div>
+                <div class="testimonial-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <p class="testimonial-card__text">"Our clinic used to lose patients at the first touchpoint. VaagmiAi's AI Receptionist now handles every inquiry instantly. Patient satisfaction is through the roof."</p>
+              </div>
+              <div>
+                <div class="testimonial-card__author">Dr. Priya M. — Healthcare Clinic</div>
+                <div class="testimonial-card__source">
+                  <span class="testimonial-card__g-icon" aria-hidden="true">
+                    <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                      <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/>
+                      <path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/>
+                      <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0124 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/>
+                      <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 01-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/>
+                    </svg>
+                  </span>
+                  Verified Client Review
+                </div>
+                <a href="#contact" class="testimonial-card__gmb-link">Book A Free Call →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="testimonial-card">
+            <div class="testimonial-card__inner">
+              <div>
+                <div class="testimonial-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <p class="testimonial-card__text">"We were spending hours screening candidates manually. VaagmiAi's Recruitment Agent now handles the entire first-round screening. Incredible ROI."</p>
+              </div>
+              <div>
+                <div class="testimonial-card__author">Sarah T. — Recruitment Firm</div>
+                <div class="testimonial-card__source">
+                  <span class="testimonial-card__g-icon" aria-hidden="true">
+                    <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                      <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/>
+                      <path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/>
+                      <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0124 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/>
+                      <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 01-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/>
+                    </svg>
+                  </span>
+                  Verified Client Review
+                </div>
+                <a href="#contact" class="testimonial-card__gmb-link">Book A Free Call →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="testimonial-card">
+            <div class="testimonial-card__inner">
+              <div>
+                <div class="testimonial-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <p class="testimonial-card__text">"The WhatsApp integration alone saved us 20 hours a week. Every customer gets an instant response. Our gym membership sales doubled in 3 months."</p>
+              </div>
+              <div>
+                <div class="testimonial-card__author">Marco L. — Gym Chain Owner</div>
+                <div class="testimonial-card__source">
+                  <span class="testimonial-card__g-icon" aria-hidden="true">
+                    <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                      <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/>
+                      <path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/>
+                      <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0124 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/>
+                      <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 01-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/>
+                    </svg>
+                  </span>
+                  Verified Client Review
+                </div>
+                <a href="#contact" class="testimonial-card__gmb-link">Book A Free Call →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="testimonial-card">
+            <div class="testimonial-card__inner">
+              <div>
+                <div class="testimonial-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <p class="testimonial-card__text">"Automated follow-ups that actually sound human. Our restaurant reservation rate jumped 45% after deploying VaagmiAi. Game changer for hospitality."</p>
+              </div>
+              <div>
+                <div class="testimonial-card__author">Elena R. — Restaurant Group</div>
+                <div class="testimonial-card__source">
+                  <span class="testimonial-card__g-icon" aria-hidden="true">
+                    <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                      <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/>
+                      <path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/>
+                      <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0124 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/>
+                      <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 01-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/>
+                    </svg>
+                  </span>
+                  Verified Client Review
+                </div>
+                <a href="#contact" class="testimonial-card__gmb-link">Book A Free Call →</a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- Chevron buttons. JS scrolls the track by one card width. -->
+        <button class="testimonials__nav testimonials__nav--prev" id="testimonialsPrev" aria-label="Previous review">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="15 18 9 12 15 6"/>
+          </svg>
+        </button>
+        <button class="testimonials__nav testimonials__nav--next" id="testimonialsNext" aria-label="Next review">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="9 18 15 12 9 6"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PHOTO GALLERY =====
+       Per client revision: title removed entirely. Photos sit on a
+       dark background and speak for themselves.
+       Client tweak (Option D): outer .gallery-pin-stack provides a
+       tall scroll runway (= gallery content height + 1 viewport).
+       Inner .gallery-section is sticky 100vh tall with overflow:hidden,
+       so it pins for the entire runway. .gallery-track inside the
+       section is translated upward by JS (initGalleryReveal in
+       main.js) so the user sees ALL the masonry photos scroll past
+       internally, then for the final viewport-worth of scroll the
+       gallery stays at its "last frame" while the contact + footer
+       panel rises over it. -->
+  <!-- 5th draft: Gallery is now a SLIDER (carousel). Each slide is one
+       collage; it auto-advances every 20s and has prev/next arrows.
+       The old pinned-scroll masonry + .gallery-pin-stack wrapper were
+       removed (contact's margin-top:-100vh that relied on the pin is
+       reset to 0 in CSS). -->
+  <section class="section gallery-section" id="gallery">
+    <div class="container">
+      <div class="gallery-slider" id="gallerySlider">
+
+        <!-- Slide 1 - AI workflow showcase -->
+        <div class="gallery-slide is-active">
+          <div class="gallery gallery--masonry">
+            <div class="gallery__item"><img src="src/assets/images/gallery/client-01.jpg" alt="AI Voice Agent handling inbound calls" loading="lazy"></div>
+            <div class="gallery__item"><img src="src/assets/images/gallery/client-02.jpg" alt="Lead qualification automation workflow" loading="lazy"></div>
+            <div class="gallery__item"><img src="src/assets/images/gallery/client-03.jpg" alt="CRM integration dashboard" loading="lazy"></div>
+            <div class="gallery__item"><img src="src/assets/images/gallery/client-04.jpg" alt="Appointment booking system" loading="lazy"></div>
+            <div class="gallery__item"><img src="src/assets/images/gallery/client-05.jpg" alt="WhatsApp automation in action" loading="lazy"></div>
+            <div class="gallery__item"><img src="src/assets/images/gallery/client-06.jpg" alt="Customer support AI agent" loading="lazy"></div>
+            <div class="gallery__item"><img src="src/assets/images/gallery/client-07.jpg" alt="Business workflow automation" loading="lazy"></div>
+          </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="gallery-slide">
+          <div class="gallery gallery--masonry">
+            <div class="gallery__item"><img src="src/assets/images/gallery/gallery-01.jpg" alt="AI receptionist in action" loading="lazy"></div>
+            <div class="gallery__item"><img src="src/assets/images/gallery/gallery-02.jpg" alt="Real estate lead management" loading="lazy"></div>
+            <div class="gallery__item"><img src="src/assets/images/gallery/gallery-03.jpg" alt="Healthcare appointment booking" loading="lazy"></div>
+            <div class="gallery__item"><img src="src/assets/images/gallery/gallery-04.jpg" alt="Recruitment screening automation" loading="lazy"></div>
+            <div class="gallery__item"><img src="src/assets/images/gallery/gallery-05.jpg" alt="Follow-up automation workflow" loading="lazy"></div>
+            <div class="gallery__item"><img src="src/assets/images/gallery/gallery-06.jpg" alt="Multi-language voice agent" loading="lazy"></div>
+            <div class="gallery__item"><img src="src/assets/images/gallery/gallery-07.jpg" alt="Business operations dashboard" loading="lazy"></div>
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="gallery-slide">
+          <div class="gallery gallery--masonry">
+            <div class="gallery__item"><img src="src/assets/images/gallery/gallery-08.jpg" alt="AI employee at work" loading="lazy"></div>
+            <div class="gallery__item"><img src="src/assets/images/gallery/gallery-09.jpg" alt="Gym membership conversion" loading="lazy"></div>
+            <div class="gallery__item"><img src="src/assets/images/gallery/gallery-10.jpg" alt="Restaurant reservation automation" loading="lazy"></div>
+            <div class="gallery__item"><img src="src/assets/images/gallery/gallery-11.jpg" alt="Automotive lead qualification" loading="lazy"></div>
+            <div class="gallery__item"><img src="src/assets/images/gallery/gallery-12.jpg" alt="Education enrollment automation" loading="lazy"></div>
+            <div class="gallery__item"><img src="src/assets/images/gallery/gallery-13.jpg" alt="24/7 AI customer support" loading="lazy"></div>
+            <div class="gallery__item"><img src="src/assets/images/gallery/gallery-14.jpg" alt="Scale without hiring" loading="lazy"></div>
+          </div>
+        </div>
+
+        <!-- Prev / Next arrows -->
+        <button class="gallery-nav gallery-nav--prev" id="galleryPrev" aria-label="Previous photos" type="button">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <button class="gallery-nav gallery-nav--next" id="galleryNext" aria-label="Next photos" type="button">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ moved to dedicated page (revision round 2, item 1.2) =====
+       Client asked for FAQ as its own page rather than a homepage section,
+       so the full Q&A list now lives at /src/pages/faq.html with its own
+       FAQPage JSON-LD schema for rich-result eligibility. The nav link
+       points there directly. -->
+
+  <!-- ===== CONTACT =====
+       Per client v2 brief + transcript:
+       "Let's create something extraordinary - I thought maybe this can
+        work well as an infinite loop, like this go to there and keeps
+        keeps rolling."
+       So the heading is now an INFINITE-LOOP MARQUEE that rolls right→left
+       continuously, never stops. Pure CSS animation - no scroll dependency.
+       Below it: two-column form layout matching the mockup. -->
+  <section class="contact" id="contact">
+
+    <!-- 5th draft: static (no-animation) header + single white-card form,
+         matching the weddings-new reference. Pierre disliked the animated
+         marquee, so the heading is now large + static. -->
+    <div class="contact__inner">
+
+      <div class="contact__header">
+        <span class="contact__eyebrow">Book A Free Call</span>
+        <h2 class="contact__heading">Let's Build Your AI Automation Strategy.</h2>
+        <p class="contact__sub">Tell us about your business and we'll show you exactly how VaagmiAi can capture more leads and grow your revenue. Response within 12 hours.</p>
+      </div>
+
+      <form class="contact__form" id="contactForm" action="https://formspree.io/f/xeewjqbe" method="POST">
+        <div class="contact__form-grid">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone">
+          </div>
+          <div class="form-group">
+            <label for="company">Company Name</label>
+            <input type="text" id="company" name="company">
+          </div>
+          <div class="form-group">
+            <label for="industry">Your Industry</label>
+            <select id="industry" name="industry">
+              <option value="">Select...</option>
+              <option value="realestate">Real Estate</option>
+              <option value="healthcare">Healthcare</option>
+              <option value="recruitment">Recruitment</option>
+              <option value="education">Education</option>
+              <option value="restaurant">Restaurant</option>
+              <option value="gym">Gym &amp; Fitness</option>
+              <option value="automotive">Automotive</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="hearAbout">How did you hear about us?</label>
+            <select id="hearAbout" name="hearAbout">
+              <option value="">Select...</option>
+              <option value="google">Google</option>
+              <option value="instagram">Instagram</option>
+              <option value="linkedin">LinkedIn</option>
+              <option value="referral">Referral</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="service">Service You Need</label>
+            <select id="service" name="service">
+              <option value="">Select...</option>
+              <option value="receptionist">AI Receptionist</option>
+              <option value="leads">Lead Qualification</option>
+              <option value="booking">Appointment Booking</option>
+              <option value="support">Customer Support</option>
+              <option value="recruitment">Recruitment Screening</option>
+              <option value="fullstack">Full AI Automation Stack</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="calls">Monthly Call Volume</label>
+            <select id="calls" name="calls">
+              <option value="">Select...</option>
+              <option value="under100">Under 100</option>
+              <option value="100-500">100 - 500</option>
+              <option value="500-2000">500 - 2,000</option>
+              <option value="over2000">Over 2,000</option>
+            </select>
+          </div>
+          <div class="form-group form-group--full">
+            <label for="message">Tell us about your business challenge...</label>
+            <textarea id="message" name="message" rows="5"></textarea>
+          </div>
+        </div>
+        <button type="submit" class="contact__submit">Book Free Strategy Call</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer" id="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <div class="footer__brand-name">VaagmiAi</div>
+          <p class="footer__brand-tagline">AI Employees That Never Miss A Lead</p>
+          <div class="footer__social" style="margin-top: var(--space-lg);">
+            <a href="https://www.instagram.com/vaagmi.ai?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="footer__social-link" aria-label="Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a href="https://www.linkedin.com/company/vaagmiai/" target="_blank" class="footer__social-link" aria-label="LinkedIn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="3"/><line x1="8" y1="11" x2="8" y2="16"/><line x1="8" y1="8" x2="8" y2="8.5"/><path d="M12 16v-5M12 11a3 3 0 016 0v5"/></svg>
+            </a>
+            <a href="https://youtube.com/@vaagmiai" target="_blank" class="footer__social-link" aria-label="YouTube">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.4 19.6C5.12 20 12 20 12 20s6.88 0 8.6-.46a2.78 2.78 0 001.94-2A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer__heading">Services</h4>
+          <div class="footer__links">
+            <a href="#events" class="footer__link">AI Receptionist</a>
+            <a href="#events" class="footer__link">Lead Qualification</a>
+            <a href="#events" class="footer__link">Appointment Booking</a>
+            <a href="#events" class="footer__link">Customer Support</a>
+            <a href="#events" class="footer__link">Recruitment Screening</a>
+            <a href="#events" class="footer__link">Follow-Up Automation</a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer__heading">Industries</h4>
+          <div class="footer__links">
+            <a href="#chooseBand" class="footer__link">Real Estate</a>
+            <a href="#chooseBand" class="footer__link">Healthcare</a>
+            <a href="#chooseBand" class="footer__link">Recruitment</a>
+            <a href="#chooseBand" class="footer__link">Restaurants</a>
+            <a href="#chooseBand" class="footer__link">Gyms &amp; Fitness</a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer__heading">Company</h4>
+          <div class="footer__links">
+            <a href="#whoWeAre" class="footer__link">About VaagmiAi</a>
+            <a href="#standards" class="footer__link">Why VaagmiAi</a>
+            <a href="#testimonials" class="footer__link">Client Results</a>
+            <a href="#contact" class="footer__link">Book A Call</a>
+            <a href="mailto:connectvaagmi.ai@gmail.com" class="footer__link">connectvaagmi.ai@gmail.com</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <span>© 2026 VaagmiAi. All rights reserved.</span>
+        <span class="footer__credit">AI Voice Agents &amp; Business Automation</span>
+        <span>Available Worldwide. 24/7.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== GET-IN-TOUCH POPUP FORM =====
+       One reusable modal opened by the section CTAs ([data-open-form]). -->
+  <div class="cta-modal" id="ctaModal" aria-hidden="true">
+    <div class="cta-modal__overlay" data-cta-close></div>
+    <div class="cta-modal__dialog" role="dialog" aria-modal="true" aria-label="Book A Free AI Strategy Call">
+      <button type="button" class="cta-modal__close" data-cta-close aria-label="Close">&times;</button>
+      <h2 class="cta-modal__title">Book Your Free AI Automation Strategy Call</h2>
+      <p class="cta-modal__lead">Tell us about your business and we'll show you exactly how VaagmiAi can capture more leads and automate your operations.</p>
+      <form class="cta-modal__form" id="ctaModalForm" action="https://formspree.io/f/xeewjqbe" method="POST">
+        <div class="cta-modal__grid">
+          <div class="form-group">
+            <label for="m-name">Your Name</label>
+            <input type="text" id="m-name" name="name" required>
+          </div>
+          <div class="form-group">
+            <label for="m-email">Email Address</label>
+            <input type="email" id="m-email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="m-phone">Phone Number</label>
+            <input type="tel" id="m-phone" name="phone">
+          </div>
+          <div class="form-group">
+            <label for="m-industry">Your Industry</label>
+            <select id="m-industry" name="industry">
+              <option value="">Select...</option>
+              <option value="realestate">Real Estate</option>
+              <option value="healthcare">Healthcare</option>
+              <option value="recruitment">Recruitment</option>
+              <option value="restaurant">Restaurant</option>
+              <option value="gym">Gym &amp; Fitness</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="m-service">Service Needed</label>
+            <select id="m-service" name="service">
+              <option value="">Select...</option>
+              <option value="receptionist">AI Receptionist</option>
+              <option value="leads">Lead Qualification</option>
+              <option value="booking">Appointment Booking</option>
+              <option value="support">Customer Support</option>
+              <option value="fullstack">Full Automation Stack</option>
+            </select>
+          </div>
+          <div class="form-group cta-modal__full">
+            <label for="m-message">Tell Us About Your Business</label>
+            <textarea id="m-message" name="message" rows="4"></textarea>
+          </div>
+        </div>
+        <button type="submit" class="btn btn--primary cta-modal__submit">Book Free Strategy Call</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== MAIN JS =====
+       Loaded with `defer` so it executes AFTER gsap + ScrollTrigger
+       (also deferred above) and before DOMContentLoaded fires. Without
+       defer, main.js could run before the GSAP scripts and skip
+       initTextDarkening + other gsap-dependent setups, which broke
+       the scroll word-darken effect on Vercel under slow CDN loads. -->
+  <script src="src/js/main.js" defer></script>
+  <!-- Smart header - hide on scroll-down, reveal on scroll-up. Standalone
+       so band sub-pages can also include it without pulling in main.js. -->
+  <script src="src/js/smart-header.js" defer></script>
+  <script src="src/js/smooth-scroll.js" defer></script>
+</body>
+</html>

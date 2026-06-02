@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 80" fill="none">
+  <!-- Airtable grid mark -->
+  <rect x="10" y="16" width="24" height="22" rx="4" fill="#2A2A2A"/>
+  <rect x="38" y="16" width="24" height="22" rx="4" fill="#2A2A2A"/>
+  <rect x="10" y="42" width="24" height="22" rx="4" fill="#2A2A2A"/>
+  <rect x="38" y="42" width="24" height="22" rx="4" fill="#2A2A2A" opacity="0.5"/>
+  <!-- Wordmark -->
+  <text x="74" y="52" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif" font-size="22" font-weight="700" fill="#2A2A2A" letter-spacing="0">Airtable</text>
+</svg>

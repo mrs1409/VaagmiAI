@@ -1,0 +1,619 @@
+/* ============================================
+   BAND PAGE - Individual Band Styles
+   ============================================ */
+
+/* Header opacity reset - the homepage uses opacity: 0 on .header so the
+   intro-zoom JS can fade it in. Band sub-pages have no intro-zoom, so the
+   default needs to be visible. We don't add !important - the smart-header
+   `body.is-header-hidden` class still gets to translate the bar away on
+   scroll-down. */
+.header {
+  opacity: 1;
+}
+.header__inner {
+  opacity: 1;
+}
+.nav {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+/* === BAND HERO === */
+.band-hero {
+  position: relative;
+  width: 100%;
+  height: 70vh;
+  min-height: 500px;
+  overflow: hidden;
+}
+
+.band-hero__video-wrap {
+  position: absolute;
+  inset: 0;
+}
+
+.band-hero__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.band-hero__poster {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.band-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0.1) 30%,
+    rgba(0, 0, 0, 0.6) 70%,
+    rgba(0, 0, 0, 0.9) 100%
+  );
+}
+
+.band-hero__content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--space-4xl) var(--container-padding);
+  z-index: 2;
+}
+
+.band-hero__logo {
+  /* 5th draft: white band logo on the hero (5 bands). Sits in place of
+     the text name; the <h1> wrapper is kept for SEO (alt = band name). */
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: min(440px, 72vw);
+  max-height: clamp(90px, 13vh, 150px);
+  margin: 0 0 var(--space-md);
+  object-fit: contain;
+}
+
+.band-hero__name {
+  font-family: var(--font-heading);
+  font-size: var(--text-hero);
+  font-weight: 600;
+  color: var(--color-white);
+  line-height: 1;
+  margin-bottom: var(--space-md);
+}
+
+.band-hero__tagline {
+  font-family: var(--font-accent);
+  font-size: var(--text-xl);
+  color: var(--color-gold);
+  font-style: italic;
+  letter-spacing: 0.05em;
+}
+
+/* === BAND SLOGAN + DESCRIPTION (nitex.com style) === */
+.band-intro {
+  position: relative;
+  min-height: 80vh;
+  overflow: hidden;
+}
+
+.band-intro__image-wrap {
+  position: relative;
+  width: 100%;
+  height: 80vh;
+  overflow: hidden;
+}
+
+.band-intro__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1);
+  transition: transform 1.5s var(--ease-smooth);
+}
+
+/* GSAP will handle the zoom */
+.band-intro__image.zoomed {
+  transform: scale(1.15);
+}
+
+.band-intro__text-box {
+  position: absolute;
+  bottom: var(--space-3xl);
+  right: var(--space-3xl);
+  max-width: 450px;
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--color-gray-800);
+  border-radius: var(--radius-md);
+  padding: var(--space-2xl);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s var(--ease-out-expo);
+}
+
+.band-intro__text-box.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.band-intro__slogan {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  color: var(--color-gold);
+  margin-bottom: var(--space-md);
+  line-height: 1.2;
+}
+
+.band-intro__desc {
+  font-size: var(--text-base);
+  color: var(--color-gray-200);
+  line-height: 1.8;
+}
+
+.band-intro__location {
+  font-size: var(--text-sm);
+  color: var(--color-gray-400);
+  margin-top: var(--space-md);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+/* === BAND PHOTO GALLERY (progressive reveal) === */
+.band-gallery {
+  padding: var(--space-section) 0;
+}
+
+.band-gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-sm);
+}
+
+.band-gallery__item {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  aspect-ratio: 4/3;
+  background: var(--color-dark-card);
+}
+
+.band-gallery__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease-smooth);
+}
+
+.band-gallery__item:hover img {
+  transform: scale(1.08);
+}
+
+.band-gallery__item--wide {
+  grid-column: span 2;
+}
+
+.band-gallery__item--tall {
+  grid-row: span 2;
+}
+
+.band-gallery__placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-gray-600);
+  font-size: var(--text-sm);
+  background: var(--color-dark-card);
+}
+
+/* === BAND STANDARDS ===
+   Band pages use the legacy .standards > .standard-card markup.
+   Globally `.standards` is just a bare dark block and `.standard-card`
+   is `display: revert` (unstyled) - that's why this section looked
+   odd. The rules below are scoped under `.band-standards` so they
+   give the band pages a proper luxury card grid WITHOUT touching the
+   homepage's redesigned `.standards__grid`/`.standard__*` section. */
+.band-standards {
+  padding: var(--space-section) 0;
+  background: var(--color-dark);
+}
+
+.band-standards .standards {
+  background: transparent;
+  padding-block: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.band-standards .standard-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-2xl) var(--space-xl);
+  background: var(--color-dark-card);
+  border: 1px solid var(--color-gray-800);
+  border-radius: var(--radius-md);
+  transition: border-color var(--duration-base) var(--ease-smooth),
+              transform var(--duration-base) var(--ease-smooth),
+              background var(--duration-base) var(--ease-smooth);
+}
+
+.band-standards .standard-card:hover {
+  border-color: var(--color-gold);
+  transform: translateY(-4px);
+  background: #313131;
+}
+
+.band-standards .standard-card__title {
+  position: relative;
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  padding-top: var(--space-md);
+  margin: 0;
+}
+
+/* Short gold rule above each title - picks up the gold-line motif
+   used across the site for a quiet luxury cue. */
+.band-standards .standard-card__title::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 2px;
+  background: var(--color-gold);
+}
+
+.band-standards .standard-card__desc {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--color-gray-200);
+  margin: 0;
+}
+
+@media (max-width: 1024px) {
+  .band-standards .standards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .band-standards .standards {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* === BAND EVENTS === */
+.band-events {
+  padding: var(--space-section) 0;
+}
+
+.band-events__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-xl);
+}
+
+.band-event-card {
+  text-align: center;
+  padding: var(--space-3xl) var(--space-xl);
+  border: 1px solid var(--color-gray-800);
+  border-radius: var(--radius-md);
+  transition: all var(--duration-base) var(--ease-smooth);
+}
+
+.band-event-card:hover {
+  border-color: var(--color-gold);
+  transform: translateY(-4px);
+}
+
+.band-event-card__icon {
+  font-size: 2.5rem;
+  margin-bottom: var(--space-lg);
+}
+
+.band-event-card__title {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  color: var(--color-gold);
+  margin-bottom: var(--space-sm);
+}
+
+/* === BAND TESTIMONIALS (GMB Reviews) === */
+.band-reviews {
+  padding: var(--space-section) 0;
+  /* 5th draft mockup: testimonials on a LIGHT background (white cards). */
+  background: #f4f4f4;
+}
+.band-reviews .section__title { color: #2A2A2A; }
+
+.band-reviews__gmb-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-xl);
+  padding: var(--space-md) var(--space-xl);
+  border: 1px solid var(--color-gold);
+  border-radius: var(--radius-sm);
+  color: var(--color-gold);
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: all var(--duration-base) var(--ease-smooth);
+}
+
+.band-reviews__gmb-link:hover {
+  background: var(--color-gold);
+  color: var(--color-black);
+}
+
+/* === BAND CTA === */
+.band-cta {
+  padding: var(--space-section) 0;
+  text-align: center;
+}
+
+.band-cta__title {
+  font-family: var(--font-heading);
+  font-size: var(--text-3xl);
+  margin-bottom: var(--space-md);
+}
+
+.band-cta__subtitle {
+  font-family: var(--font-accent);
+  font-size: var(--text-lg);
+  color: var(--color-gray-400);
+  margin-bottom: var(--space-2xl);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.band-cta__buttons {
+  display: flex;
+  gap: var(--space-lg);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* === BACK TO BANDS NAV === */
+.band-back {
+  position: absolute;
+  top: var(--space-xl);
+  left: var(--container-padding);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  color: var(--color-white);
+  font-size: var(--text-sm);
+  opacity: 0.8;
+  transition: opacity var(--duration-fast);
+}
+
+.band-back:hover {
+  opacity: 1;
+  color: var(--color-gold);
+}
+
+.band-back__arrow {
+  font-size: var(--text-lg);
+}
+
+/* === RESPONSIVE ===
+   Phase 3: on phones + tablets (<=1024) the band-intro stops being a
+   tall image with an absolutely-positioned overlay card (which was
+   awkward at 769-1024 and depended on a JS `.visible` toggle to even
+   show). It becomes a normal shorter image followed by a static,
+   always-visible description card. Desktop (>1024) is untouched. */
+@media (max-width: 1024px) {
+  .band-intro {
+    min-height: 0;
+    overflow: visible;
+  }
+  .band-intro__image-wrap {
+    height: 52vh;
+  }
+  .band-intro__text-box {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    left: auto;
+    max-width: none;
+    margin: var(--space-xl) var(--container-padding);
+    opacity: 1;
+    transform: none;
+    background: var(--color-dark-card);
+  }
+
+  .band-gallery__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .band-events__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+}
+
+@media (max-width: 768px) {
+  .band-hero {
+    height: 50vh;
+  }
+
+  .band-hero__name {
+    font-size: var(--text-3xl);
+  }
+
+  .band-intro__image-wrap {
+    height: 42vh;
+  }
+
+  .band-gallery__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .band-gallery__item--wide {
+    grid-column: span 1;
+  }
+}
+
+
+/* ===== FOLLOW US ON INSTAGRAM (5th draft - static grid + Follow button) =====
+   Mockup: DARK section. */
+.insta-feed { background: #2A2A2A; text-align: center; }
+.insta-feed__title {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: var(--fw-regular);
+  font-size: clamp(1.5rem, 3vw, 2.4rem);
+  color: #ffffff;
+  margin: 0 0 clamp(1.5rem, 3vw, 2.5rem);
+}
+.insta-feed__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(0.4rem, 1vw, 0.75rem);
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.insta-feed__item {
+  position: relative; display: block; aspect-ratio: 1 / 1;
+  overflow: hidden; border-radius: 6px; background: #eeeeee;
+}
+.insta-feed__item img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.4s var(--ease-smooth);
+}
+.insta-feed__item:hover img { transform: scale(1.06); }
+.insta-feed__icon {
+  position: absolute; inset: 0; display: flex; align-items: center;
+  justify-content: center; color: #fff; background: rgba(0,0,0,0.28);
+  opacity: 0; transition: opacity 0.3s ease;
+}
+.insta-feed__item:hover .insta-feed__icon { opacity: 1; }
+.insta-feed__btn {
+  display: inline-block; margin-top: clamp(1.5rem, 3vw, 2.25rem);
+  background: var(--color-gold-dark); color: #FCFCFC;
+  padding: 0.8rem 2.5rem; border-radius: 999px;
+  font-family: var(--font-body); font-size: 0.82rem;
+  font-weight: var(--fw-semibold); letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.insta-feed__btn:hover { background: var(--color-gold); transform: translateY(-1px); }
+@media (max-width: 640px) { .insta-feed__grid { grid-template-columns: repeat(2, 1fr); } }
+
+
+/* ============================================================================
+   5th draft: band page rebuilt to the Canva mockup. New sections:
+   intro2 (slogan + desc + CTA), Trusted By, full-width strip, testimonials
+   carousel, The Band's Touch (dark 3-col), gallery slider, FAQ.
+   ============================================================================ */
+
+/* 2. Intro (desc + CTA on the left, big slogan on the right) */
+.band-intro2 { background: #f4f4f4; padding-block: clamp(3rem, 6vw, 5rem); }
+.band-intro2__inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 var(--container-padding);
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 5vw, 5rem); align-items: center;
+}
+.band-intro2__desc {
+  font-family: var(--font-body);
+  font-size: clamp(0.95rem, 1.1vw, 1.1rem);
+  line-height: 1.8; color: #444; margin: 0 0 clamp(1.5rem, 3vw, 2rem);
+}
+.band-intro2__slogan {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  font-weight: var(--fw-bold); line-height: 1.05;
+  color: #2A2A2A; margin: 0; text-align: right;
+}
+@media (max-width: 800px) {
+  .band-intro2__inner { grid-template-columns: 1fr; }
+  .band-intro2__slogan { text-align: left; }
+}
+
+/* 3. Trusted By marquee wrapper */
+.band-trusted { background: #ffffff; text-align: center; padding-block: clamp(2rem, 4vw, 3rem); }
+.band-trusted__label {
+  display: block; font-family: var(--font-body);
+  font-size: 0.85rem; font-weight: var(--fw-semibold);
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: #2A2A2A; margin-bottom: clamp(1rem, 2vw, 1.5rem);
+}
+.band-trusted .brands-marquee__track { animation-duration: 45s; }
+
+/* 4. Full-width band image strip */
+.band-strip { width: 100%; height: clamp(280px, 42vh, 520px); overflow: hidden; }
+.band-strip img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; display: block; }
+
+/* 5. Testimonials carousel arrows */
+.band-reviews__carousel { position: relative; }
+.band-reviews__nav {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  z-index: 5; width: 42px; height: 42px; border-radius: 50%;
+  border: 0; background: rgba(255,255,255,0.92); color: #2A2A2A;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.band-reviews__nav:hover { transform: translateY(-50%) scale(1.08); background: #fff; }
+.band-reviews__nav--prev { left: -10px; }
+.band-reviews__nav--next { right: -10px; }
+
+/* 6. The Band's Touch (dark 3-col) */
+.band-touch { background: #2A2A2A; color: #fff; padding-block: clamp(3rem, 6vw, 5rem); }
+.band-touch__title {
+  text-align: center; font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 3vw, 2.5rem); line-height: 1.15;
+  margin: 0 0 clamp(1rem, 2vw, 1.5rem); color: #fff;
+}
+.band-touch__title--light { display: block; font-weight: var(--fw-light); }
+.band-touch__title--strong { display: block; font-weight: var(--fw-bold); }
+.band-touch__intro {
+  max-width: 680px; margin: 0 auto clamp(2rem, 4vw, 3rem); text-align: center;
+  font-family: var(--font-body); font-weight: var(--fw-light);
+  color: rgba(255,255,255,0.7); line-height: 1.7;
+}
+.band-touch__grid {
+  max-width: 1000px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.5rem, 3vw, 3rem);
+}
+.band-touch__name {
+  font-family: var(--font-heading);
+  font-size: clamp(1.1rem, 1.5vw, 1.4rem);
+  font-weight: var(--fw-medium); margin: 0 0 0.6rem; color: #fff;
+}
+.band-touch__desc {
+  font-family: var(--font-body); font-size: 0.92rem;
+  font-weight: var(--fw-light); line-height: 1.7;
+  color: rgba(255,255,255,0.7); margin: 0;
+}
+@media (max-width: 760px) { .band-touch__grid { grid-template-columns: 1fr; } }
+
+/* 7. Gallery slider section bg */
+.band-gallery2 { background: #f0f0f0; }
+
+/* 10. FAQ section */
+.band-faq { background: #ffffff; }
+.band-faq .faq { max-width: 760px; margin: clamp(1.5rem, 3vw, 2.5rem) auto 0; }

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 80" fill="none">
+  <!-- Salesforce cloud mark -->
+  <path d="M26 50 Q14 50 14 40 Q14 32 22 30 Q20 20 30 18 Q36 12 44 18 Q50 12 58 16 Q68 18 66 30 Q74 32 74 40 Q74 50 62 50Z" fill="#2A2A2A"/>
+  <!-- Wordmark -->
+  <text x="82" y="52" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif" font-size="22" font-weight="700" fill="#2A2A2A" letter-spacing="0">Salesforce</text>
+</svg>

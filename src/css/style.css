@@ -1,0 +1,4153 @@
+/* ============================================
+   THE ROAMING AGENCY - Main Stylesheet
+   ============================================ */
+
+/* Nohemi font faces are loaded from variables.css. Cinzel + Inter +
+   Cormorant Garamond imports were removed per client v2 brief - Nohemi
+   is the single typeface site-wide, weight contrast does the work. */
+
+/* === SKIP-TO-CONTENT LINK (a11y + SEO) ================================
+   First focusable element on every page. Hidden visually until it
+   receives keyboard focus, then pops into the top-left corner with
+   high-contrast styling. Lets screen-reader + keyboard users jump
+   past the header / WhatsApp / page-loader straight to <main>. */
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 1rem;
+  z-index: 99999;
+  padding: 0.75rem 1.25rem;
+  background: var(--color-black);
+  color: var(--color-gold);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: var(--fw-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: top 0.18s ease;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  top: 1rem;
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}
+
+/* === SUBTLE HOVER UNDERLINES (Camron Global pattern) ===================
+   Per client brief: "Subtle underlines on hover, as per the reference,
+   to indicate that elements are clickable." A thin 1px underline with
+   a 4px offset draws in on hover for any inline link that doesn't
+   already manage its own hover state (nav links, buttons, etc are
+   excluded because they have their own affordance). */
+a {
+  text-decoration: none;
+  /* Animated underline via background-image so we get a draw-in
+     effect rather than the abrupt browser default underline. */
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  transition: background-size 0.3s var(--ease-smooth);
+}
+
+a:hover {
+  background-size: 100% 1px;
+}
+
+/* Opt-out - nav links, buttons, brand cards, etc handle their own hover.
+   Add `data-no-underline` or these specific classes to skip the rule. */
+.nav__link,
+.nav__band-link,
+.nav a,
+.btn,
+.btn--primary,
+.btn--outline,
+.btn--secondary,
+.lang-toggle,
+.whatsapp-btn,
+.testimonial-card__gmb-link,
+.contact__details a,
+.footer a,
+.testimonials__nav,
+.brands-marquee a,
+.band-selector__item,
+.standards-scroll__card,
+.blog-card__link,
+.testimonial-card a,
+.globe-card,
+.events__cat,
+[data-no-underline] {
+  background-image: none;
+  background-size: 0;
+}
+.nav__link:hover,
+.nav__band-link:hover,
+.btn:hover,
+.lang-toggle:hover,
+.whatsapp-btn:hover,
+.testimonial-card__gmb-link:hover,
+.contact__details a:hover,
+.footer a:hover,
+.blog-card__link:hover,
+[data-no-underline]:hover {
+  background-size: 0;
+}
+
+/* === GLOBAL === */
+body {
+  font-family: var(--font-body);
+  /* 3rd draft typography system: Paragraphs = Light. Base weight is
+     Light; titles/subtitles/eyebrows set their own heavier weights. */
+  font-weight: var(--fw-light);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  overflow-x: hidden;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+.container--narrow {
+  max-width: var(--container-narrow);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Custom luxury cursor removed in revision round 2 - client preferred
+   the browser's native cursor for smoother feel. All .cursor*, ring,
+   dot, hover/click state and mix-blend-mode CSS deleted. */
+
+/* === PAGE LOADER === */
+.page-loader {
+  position: fixed;
+  inset: 0;
+  /* 5th draft: loading screen background WHITE (was black), elements
+     dark — logo stays on hold for now per client. */
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-loader);
+  transition: opacity 0.6s var(--ease-smooth), visibility 0.6s;
+}
+
+.page-loader.loaded {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.page-loader__spinner {
+  width: 40px;
+  height: 40px;
+  /* 5th draft: light track on the new white background; dark rotating
+     segment so the spinner reads as black-on-white (gold kept subtle). */
+  border: 2px solid #e6e6e6;
+  border-top-color: #2A2A2A;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* === HEADER / NAVIGATION === */
+/* Revision round 2, item N1 - header is now a SOLID #2A2A2A bar at all
+   times. The previous transparent + backdrop-blur + "scrolled" state
+   change was removed per client direction. The intro-zoom JS still
+   fades the bar in via inline opacity on the homepage; sub-pages override
+   that opacity in their own CSS (band-page.css). */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-header);
+  padding: var(--space-md) var(--container-padding);
+  background: #2A2A2A;
+  /* Translate transition runs the smart-header hide/show. Opacity is
+     driven by inline-style during intro-zoom so we leave it untransitioned
+     to avoid lag. */
+  transition: translate 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+  opacity: 0; /* JS drives this during intro-zoom; stays 0 until phase 2 */
+}
+
+/* Smart-header hidden state - slides off-screen via the `translate` CSS
+   property (separate from `transform` so it never fights the intro-zoom
+   animation). Pointer-events suspended so a fully-hidden bar can't block
+   accidental clicks at the top edge.
+
+   The matching `body.is-header-hidden` selector lets us also hide the
+   floating hero-center-title (it lives outside the <header> in the DOM,
+   but is visually part of the header chrome on the homepage). */
+.header.is-hidden {
+  translate: 0 -100%;
+  pointer-events: none;
+}
+
+body.is-header-hidden .hero-center-title {
+  opacity: 0 !important;
+  pointer-events: none;
+  transition: opacity 0.35s ease, translate 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* .header--scrolled used to swap background on scroll. Header is now
+   solid at all times (N1), so this rule is a no-op kept only so the JS
+   that still toggles the class doesn't generate dead-property warnings. */
+.header--scrolled {
+  /* intentionally empty */
+}
+
+.header > * {
+  pointer-events: auto;
+}
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  gap: var(--space-xl);
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  transition: all var(--duration-logo) var(--ease-out-expo);
+  z-index: calc(var(--z-header) + 1);
+  flex-shrink: 0;
+  will-change: transform;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+.logo__text {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: 600;
+  color: var(--color-gold);
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+/* ============================================================================
+   VAAGMIAI LOGO LOCKUP
+   Inline SVG mark (VA geometry, 3 strokes + dot) + site-native wordmark.
+   • Hero / header: SVG in white (#FCFCFC), text via hero-center-title__text
+     (existing gold shimmer CSS — no changes to that rule needed).
+   • Who We Are: SVG in dark (#2A2A2A), text in Nohemi Light.
+   • All sizing uses em so JS font-size animation docks the hero logo
+     correctly into the header slot.
+   ============================================================================ */
+
+/* ── Core lockup container ─────────────────────────────────────────────── */
+.vaagmiai-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  line-height: 1;
+}
+
+/* ── SVG VA mark ───────────────────────────────────────────────────────── */
+.vaagmiai-lockup__mark {
+  display: block;
+  flex-shrink: 0;
+  height: 2em;      /* scales with .hero-center-title JS-driven font-size */
+  width: auto;
+  color: #2A2A2A;   /* default: dark (for light backgrounds) */
+}
+
+/* White version — hero & header (dark background context) */
+.vaagmiai-lockup__mark--light {
+  color: #FCFCFC;
+}
+
+/* ── Wordmark text ─────────────────────────────────────────────────────── */
+/* When used inside .hero-center-title the hero-center-title__text class
+   already provides the premium gold shimmer animation — we just need
+   to override font-size so it stays 1em relative to the parent. */
+.vaagmiai-lockup .hero-center-title__text.vaagmiai-lockup__wordmark {
+  font-size: 1em;
+}
+
+/* ── Who We Are lockup overrides ──────────────────────────────────────── */
+/* The h2.who-we-are__title provides the font-size (clamp 2.25–4.5rem).
+   Children use em so the lockup scales with it. */
+.vaagmiai-lockup--wwa {
+  color: #2A2A2A;
+}
+
+.vaagmiai-lockup--wwa .vaagmiai-lockup__mark {
+  height: 0.9em;    /* scales with h2 font-size */
+  color: #2A2A2A;
+}
+
+.vaagmiai-lockup__wordmark {
+  font-family: var(--font-heading);
+  font-weight: 300;       /* Nohemi Light — matches the original site style */
+  font-size: 1em;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  color: inherit;
+}
+
+/* Responsive: shrink the Who We Are lockup on small screens */
+@media (max-width: 640px) {
+  .vaagmiai-lockup--wwa .vaagmiai-lockup__mark {
+    height: 0.8em;
+  }
+}
+
+/* ── Header logo measurement proxy ───────────────────────────────────────
+   .logo--hero is display:none always. JS briefly reveals it to read the
+   final docked position before animating the hero-center-title there.
+   Uses .logo__text (already in the CSS below) — no separate rule needed. */
+
+/* ── Tagline beneath the logo ────────────────────────────────────────── */
+.logo__tagline {
+  font-family: var(--font-accent);
+  font-size: var(--text-xs);
+  color: var(--color-gray-400);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transition: opacity var(--duration-base) var(--ease-smooth);
+}
+
+/* Hero state - logo centered at bottom of video */
+/* Header DOM still contains .logo--hero for backward compatibility and for
+   use as a measurement proxy (JS temporarily makes it visible to read its
+   final docked pixel position). The actual visible/clickable logo is now
+   the .hero-center-title anchor - single element, no swap, no z-index glitch. */
+.logo--hero {
+  display: none;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+  top: auto;
+  left: auto;
+  bottom: auto;
+  transform: none;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.logo--hero .logo__tagline {
+  display: none;
+}
+
+.logo--hero .logo__text {
+  font-size: var(--text-xl);
+}
+
+/* Scrolled state - logo top-left, part of flex row */
+.logo--scrolled {
+  position: relative;
+  top: auto;
+  left: auto;
+  bottom: auto;
+  transform: none;
+  flex-direction: row;
+  align-items: center;
+}
+
+.logo--scrolled .logo__text {
+  font-size: var(--text-xl);
+}
+
+.logo--scrolled .logo__tagline {
+  display: none;
+}
+
+/* Navigation - hidden until scrolled */
+.nav {
+  flex: 1;
+  min-width: 0;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity var(--duration-slow) var(--ease-smooth), transform var(--duration-slow) var(--ease-smooth);
+  pointer-events: none;
+  will-change: opacity, transform;
+}
+
+.nav--visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.nav__band-list {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: var(--space-xs) 0;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+.nav__band-list::-webkit-scrollbar {
+  display: none;
+}
+
+.nav__band-link {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: 400;
+  color: var(--color-gray-400);
+  white-space: nowrap;
+  padding: var(--space-sm) var(--space-lg);
+  border-bottom: 2px solid transparent;
+  transition: all var(--duration-base) var(--ease-smooth);
+  letter-spacing: 0.03em;
+}
+
+.nav__band-link:hover,
+.nav__band-link--active {
+  color: var(--color-gold);
+  border-bottom-color: var(--color-gold);
+}
+
+/* ============================================================================
+   NAV - TOP-LEVEL CATEGORIES + DROPDOWNS
+   Per client v2 brief: top nav has 6 categories - Events ▾, Bands ▾,
+   DJ, FAQ, Blog, Other Musical Services. Events + Bands have hover
+   dropdowns (band names live inside the Bands dropdown rather than
+   in the top bar - there are too many to fit horizontally).
+   The smart-header's hide-on-scroll-down behavior wraps this nav
+   unchanged.
+   ============================================================================ */
+
+.nav__list {
+  display: flex;
+  align-items: center;
+  /* Items right-aligned inside the nav container so the buttons sit
+     closer to the right edge / language toggle. Revision round 2 N2:
+     gap tightened + right-padding zeroed so links sit as close to the
+     header's right --container-padding edge as the lang-toggle allows. */
+  justify-content: flex-end;
+  gap: clamp(0.9rem, 1.9vw, 1.75rem);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav__item {
+  position: relative;          /* dropdown anchors here */
+}
+
+/* Revision round 2 N2-N4:
+   • Font shrunk from 1rem → 0.8125rem (smaller, per client).
+   • Default colour changed from grey-400 to off-white (#FCFCFC) since the
+     header is now solid #2A2A2A - off-white reads cleanly on the dark bar.
+   • Hover/active colour stays off-white (no more gold) and the static
+     border-bottom is replaced by an animated underline (N3) implemented
+     via a ::after pseudo-element that scales X from 0 → 1 left-to-right. */
+.nav__link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(252, 252, 252, 0.82);  /* off-white at slight transparency */
+  white-space: nowrap;
+  padding: 10px 0;
+  transition: color 0.25s ease;
+  cursor: pointer;
+}
+
+/* Animated underline (N3) - sits at the bottom of the link, full width,
+   but starts collapsed to 0 width from the LEFT origin. On hover / active
+   it expands to 1, giving a clean left-to-right reveal.
+   Uses ::before because ::after is already taken by the dropdown caret
+   (defined further down for .nav__item--has-dropdown links). */
+.nav__link::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 2px;
+  height: 1.5px;
+  background: #FCFCFC;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nav__link:hover,
+.nav__link--active,
+.nav__item.is-open > .nav__link {
+  color: #FCFCFC;
+}
+
+.nav__link:hover::before,
+.nav__link--active::before,
+.nav__item.is-open > .nav__link::before {
+  transform: scaleX(1);
+}
+
+/* Caret arrow on items that have a dropdown. Pure CSS triangle. */
+.nav__item--has-dropdown > .nav__link::after {
+  content: '';
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 4px;
+  border-left:  4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top:   4px solid currentColor;
+  opacity: 0.7;
+  transition: transform 0.2s ease;
+}
+
+.nav__item.is-open > .nav__link::after {
+  transform: rotate(180deg);
+}
+
+/* ── DROPDOWN PANEL ───────────────────────────────────────────────
+   N5 fix: previously the panel sat 12px BELOW the parent link with a
+   gap of empty space between them - moving the cursor across that gap
+   would unhover the parent and the dropdown would close before the
+   user reached the items. Now the panel sits flush with `top: 100%`
+   and absorbs that 12px gap as its own `padding-top`, so the cursor
+   stays inside a hoverable region the whole way down. */
+.nav__dropdown {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  min-width: 220px;
+  margin: 0;
+  padding: 12px 0 0.65rem;
+  list-style: none;
+  background: #2A2A2A;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  /* Slightly longer fade-out gives the user a grace period when they
+     overshoot the panel on their way back up. The JS adds a 220ms
+     close timeout on top of this - see initNavDropdowns(). */
+  transition: opacity 0.22s ease, transform 0.22s ease, visibility 0s linear 0.22s;
+  z-index: 100;
+  /* Pull the actual visual panel content inside the padded area. */
+  background-clip: padding-box;
+}
+
+/* Tiny pointer triangle pointing UP from the dropdown to its parent.
+   Positioned to sit ON TOP of the padding-top zone, not above it. */
+.nav__dropdown::before {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 12px;
+  height: 12px;
+  background: #2A2A2A;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Reveal: hover on parent (desktop) OR .is-open class (tap / focus). */
+.nav__item--has-dropdown:hover > .nav__dropdown,
+.nav__item.is-open > .nav__dropdown {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+  transition: opacity 0.22s ease, transform 0.22s ease, visibility 0s linear 0s;
+}
+
+.nav__dropdown li { margin: 0; }
+
+.nav__dropdown a {
+  display: block;
+  padding: 0.55rem 1.1rem;
+  color: rgba(252, 252, 252, 0.78);
+  font-size: 0.875rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  white-space: nowrap;
+  transition: color 0.18s ease, font-weight 0.18s ease;
+}
+
+/* Revision round 2 N6 - dropdown items on hover/focus: only the colour
+   brightens to off-white and the weight thickens. NO background colour
+   change (was rgba(255,255,255,0.04) - removed). */
+.nav__dropdown a:hover,
+.nav__dropdown a:focus-visible {
+  color: #FCFCFC;
+  font-weight: 600;
+  background: transparent;
+}
+
+.nav__dropdown-divider {
+  height: 1px;
+  margin: 0.4rem 1rem;
+  background: rgba(255, 255, 255, 0.10);
+  list-style: none;
+}
+
+/* ── MOBILE - accordion stack (≤ 768px) ────────────────────────── */
+@media (max-width: 768px) {
+  .nav__list {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 0;
+  }
+  .nav__item {
+    border-bottom: 1px solid var(--color-gray-800);
+  }
+  .nav__link {
+    width: 100%;
+    padding: 1rem 0;
+    justify-content: space-between;
+    font-size: 1rem;
+  }
+  .nav__dropdown {
+    position: static;
+    transform: none;
+    min-width: 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    margin: 0;
+    padding: 0;
+    /* Collapsed by default on mobile - only opens when .is-open. */
+    max-height: 0;
+    overflow: hidden;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition: max-height 0.32s ease;
+  }
+  .nav__dropdown::before { display: none; }
+  .nav__item.is-open > .nav__dropdown {
+    max-height: 600px;       /* enough to fit all 11 bands */
+    transform: none;
+  }
+  .nav__dropdown a {
+    padding: 0.7rem 1rem 0.7rem 1.5rem;
+    font-size: 0.95rem;
+  }
+}
+
+/* Language toggle */
+.lang-toggle {
+  font-size: var(--text-xs);
+  color: var(--color-white);
+  padding: 6px 12px 6px 32px;
+  border: 1px solid var(--color-gray-800);
+  border-radius: var(--radius-sm);
+  transition: all var(--duration-fast) var(--ease-smooth);
+  cursor: pointer;
+  background: transparent;
+  flex-shrink: 0;
+  position: relative;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+/* Flag icon inside button */
+.lang-toggle::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 13px;
+  border-radius: 2px;
+  background-size: cover;
+  background-position: center;
+  /* Default: show France flag (means click to switch TO French) */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 20'%3E%3Crect width='10' height='20' fill='%23002395'/%3E%3Crect x='10' width='10' height='20' fill='white'/%3E%3Crect x='20' width='10' height='20' fill='%23ED2939'/%3E%3C/svg%3E");
+}
+
+/* When showing EN button (currently in FR mode), show UK flag */
+[data-lang='fr'] .lang-toggle::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 30'%3E%3Crect width='60' height='30' fill='%23012169'/%3E%3Cpath d='M0 0L60 30M60 0L0 30' stroke='white' stroke-width='6'/%3E%3Cpath d='M0 0L60 30M60 0L0 30' stroke='%23C8102E' stroke-width='4'/%3E%3Cpath d='M30 0v30M0 15h60' stroke='white' stroke-width='10'/%3E%3Cpath d='M30 0v30M0 15h60' stroke='%23C8102E' stroke-width='6'/%3E%3C/svg%3E");
+}
+
+.lang-toggle:hover {
+  color: var(--color-gold);
+  border-color: var(--color-gold);
+}
+
+.lang-toggle--fixed {
+  pointer-events: auto;
+}
+
+/* Mobile hamburger */
+.nav__hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: var(--space-sm);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.nav__hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--color-white);
+  transition: all var(--duration-base) var(--ease-smooth);
+}
+
+/* === HERO STACK (sticky black panel + video that slides up) ===
+   Two-section stack: a sticky black panel and a video that overlaps it
+   at a higher z-index. As the user scrolls, the panel stays pinned at
+   viewport top and the video slides UP from below to cover it.
+
+   The wrapper (.hero-stack) bounds the sticky scope to one viewport
+   height. After the user scrolls past it, both sections release and
+   the rest of the page scrolls normally. */
+/* ============================================================================
+   DOOR PORTAL CSS REMOVED (revision round 2, item 1.1)
+   ~700 lines of .door-portal* rules dropped per client direction.
+   The HTML section, the initDoorPortal() function, and the assets
+   (hero-door-bg.jpg, door-reveal.mp4) have all been removed.
+   ============================================================================ */
+
+
+/* ============================================================================
+   HERO STACK - restored. The door portal is now its OWN section above this;
+   once the user scrolls past the door, they land here on the original
+   black-panel + sliding-video flow.
+   ============================================================================ */
+.hero-stack {
+  position: relative;
+  width: 100%;
+}
+
+.hero-intro {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  /* 5th draft: intro/loading screen background WHITE (was #000).
+     Logo + tagline start dark here and brighten to white as the user
+     scrolls into the video (driven in initHeroIntro). */
+  background: #ffffff;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Hero tagline - revision round 2 H1+H2: client wanted "thinner
+   typography" and "tighter line spacing". Weight dropped 600 -> 300
+   (Nohemi Light), line-height 1.18 -> 1.05. The text now reads as one
+   tight block rather than two airy lines. */
+.hero-intro__tagline {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: max-content;
+  max-width: 92vw;
+  margin: 0;
+  text-align: center;
+  font-family: var(--font-heading);
+  /* 3rd draft: a little smaller (mockup reference) + Medium weight. */
+  font-size: clamp(1.5rem, 3.6vw, 3.25rem);
+  font-weight: var(--fw-medium);
+  line-height: 1.1;
+  letter-spacing: 0.005em;
+  /* 5th draft: dark by default (readable on the new white intro panel);
+     initHeroIntro() brightens it to white as it drifts over the video. */
+  color: #2A2A2A;
+  z-index: 3;
+  pointer-events: none;
+  will-change: opacity, transform;
+}
+
+@media (max-width: 640px) {
+  .hero-intro__tagline {
+    font-size: clamp(1.25rem, 6.2vw, 2.1rem);
+    line-height: 1.15;
+  }
+}
+
+.hero-video {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: #000;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.hero-video__media {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ============================================================================
+   Legacy intro-zoom styles below - kept temporarily as dead CSS so older
+   selectors still validate, but no longer applied (the saxophone zoom HTML
+   has been removed). Safe to delete in a future cleanup pass.
+   ============================================================================ */
+
+/* === INTRO ZOOM SECTION (saxophone reveals hero) === */
+.intro-zoom {
+  position: relative;
+  width: 100%;
+  /* 600vh budget:
+       0-50% (300vh) saxophone zoom
+       50-66% (96vh)  hold + fade-in of hero center title ("The Roaming Agency")
+       66-78% (72vh)  header fade-in (band nav + FR toggle - no logo yet)
+       78-100% (132vh) center title travels to top-left and becomes header logo */
+  height: 600vh;
+  background: var(--color-black);
+}
+
+.intro-zoom__sticky {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.intro-zoom__video-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.intro-zoom__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Luxury background - blurred photo with warm overlay (visible initially) */
+.intro-zoom__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  will-change: opacity;
+}
+
+.intro-zoom__bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(20px) brightness(0.35) saturate(1.2);
+  transform: scale(1.1); /* Prevent blur edges */
+}
+
+.intro-zoom__bg-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at center, transparent 0%, rgba(10, 10, 10, 0.7) 100%),
+    linear-gradient(135deg, rgba(178, 130, 32, 0.15) 0%, transparent 50%, rgba(178, 130, 32, 0.15) 100%);
+}
+
+/* Solid white panel - fades in after scroll starts (hides background) */
+.intro-zoom__white-panel {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: #ffffff;
+  opacity: 0;
+  will-change: opacity;
+}
+
+/* Side content panels - tagline + stats visible on sides */
+.intro-zoom__side {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  pointer-events: none;
+  will-change: opacity, transform;
+}
+
+/* Re-enable pointer-events on actual text children so custom cursor can detect
+   "content" hover and grow the dot - parent stays non-interactive for layout */
+.intro-zoom__side > p,
+.intro-zoom__side > .intro-zoom__accent-line {
+  pointer-events: auto;
+}
+
+.intro-zoom__side--left {
+  left: 6%;
+  max-width: 280px;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.intro-zoom__side--right {
+  right: 6%;
+  max-width: 200px;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.intro-zoom__tagline {
+  font-family: var(--font-heading);
+  font-size: clamp(1.1rem, 1.3vw, 1.5rem);
+  font-weight: 500;
+  line-height: 1.3;
+  color: #fff;
+  letter-spacing: 0.02em;
+  margin: 0;
+}
+
+.intro-zoom__subtext {
+  font-family: var(--font-accent);
+  font-size: 0.75rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin: 0;
+}
+
+.intro-zoom__vertical {
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  letter-spacing: 0.4em;
+  color: #fff;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.intro-zoom__accent-line {
+  width: 40px;
+  height: 2px;
+  background: var(--color-gold);
+  opacity: 0.8;
+}
+
+.intro-zoom__side--right .intro-zoom__accent-line {
+  align-self: flex-end;
+}
+
+/* Hide side panels on smaller screens */
+@media (max-width: 1024px) {
+  .intro-zoom__side {
+    display: none;
+  }
+}
+
+/* Saxophone - zooms with scale, with all browser quality hints enabled */
+.intro-zoom__instrument {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  left: 50%;
+  width: auto;
+  height: 85vh;
+  max-height: 750px;
+  filter: drop-shadow(0 10px 40px rgba(0, 0, 0, 0.2));
+  transform: translate(-52%, -57%) scale(1);
+  transform-origin: 52% 57%;
+  image-rendering: -webkit-optimize-contrast;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  will-change: transform;
+  /* Not interactive - cursor hovers pass through the transparent PNG rectangle
+     to the text/content behind (prevents misleading "button-like" cursor feedback) */
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Music notes overlay - notes spawn from bell hole and float */
+.intro-zoom__notes {
+  position: absolute;
+  z-index: 4;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.intro-zoom__note {
+  position: absolute;
+  font-size: 32px;
+  color: #b28220;
+  opacity: 0;
+  user-select: none;
+  text-shadow: 0 2px 8px rgba(178, 130, 32, 0.4);
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+@keyframes noteFloat {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.3) rotate(0deg);
+  }
+  15% {
+    opacity: 1;
+    transform: translate(var(--drift-x-1), -50px) scale(1) rotate(var(--rotate-1));
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--drift-x-2), -350px) scale(1.3) rotate(var(--rotate-2));
+  }
+}
+
+.intro-zoom__text {
+  position: absolute;
+  bottom: 6vh;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  text-align: center;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+/* === HERO TITLE / LOGO (same element, two visual states) ===
+   Acts as:
+     • a BIG dark-gold shimmering title over the video after saxophone zoom
+     • the permanent clickable site LOGO once scroll-driven travel completes
+   JS drives opacity + position + font-size via inline styles, scroll-scrubbed
+   across phases 2 & 3 so it travels smoothly between its two positions.
+   z-index sits ABOVE the header so the text never slides under the dark bar. */
+.hero-center-title {
+  position: fixed;
+  top: 62%;      /* lowered from dead-center for a more cinematic composition */
+  left: 50%;
+  transform: translate(-50%, -50%); /* JS overrides each frame */
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4.5vw, 4rem);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-align: center;
+  white-space: nowrap;
+  line-height: 1;
+  text-decoration: none;
+  opacity: 0;                               /* JS fades in after zoom */
+  /* Sits above the header background (even above .header--scrolled blur layer).
+     Cursor z-index is 9999 so stays on top; anything 900+ keeps us clear of
+     all normal UI layers. */
+  z-index: 900;
+  pointer-events: none;                     /* JS enables when visible */
+  will-change: opacity, transform, font-size;
+}
+
+/* Dark-gold shimmering text - linear-gradient clipped to text,
+   animated background-position for a slow metallic shine sweep. */
+.hero-center-title__text {
+  display: inline-block;
+  background: linear-gradient(
+    115deg,
+    #6b4e1a 0%,
+    #8c6a24 18%,
+    #c09a3e 40%,
+    #f0d27a 50%,
+    #c09a3e 60%,
+    #8c6a24 82%,
+    #6b4e1a 100%
+  );
+  background-size: 220% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 24px rgba(178, 130, 32, 0.25);
+  animation: heroTitleShine 5.5s ease-in-out infinite;
+}
+
+/* The brand-mark image as the hero logo. height:1em so the
+   intro-zoom JS (which animates the anchor's font-size as it docks)
+   scales the image smoothly from big hero size down to header size. */
+.hero-center-title__img {
+  display: block;
+  /* 2x - keeps the hero logo in step with the doubled header logo
+     (still scales via the intro-zoom font-size dock animation). */
+  height: 2em;
+  width: auto;
+}
+
+@keyframes heroTitleShine {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+
+/* Re-enable pointer-events on actual pitch + hint text so cursor content state triggers */
+.intro-zoom__text > h1,
+.intro-zoom__text > p {
+  pointer-events: auto;
+}
+
+/* Premium pitch headline */
+.intro-zoom__pitch {
+  font-family: var(--font-heading);
+  font-size: clamp(1.3rem, 2vw, 2rem);
+  font-weight: 500;
+  line-height: 1.25;
+  color: #fff;
+  letter-spacing: 0.04em;
+  margin: 0 0 var(--space-lg) 0;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.6);
+  animation: pitchFadeIn 1.2s var(--ease-out-expo) 0.3s both;
+}
+
+/* Gold accent on "memory" line - use span for emphasis? Skip - keep it clean */
+
+/* Scroll hint with pulse */
+.intro-zoom__hint {
+  font-family: var(--font-accent);
+  font-size: 0.8rem;
+  color: var(--color-gold);
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  margin: 0;
+  opacity: 0.9;
+  animation: introHintPulse 2.4s ease-in-out infinite;
+}
+
+@keyframes pitchFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes introHintPulse {
+  0%, 100% { opacity: 0.5; letter-spacing: 0.35em; }
+  50% { opacity: 1; letter-spacing: 0.4em; }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .intro-zoom__instrument {
+    height: 50vh;
+    max-height: 400px;
+  }
+}
+
+/* === HERO SECTION === */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.hero__video-wrap {
+  position: absolute;
+  inset: 0;
+}
+
+.hero__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(0, 0, 0, 0.1) 40%,
+    rgba(0, 0, 0, 0.5) 80%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+}
+
+.hero__scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  opacity: 0.6;
+  animation: float 2s ease-in-out infinite;
+}
+
+.hero__scroll-indicator span {
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+.hero__scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--color-white), transparent);
+  animation: scrollLine 2s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-8px); }
+}
+
+@keyframes scrollLine {
+  0% { opacity: 0; transform: scaleY(0); transform-origin: top; }
+  50% { opacity: 1; transform: scaleY(1); }
+  100% { opacity: 0; transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* === SECTION COMMON === */
+.section {
+  padding: var(--space-section) 0;
+  position: relative;
+}
+
+.section--dark {
+  background-color: var(--color-dark);
+}
+
+.section--gold-accent {
+  background-color: var(--color-dark-surface);
+}
+
+/* 3rd draft typography: gold eyebrow = Semibold, character spacing a
+   little closer (0.2em -> 0.12em). */
+.section__label {
+  font-family: var(--font-accent);
+  font-size: var(--text-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--color-gold);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: var(--space-md);
+}
+
+/* 3rd draft typography: Titles = Medium. */
+.section__title {
+  font-family: var(--font-heading);
+  font-size: var(--text-4xl);
+  font-weight: var(--fw-medium);
+  line-height: 1.15;
+  margin-bottom: var(--space-md);
+}
+
+/* 3rd draft typography: Subtitles = Normal. */
+.section__subtitle {
+  font-family: var(--font-accent);
+  font-size: var(--text-lg);
+  font-weight: var(--fw-regular);
+  color: var(--color-gray-400);
+  max-width: 600px;
+  line-height: 1.7;
+}
+
+/* ============================================================================
+   WHO WE ARE - light section per client brief v2
+   ----------------------------------------------------------------------------
+   Off-white panel with a 2-column grid: left = eyebrow + huge sans-serif
+   title + paragraph, right = four animated counter stats arranged in a
+   staggered zig-zag.
+
+   Typography uses a modern geometric sans (Nohemi target - Inter is the
+   placeholder until the client provides Nohemi font files). Body text
+   colour shifts to dark grey so the scroll word-darkening effect remains
+   readable on the light panel.
+   ============================================================================ */
+.who-we-are {
+  background-color: #f0f0f0; /* off-white per palette spec */
+  color: #2A2A2A;            /* dark grey body text */
+  /* Client tweak: vertical padding trimmed (5-8rem -> 3.5-6rem) so
+     the section feels less airy. */
+  padding-block: clamp(3.5rem, 7vw, 6rem);
+  /* Client tweak: nudge left padding up further (1.64 -> 2.0).
+     Right unchanged. */
+  padding-left: calc(var(--container-padding) * 2);
+  padding-right: var(--container-padding);
+}
+
+.who-we-are__grid,
+.who-we-are__intro {
+  max-width: var(--container-max);
+  /* Client tweak: was margin-inline: auto (auto-centred the 1400px
+     grid in wide viewports, which made the .who-we-are padding-left
+     changes mostly invisible - auto-margin recalculated and
+     re-centred). Now left-aligned so padding-left directly controls
+     the offset from the screen edge. */
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.who-we-are__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(3rem, 8vw, 6rem);
+  align-items: start;
+}
+
+@media (min-width: 1024px) {
+  .who-we-are__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(3rem, 6vw, 6rem);
+  }
+}
+
+/* - Left column - */
+.who-we-are__intro {
+  max-width: 32rem;
+}
+
+/* Who We Are eyebrow - revision round 2 W3: reduce letter-spacing
+   (was 0.22em) + lighter weight (was 600 -> 400) for a more
+   refined high-end-fashion-magazine feel. */
+/* 3rd draft: EXACT spec from the client's Canva inspector -
+   Nohemi Semi-bold, 20px / 22px line-height, -0.3px tracking,
+   colour #DEC37C. */
+.who-we-are__label {
+  display: block;
+  color: #DEC37C;
+  font-family: var(--font-body, 'Inter', system-ui, sans-serif);
+  font-size: 20px;
+  line-height: 22px;
+  font-weight: var(--fw-semibold);
+  letter-spacing: -0.3px;
+  text-transform: uppercase;
+  /* Client tweak: nudge the "WHO WE ARE" eyebrow a touch down. */
+  margin-top: clamp(0.5rem, 1vw, 1rem);
+  margin-bottom: clamp(0.85rem, 1.4vw, 1.25rem);
+}
+
+/* Who We Are title - wraps a brand-mark image now (client tweak).
+   The old text-only styles (font-size, weight, etc.) are kept for the
+   case where text falls back, but the inner <img> below handles the
+   actual visual. Bottom margin still applies so paragraph spacing
+   stays consistent. */
+.who-we-are__title {
+  font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
+  font-weight: 300;
+  font-size: clamp(2.25rem, 4.8vw, 4.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: #2A2A2A;
+  text-transform: uppercase;
+  /* Client tweak: gap between the logo/title image and the paragraph
+     reduced by 50% (was clamp(0.85, 1.6vw, 1.5)). */
+  margin: 0 0 clamp(0.425rem, 0.8vw, 0.75rem);
+}
+
+/* The brand-mark image inside the title <h2>. Source PNG is now
+   852x474 (6× the original 142x79, re-sharpened twice via PIL's
+   UnsharpMask), so even at retina-doubled display widths the browser
+   only DOWNSCALES - always crisp, no upscale blur. */
+.who-we-are__title-img {
+  display: block;
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+  object-fit: contain;
+  image-rendering: auto;
+  image-rendering: smooth;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+.who-we-are__copy {
+  font-family: var(--font-body, 'Inter', system-ui, sans-serif);
+  font-size: var(--text-body); /* 3rd draft: standardized paragraph size */
+  font-weight: var(--fw-light); /* 3rd draft: Paragraphs = Light (client spec) */
+  line-height: 1.6;
+  /* Dark so the word-by-word scroll-darken animation (restored per
+     client) ends readable: words start faint (opacity 0.18 -> looks
+     ~#BDBDBD) and darken to solid #2A2A2A as the user scrolls. */
+  color: #2A2A2A;
+  /* Client tweak: column tightened (28rem -> 20rem) so the paragraph
+     wraps to ~7 lines instead of 5 - feels more editorial. */
+  max-width: 20rem;
+}
+
+/* Word-by-word darkening (restored per client): each word starts
+   faint and brightens to full as the user scrolls. Colour is driven
+   by the parent (currentColor) so it works on light + dark bg. */
+.who-we-are__copy .darken-word {
+  color: currentColor;
+}
+
+/* - Right column - staggered zig-zag stat grid -
+   Pattern (matches the mockup):
+     row 1: ___    +10
+     row 2: 600+   ___
+     row 3: ___    10+
+     row 4: 6      ___
+*/
+.who-we-are__stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(4, auto);
+  /* 3rd draft: row-gap opened back up - the tight gap + negative
+     margins had clustered the cells. Generous vertical breathing
+     room; column gap unchanged for the zig-zag. */
+  /* 3rd draft: row-gap -60% (was 1.5-3.5rem) - less vertical space
+     between the stat cells. Column gap unchanged for the zig-zag. */
+  gap: clamp(0.6rem, 1.4vw, 1.4rem) clamp(1.5rem, 4vw, 4rem);
+  align-items: end;
+}
+
+/* "+10 Years of experience" - client tweak round 2: nudged BACK to
+   the right (was margin-left: -5rem to -2rem which was too aggressive).
+   Now -3rem to -1rem so the cell still sits slightly inset from the
+   right edge but not as far in. */
+.stat--top-right    {
+  grid-column: 2;
+  grid-row: 1;
+  /* Client tweak: nudge "+10 Years of experience" a touch more left
+     (round 2 - a little further). */
+  margin-left: clamp(-5.5rem, -4.2vw, -3rem);
+}
+.stat--mid-left     { grid-column: 1; grid-row: 2; }
+.stat--mid-right    { grid-column: 2; grid-row: 3; }
+/* "6 Languages" - revision round 2 follow-up: shifted slightly right
+   and up from the original bottom-left position so it lifts toward the
+   centre column and reads tighter with the "10+ Bands & Artists" cell
+   above it rather than sitting flush at the bottom edge. */
+.stat--bottom-left  {
+  grid-column: 1;
+  grid-row: 4;
+  margin-left: clamp(2rem, 6vw, 6rem);
+  /* 3rd draft: no upward pull - let the row-gap space it out so it
+     doesn't cluster with "600+" above. */
+  margin-top: 0;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  /* 3rd draft: number and subtitle closer + centered as one unit. */
+  align-items: center;
+  text-align: center;
+  gap: 0;
+}
+
+/* Stat numbers - revision round 2 W1: thinner weight (was 800 -> 300).
+   The huge type with light weight gives the same scale impact while
+   feeling editorial rather than billboard-y.
+   Client tweak: font-size reduced 10% (was 3.5-6.5rem -> 3.15-5.85rem). */
+.stat__number {
+  font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
+  /* 3rd draft client spec: Nohemi Regular, ~113px / 126px line-height,
+     ~-5.4px tracking. Size reaches ~112px (7rem) on desktop. Colour
+     kept #2A2A2A (the client's global "use #2A2A2A" note overrides the
+     mock's #393939 - visually identical). */
+  font-weight: var(--fw-regular);
+  font-size: clamp(3.5rem, 7.5vw, 7rem);
+  /* 3rd draft: line-height tightened (1.1 -> 0.85) to cut the
+     number↔label vertical gap ~60% (size unchanged). */
+  line-height: 0.85;
+  letter-spacing: -0.045em;
+  color: #2A2A2A;
+  font-variant-numeric: tabular-nums;
+}
+
+/* The +/- signs are wrapped in this span by initStatsCounter so we can
+   render them ~40% smaller than the digits - they read as accents on
+   the number rather than competing with it.
+   Client tweak: vertical-align: middle so the sign sits at the VERTICAL
+   CENTRE of the digit (was `super` which placed it at the top). */
+.stat__number-sign {
+  font-size: 0.6em;
+  vertical-align: middle;
+  font-weight: var(--fw-regular); /* 3rd draft: match Normal-weight numbers */
+  letter-spacing: 0;
+}
+
+/* Stat labels - revision round 2 W4: pull label closer to its number
+   (was 0.4rem -> 0.1rem) so the pair reads as a unit, not two stacked
+   items. */
+.stat__label {
+  font-family: var(--font-body, 'Inter', system-ui, sans-serif);
+  font-size: clamp(0.85rem, 1vw, 1rem);
+  font-weight: var(--fw-regular);
+  color: #555555;
+  /* 3rd draft: pull the label up so the number↔label gap is ~60%
+     tighter for all 4 stats (works with the 0.85 number line-height). */
+  margin-top: -0.35em;
+}
+
+/* Client tweak: nudge ONLY "Years of experience" (the label under the
+   "+10" number in the top-right stat) a tiny bit to the right. Other
+   stats' labels stay centred. */
+.stat--top-right .stat__label {
+  /* The .stat is a centred flex column, so margin-left only shifts the
+     label by HALF its value (centering redistributes the rest) - barely
+     visible. transform: translateX moves it the FULL amount. */
+  transform: translateX(clamp(0.8rem, 1.4vw, 1.4rem));
+}
+
+/* Mobile - stack stats vertically, no zig-zag */
+@media (max-width: 720px) {
+  .who-we-are__stats {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  .stat--top-right,
+  .stat--mid-left,
+  .stat--mid-right,
+  .stat--bottom-left {
+    grid-column: 1;
+    grid-row: auto;
+  }
+}
+
+/* Reveal animations (toggled by GSAP/ScrollTrigger) */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity var(--duration-slow) var(--ease-smooth),
+              transform var(--duration-slow) var(--ease-out-expo);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* === CHOOSE YOUR BAND SECTION ===
+   Sticky-stack pattern (Weavy.ai style). The OUTER `.band-selector`
+   is tall - it provides the scroll runway. The INNER `.band-selector__sticky`
+   pins to the viewport for the duration of that runway, while JS slides
+   the right-hand band list upward and crossfades the matching B&W image.
+   No line + dot indicator - gold colour alone signals the active band. */
+.band-selector {
+  position: relative;
+  /* 5th draft: runway trimmed 500vh -> 350vh so cycling all 11 bands
+     takes ~1.6x less scroll (was ~3.5 wheel-notches/band -> ~2.2). The
+     JS reads section.offsetHeight for progress, so it auto-adapts. */
+  height: 350vh;
+  background: var(--color-black);
+}
+
+.band-selector__sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.band-selector__bg {
+  position: absolute;
+  inset: 0;
+}
+
+/* Revision round 2 C3: client wants the bg photos behind the band
+   selector to be BLACK AND WHITE. grayscale(1) desaturates them
+   completely; the existing dark overlay above keeps contrast for the
+   white band names + heading. */
+.band-selector__bg-image {
+  filter: grayscale(1);
+
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 0.8s var(--ease-smooth);
+  /* Subtle Ken Burns zoom while a band is active - matches the cinematic
+     feel without distracting from the list selection.
+     Revision round 2 C3: client wants the bg photos fully B&W - so
+     grayscale(1) on the active state too, not just 0.4. */
+  transform: scale(1.04);
+  filter: grayscale(1) brightness(0.85);
+}
+
+/* Both `.is-active` (new) and legacy `.active` keep working. */
+.band-selector__bg-image.is-active,
+.band-selector__bg-image.active {
+  opacity: 1;
+}
+
+.band-selector__bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.78) 0%,
+    rgba(0, 0, 0, 0.55) 50%,
+    rgba(0, 0, 0, 0.85) 100%
+  );
+}
+
+.band-selector__content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 var(--container-padding);
+}
+
+/* Revision round 2 C6: the heading + paragraph in the left column
+   must sit at a FIXED vertical position - they don't drift as the
+   right-column band list scrolls through 11 entries. Switching from
+   `align-items: center` to `align-items: start` anchors the left
+   column to the top of the sticky viewport; the padding-top below
+   centres them visually at the same offset on every band. */
+.band-selector__inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  /* Match the global --container-padding so the band selector's
+     content (heading + list) aligns with every other section's
+     left/right edge. Client tweak: left padding bumped further
+     (1.3 -> 1.7) for more horizontal space on the left side. */
+  padding-left: calc(var(--container-padding) * 1.7);
+  padding-right: var(--container-padding);
+  display: grid;
+  /* 3rd draft: give the LEFT title/desc column more horizontal room;
+     the band-names column is pushed a bit further right. */
+  grid-template-columns: 1.3fr 1fr;
+  gap: var(--space-4xl);
+  align-items: start;
+}
+
+/* Anchor the heading block (.band-selector__intro): sits at a consistent
+   top offset (~ 28vh) so the title + paragraph land in the same visual
+   slot regardless of which band the right column has rotated to. */
+.band-selector__intro {
+  padding-top: clamp(20vh, 28vh, 32vh);
+}
+
+/* Choose Your Band heading - revision round 2 C1: thinner type
+   (700 -> 300) + C4: smaller bottom margin so the descriptive paragraph
+   tucks closer below the heading. */
+.band-selector__heading {
+  font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
+  /* 3rd draft: title a bit smaller (was 2.75-5rem). */
+  font-size: clamp(2.25rem, 4.5vw, 4rem);
+  font-weight: var(--fw-medium); /* 3rd draft: "Choose your band" title = Medium */
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  /* 3rd draft + client tweak: gap between title and paragraph -40%. */
+  margin-bottom: calc(var(--space-sm) * 0.6);
+  color: var(--color-white);
+}
+
+/* Drop the gold accent on the heading - modern flat white reads cleaner
+   per the v2 brief. Override the legacy span colour. */
+.band-selector__heading span {
+  color: inherit;
+}
+
+.band-selector__desc {
+  font-family: var(--font-accent);
+  /* Client tweak: a touch smaller than the body standard. */
+  font-size: clamp(0.85rem, 1vw, 1rem);
+  /* 3rd draft: a bit bolder than the body Light, and a narrower
+     column (was 500px) so it sits tight under the title. */
+  font-weight: var(--fw-regular);
+  color: #FFFFFF; /* 3rd draft: text under title = white */
+  line-height: 1.7;
+  /* 3rd draft: a bit more horizontal room for the title/desc block. */
+  max-width: 460px;
+  /* 5th draft: descriptions are dynamic (different length per band), which
+     used to push the "Book Your Band" button up/down. Reserve enough space
+     for the LONGEST description (Brotherockers, ~6 lines @1440 = 147px) so
+     the button stays at a FIXED position no matter which band is active. */
+  min-height: clamp(8.5rem, 11vw, 10.5rem);
+}
+
+/* Right column - viewport masks the list to a single band-row tall.
+   The list itself translates upward in JS so the active item centres. */
+.band-selector__viewport {
+  position: relative;
+  height: 100%;
+  display: flex;
+  /* Was align-items: center, which vertically centred the LIST in the
+     viewport. But the JS centring formula in setActive() assumes the
+     list TOP starts at the viewport top (offset = vh/2 - itemH/2 -
+     idx*itemH). The two conflicted, so the active gold band landed
+     off-centre by (viewportHeight - listHeight)/2. Top-aligning the
+     list makes the formula exact → active band sits at viewport centre
+     = screen centre (viewport is 100vh, sticky top:0). */
+  align-items: flex-start;
+  /* Client tweak: nudge the band-names list a bit further right. */
+  padding-left: clamp(1rem, 3vw, 3rem);
+  /* Client tweak: top/bottom fade mask REMOVED - band names should
+     stay fully solid as they scroll through the list, no dim/fade at
+     the edges. (Was a top+bottom transparent->black->transparent
+     linear-gradient mask.) */
+}
+
+.band-selector__list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  /* Revision round 2 C5: smoother motion. Was 0.6s ease-out-expo
+     (snappy with overshoot) - longer 0.95s cubic-bezier(0.22, 1, 0.36, 1)
+     for a glide-into-place feel between bands. */
+  transition: transform 0.95s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+/* Band items - revision round 2 C1: thinner weight (500 -> 300).
+   The hover/active items still bump weight back up below. */
+.band-selector__item {
+  display: block;
+  font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
+  /* 3rd draft client spec (Canva inspector): Nohemi Medium, ~69px /
+     97px line-height, 0 tracking, ALL CAPS. One line per band - never
+     wrap "THE BROTHEROCKERS" to two rows. */
+  font-size: clamp(2.45rem, 4.95vw, 4.1rem); /* 3rd draft: -5% */
+  font-weight: var(--fw-medium);
+  line-height: 1.4;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #FFFFFF; /* 3rd draft: band name colour */
+  padding: 0.15rem 0; /* 3rd draft: vertical gap between names reduced further */
+  cursor: pointer;
+  text-decoration: none;
+  letter-spacing: 0;
+  /* 3rd draft: do NOT dim the names - full white, no faded state. */
+  opacity: 1;
+  transition: color var(--duration-base) var(--ease-smooth),
+              opacity var(--duration-base) var(--ease-smooth);
+}
+
+/* 3rd draft: hover + selected = gold #F2DCA3. */
+.band-selector__item:hover {
+  opacity: 1;
+  color: #F2DCA3;
+}
+
+.band-selector__item.is-active,
+.band-selector__item.active {
+  color: #F2DCA3;
+  opacity: 1;
+}
+
+/* === BRANDS - TWO-ROW MARQUEE (vastspace.com style) ===
+   Per client v2 + later revision:
+   • Two rows, opposite directions (row 1 → left, row 2 → right)
+   • Light bg + solid black logos (no opacity dimming - were too light before)
+   • No internal divider lines, no diamond dots
+   • DEFAULT speed = fast (so the section feels alive while user scrolls
+     past it on adjacent sections).
+   • HOVER over a row → it SLOWS DOWN (so user can read each logo).
+     This is the REVERSE of the earlier vastspace pattern - client wants
+     "hover = slow, default = fast" so the marquee gives time to inspect
+     when intent is shown.
+   ----------------------------------------------------------------- */
+.brands-marquee {
+  /* SPEED MODEL (per client revision):
+     • Default = SLOW base pace (calm idle look while user is sitting still
+       on this section).
+     • While the page is actively SCROLLING (anywhere on the page) →
+       row tracks switch to a FASTER pace, giving the marquee a sense of
+       reactive motion as the user moves through neighbouring sections.
+     • Hover on a row → SLOW (so user can read each logo).
+     `body.is-scrolling` class is toggled by main.js on scroll events
+     with a small idle timeout. */
+  --marquee-speed-row1: 60s;        /* row 1 idle (slow) */
+  --marquee-speed-row2: 38s;        /* row 2 idle, scaled to match row 1 visual speed (60 × 18/28 ≈ 38) */
+  --marquee-speed-row1-active: 22s; /* row 1 while page is scrolling */
+  --marquee-speed-row2-active: 14s; /* row 2 while page is scrolling */
+  --marquee-speed-row1-hover: 110s; /* row 1 on hover (very slow read) */
+  --marquee-speed-row2-hover: 70s;  /* row 2 on hover (proportional) */
+  /* Client tweak: section vertical padding reduced 20% (was clamp
+     2.5-4rem, now 2-3.2rem) so the overall strip shrinks ~20% in
+     height. Combined with the 40% smaller logo cells below this
+     gives a notably more compact brand band. */
+  /* 3rd draft / G2: Trusted By must line up with every other section.
+     Contain it to the SAME --container-max + --container-padding
+     gutter (was full-bleed edge-to-edge) and drop the panel bg - the
+     mock shows logos on the page within the margins, no grey block.
+     overflow:hidden keeps the marquee clipping at the gutter edges. */
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding: clamp(2rem, 4vw, 3.2rem) var(--container-padding);
+  background: transparent;
+  /* No border-top / border-bottom - divider lines removed per brief. */
+  overflow: hidden;
+}
+
+/* 3rd draft: the client's mock uses a SINGLE row of logos, not the
+   two-row opposite-scroll marquee. Hide the reverse (2nd) row so it
+   reads as one clean line like the mock. */
+.brands-marquee__row--reverse {
+  display: none;
+}
+
+/* 3rd draft: "Trusted By" label above the logo rows. Same size as the
+   "Who We Are" eyebrow, uppercase, centred; "Trusted" bold + "By"
+   regular (the <strong> carries the bold half). */
+.brands-marquee__label {
+  margin: 0 0 clamp(1.25rem, 2.4vw, 2rem);
+  text-align: center;
+  font-family: var(--font-body, 'Inter', system-ui, sans-serif);
+  /* Client tweak: "Trusted By" label a bit bigger. */
+  font-size: clamp(1.05rem, 1.3vw, 1.25rem);
+  font-weight: var(--fw-regular);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #2A2A2A;
+}
+.brands-marquee__label-strong {
+  font-weight: var(--fw-bold);
+}
+
+.brands-marquee__row {
+  display: flex;
+  overflow: hidden;
+  /* Soft edge fade so logos blur in/out at the viewport boundaries
+     instead of clipping mid-glyph. */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    #000 8%,
+    #000 92%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    #000 8%,
+    #000 92%,
+    transparent 100%
+  );
+}
+
+.brands-marquee__row + .brands-marquee__row {
+  margin-top: clamp(1.25rem, 2.5vw, 2rem);
+}
+
+.brands-marquee__track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  /* Idle base - slow. Each row pulls its own variable so the
+     pixels-per-second feel matches between rows of different widths.
+     CSS animation only runs when JS hasn't taken over (see the
+     `.brands-marquee--js-driven` override below). */
+  animation: brands-marquee-scroll var(--marquee-speed-row1) linear infinite;
+  will-change: transform;
+}
+
+/* When initBrandsMarquee() takes over (which is the default - JS just
+   has to be reachable), the CSS keyframe animation is disabled and the
+   inline `transform` style set each frame by RAF becomes the only
+   source of truth. This eliminates the duration-change snap issue
+   completely: velocity is interpolated frame-by-frame, no more
+   ~2000px jumps on hover-in / hover-out. */
+.brands-marquee--js-driven .brands-marquee__track,
+.brands-marquee--js-driven .brands-marquee__row--reverse .brands-marquee__track {
+  animation: none !important;
+}
+
+/* Row 2 - same animation, reversed direction + its own duration. */
+.brands-marquee__row--reverse .brands-marquee__track {
+  animation-direction: reverse;
+  animation-duration: var(--marquee-speed-row2);
+}
+
+/* Active page scroll → both rows speed up. The `body.is-scrolling`
+   class is added by main.js whenever the page receives a scroll event
+   and removed after a short idle timeout. */
+body.is-scrolling .brands-marquee__row .brands-marquee__track {
+  animation-duration: var(--marquee-speed-row1-active);
+}
+body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
+  animation-duration: var(--marquee-speed-row2-active);
+}
+
+/* Hover wins over scroll-active - slows the row down so user can read.
+   Listed AFTER the .is-scrolling rules so its specificity (or order)
+   takes precedence on hover. */
+.brands-marquee__row:hover .brands-marquee__track {
+  animation-duration: var(--marquee-speed-row1-hover);
+}
+.brands-marquee__row--reverse:hover .brands-marquee__track {
+  animation-duration: var(--marquee-speed-row2-hover);
+}
+
+.brands-marquee__item {
+  /* UNIFORM CELL SIZING - VaagmiAi tech logos use a wide aspect ratio
+     (icon mark + text wordmark side-by-side) so cells are sized larger
+     than the original luxury-brand PNGs to keep everything readable.
+     Original range was 120-150 × 50-60px before the 3rd-draft reduction.
+     Now restored and expanded to suit our wider SVG logos. */
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(180px, 15vw, 230px);
+  height: clamp(58px, 5vw, 72px);
+  padding: 0 clamp(0.5rem, 1vw, 0.8rem);
+}
+
+.brands-marquee__logo {
+  /* Logo fills its cell to a uniform percentage - this normalises the
+     OPTICAL size across logos that have wildly different intrinsic
+     dimensions. With object-fit:contain the aspect ratio is preserved,
+     but every logo occupies the same visible bounding box.
+     ----------
+     The v2-clean PNGs are already PRE-PROCESSED to pure black on
+     transparent (see src/assets/images/brands/v2/process-logos.ps1).
+     No more blend-modes, no more filter chains, no more per-logo
+     invert() overrides - every logo renders as plain black-on-
+     transparent over the white panel. Clean and uniform across all 46. */
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  opacity: 1;
+  transition: transform 0.3s ease;
+}
+
+/* Subtle hover lift. */
+.brands-marquee__item:hover .brands-marquee__logo {
+  transform: scale(1.06);
+}
+
+/* (Dark-bg per-logo overrides removed - the v2-clean PNGs are already
+   pre-processed black-on-transparent, so no runtime filter is needed.) */
+
+@keyframes brands-marquee-scroll {
+  0%   { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+
+/* Honour reduced-motion users - pause the loop entirely. */
+@media (prefers-reduced-motion: reduce) {
+  .brands-marquee__track {
+    animation: none;
+  }
+}
+
+/* === EVENTS WE SERVE - STICKY FRAME + NEGATIVE-SWAP =====================
+   Per client v2:
+   • Outer .events is tall (400vh = ~one viewport per category × 4) and
+     provides scroll runway. Inner .events__sticky is `position: sticky;
+     top: 0; height: 100vh` - pinned for the full runway.
+   • Frame, big heading, layout columns DON'T move while user scrolls
+     past. JS swaps the active category index based on scroll progress;
+     content + bg colour cross-fade.
+   • Bg alternates white ↔ black on each category index for the
+     "negative version" effect requested in the transcript.
+   • Vertical line on the left fills 0 → 100% as the user scrolls,
+     using `--events-progress` (set by JS) on .events__progress-fill.
+   ----------------------------------------------------------------- */
+.events {
+  position: relative;
+  height: 400vh;          /* ~1 viewport per category × 4 categories */
+  /* Theming - JS toggles `.is-negative` on the inner sticky to flip
+     these for the negative-effect bg swap. */
+  --events-bg: #ffffff;
+  --events-text: #2A2A2A;
+  --events-line-track: rgba(28, 28, 28, 0.12);
+  --events-line-fill: #2A2A2A;
+}
+
+/* Negative variant - applied to .events__sticky (inner) so the bg
+   transition is scoped to the sticky frame. */
+.events__sticky.is-negative {
+  --events-bg: #2A2A2A;
+  --events-text: #ffffff;
+  --events-line-track: rgba(255, 255, 255, 0.18);
+  --events-line-fill: #ffffff;
+}
+
+.events__sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  background: var(--events-bg);
+  color: var(--events-text);
+  /* Negative-style swap is the centrepiece - give it a smooth easing
+     so the white↔black flip feels deliberate, not abrupt. */
+  transition: background-color 0.6s ease, color 0.6s ease;
+  display: flex;
+  flex-direction: column;
+  /* Client tweak: horizontal whitespace kept generous. Vertical
+     padding split - TOP needs to clear the fixed site header (~73px),
+     so 5rem (80px) is the floor. MAX tightened to 5.5rem (was
+     6.5rem) so at wider viewports we don't gobble extra space the
+     photo stack needs. BOTTOM stays mildly compact. */
+  padding-top: clamp(5rem, 5.5vw, 5.5rem);
+  padding-bottom: clamp(1.5rem, 4vw, 3.5rem);
+  /* 3rd draft G2 (margins aligned): the bespoke wide inset is gone.
+     The sticky stays full-bleed (its bg flips edge-to-edge) but the
+     inner title + layout use the SAME --container-max + global
+     --container-padding as every other section, so Events lines up
+     with Who We Are / Standards / Testimonials / Contact. */
+  padding-inline: 0;
+  overflow: hidden;
+}
+
+.events__title,
+.events__layout {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  /* 3rd draft: Events gets DOUBLE the horizontal padding (client
+     asked for +100% side space in this section specifically). Note:
+     this intentionally insets Events more than the other G2-aligned
+     sections. */
+  padding-inline: calc(var(--container-padding) * 2);
+}
+
+.events__title {
+  font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
+  /* 3rd draft: title trimmed a bit more (5.25rem -> 4.5rem desktop). */
+  font-size: clamp(2rem, 5vw, 4.5rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  /* Client tweak: title bottom margin trimmed (2-4rem -> 1.5-3rem)
+     so the photo stack rises a touch closer to the heading. */
+  margin: 0 0 clamp(1.5rem, 4vw, 3rem);
+  text-align: center;
+}
+
+/* Mixed-weight title - "EVENTS" bold, "We Serve" lighter, per mockup.
+   Client tweak: pull "WE SERVE" closer to "EVENTS" (0.4ch -> 0.1ch). */
+.events__title--bold {
+  font-weight: 800;
+}
+.events__title--light {
+  font-weight: 300;
+  margin-left: 0.1ch;
+}
+
+.events__layout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: center;
+  min-height: 0; /* allow children to size against parent */
+}
+
+/* ── LEFT COLUMN ── */
+.events__left {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  height: 100%;
+}
+
+.events__progress-line {
+  flex-shrink: 0;
+  width: 2px;
+  /* Client tweak: line taller - spans the full 2-line title + 4-line
+     description block of the tallest category (dialed back a touch). */
+  height: clamp(13rem, 29vh, 16rem);
+  background: var(--events-line-track);
+  position: relative;
+  align-self: center;
+  transition: background-color 0.6s ease;
+}
+
+/* JS sets `--events-progress: 0..1` on this element (or its parent);
+   we map it to height with a calc(). */
+.events__progress-fill {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: calc(var(--events-progress, 0) * 100%);
+  background: var(--events-line-fill);
+  transition: background-color 0.6s ease, height 0.15s linear;
+}
+
+/* Stack of category panels - only `.is-active` is visible; others fade
+   out to 0 in the same absolute slot. */
+.events__cat-stack {
+  position: relative;
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.events__cat {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+  pointer-events: none;
+  margin: 0;
+}
+
+.events__cat.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Category title (WEDDINGS / CORPORATE / …) - client tweak:
+   font-weight 700 -> 300 (thinner) and bottom margin tightened so
+   the subtitle sits closer beneath. The reveal line-mask animation
+   composes on top unchanged. */
+.events__cat-title {
+  font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
+  /* 3rd draft: category heading a bit smaller (was 2.25-4rem). */
+  font-size: clamp(1.9rem, 3.8vw, 3.4rem);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  margin: 0 0 clamp(0.5rem, 1vw, 0.85rem);
+}
+
+/* GSAP-SplitText-style line-mask reveal (Elyse-residence pattern).
+   Each word is wrapped in an overflow:hidden mask; the inner text
+   starts translated below the mask edge and rises to 0 when the
+   parent .events__cat becomes .is-active. Multi-word titles get a
+   stagger via :nth-child delays. */
+.events__cat-mask {
+  display: block;
+  overflow: hidden;
+  line-height: 1;
+  padding-bottom: 0.06em; /* keep descenders from being clipped */
+}
+
+.events__cat-text {
+  display: inline-block;
+  transform: translateY(110%);
+  will-change: transform;
+}
+
+@keyframes events-line-rise {
+  0%   { transform: translateY(110%); }
+  100% { transform: translateY(0); }
+}
+
+/* When a category becomes active, animate each of its line-mask texts
+   into view, staggered. Restart on every (re)activation by relying on
+   keyframes + animation-fill-mode forwards. */
+.events__cat.is-active .events__cat-text {
+  animation: events-line-rise 0.85s cubic-bezier(0.65, 0.05, 0.36, 1) forwards;
+}
+.events__cat.is-active .events__cat-mask:nth-child(2) .events__cat-text {
+  animation-delay: 0.12s;
+}
+.events__cat.is-active .events__cat-mask:nth-child(3) .events__cat-text {
+  animation-delay: 0.24s;
+}
+
+.events__cat-desc {
+  font-size: var(--text-body); /* 3rd draft: this IS the reference paragraph size */
+  line-height: 1.6;
+  /* 3rd draft: text block width ~= the title width so the copy
+     doesn't run too long (was 32em). */
+  max-width: 20rem;
+  margin: 0;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.events__cat.is-active .events__cat-desc {
+  opacity: 0.85;
+  transform: translateY(0);
+  /* Description fades in AFTER the title finishes rising, so the eye
+     follows title → body naturally. */
+  transition-delay: 0.4s;
+}
+
+/* ── RIGHT COLUMN - staggered photo pair ── */
+.events__right {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Client tweak: --cursor-x / --cursor-y CSS vars are updated by
+   initEventsScroll's mousemove handler (see main.js). The active
+   photos pick those up via translate() below for the cursor-follow
+   parallax feel.
+   Container height reduced from 420-640 to 360-500 + 50vh cap so
+   the photo stack stays within the sticky's available vertical
+   space (sticky 100vh minus padding-top + padding-bottom + title
+   block ~ 240-260px on most viewports). At 1500×800 the previous
+   65vh value (520px) overflowed the 496px available area by 24px,
+   clipping the photos' bottom. New 50vh = 400px clears every common
+   laptop/desktop viewport cleanly. */
+.events__photo-stack {
+  --cursor-x: 0px;
+  --cursor-y: 0px;
+  position: relative;
+  width: 100%;
+  /* Client tweak: image section scaled +5%. Stack height target now
+     462px at the 1500×800 ref (462 / 800 = 57.75vh), clamped
+     441-609px. Both photos are height-driven so they grow +5% too. */
+  height: clamp(441px, 57.75vh, 609px);
+  z-index: 2;
+}
+
+.events__photo-set {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  /* Paper + polythin model: visited sets stay visible as the base;
+     show/hide is driven entirely by each photo's clip-path, not
+     opacity, so the old image never disappears underneath. */
+}
+
+/* z-index by category index so a higher category always stacks ON TOP
+   of the lower one - the new image peels over the old "paper", and on
+   scroll-up the top set peels off to expose the one beneath. */
+.events__photo-set[data-idx="0"] { z-index: 1; }
+.events__photo-set[data-idx="1"] { z-index: 2; }
+.events__photo-set[data-idx="2"] { z-index: 3; }
+.events__photo-set[data-idx="3"] { z-index: 4; }
+
+/* Current (topmost) set gets pointer events + the cursor parallax. */
+.events__photo-set.is-current {
+  pointer-events: auto;
+}
+
+.events__photo {
+  position: absolute;
+  border-radius: 14px;
+  object-fit: cover;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+  /* Hidden default for not-yet-revealed sets. inset(0 0 100% 0) =
+     zero-height rect pinned at the TOP, matching the wipe-in
+     keyframe's 0% exactly (image grows top -> bottom) so there's no
+     flash when a set starts entering. */
+  clip-path: inset(0% 0% 100% 0%);
+  filter: brightness(0.35);
+  will-change: clip-path, filter;
+}
+
+/* Front-left photo - film-poster TALL portrait (3:5 ratio).
+   HEIGHT-driven sizing: height comes from a % of the stack, width
+   auto-derives from aspect-ratio 3/5. This way the 3:5 portrait
+   shape is GUARANTEED at every viewport.
+   • height: 59% (client tweak +5% from previous 56%)
+   • left: var(--front-left) -> JS sets in px per frame; the OVERLAP
+     constant in initEventsScroll's positionFront() also tuned down
+     from 50 -> 25, which shifts the front a touch further left
+     (less of it sits on top of back).
+   • top 50% + translateY -50% -> vertically centered against back */
+.events__photo--front {
+  /* Horizontal-only widen (two +5% passes): height stays 59% of stack
+     (273px @ ref), width set explicitly to 28.0% of stack width
+     (~180px) instead of deriving from 3/5. Ratio is now ~0.66. */
+  /* 3rd draft: FRONT photo +5% - width AND height (further +5% client tweak). */
+  height: 65.1%;
+  width: 37.6%; /* image section another +5% */
+  left: var(--front-left, 28%);
+  /* Same vertical anchor as back so the pair shifts up together
+     and both photos stay vertically centred relative to each other.
+     Client tweak: nudged up a touch (45% -> 40%). */
+  top: 40%;
+  transform: translateY(-50%);
+  z-index: 2;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
+}
+
+/* Back-right photo - DOMINANT TALL portrait (3:5 ratio).
+   HEIGHT-driven sizing (same reason as front) so the 3:5 shape is
+   guaranteed at every viewport.
+   • height: 95% of stack -> 5% smaller than full stack (client tweak)
+   • width auto -> (stack-height × 0.95) × 3/5
+   • right: 15% -> shifted LEFT further from the right edge; pulls
+     the whole pair more toward the text column. The JS positionFront
+     auto-recomputes front's left to keep the 50px overlap.
+   • top: 50% + translateY -50% -> vertically centred in the stack
+     since back is no longer 100% tall. */
+.events__photo--back {
+  /* Horizontal-only widen (two +5% passes): height stays 95% of stack
+     (439px @ ref), width set explicitly to 45.0% of stack width
+     (~290px) instead of deriving from 3/5. Ratio is now ~0.66. */
+  height: 99.7%;
+  width: 56.8%; /* image section another +5% */
+  right: 24%; /* 3rd draft: whole image cluster shifted a bit LEFT (was 15%) */
+  top: 40%;
+  transform: translateY(-50%);
+  z-index: 1;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.16);
+}
+
+/* Direction-aware wipe (per client: image change follows scroll dir).
+   Scroll DOWN -> peel IN top->bottom (this keyframe, used by
+   .is-entering). A zero-height rect pinned at the TOP grows downward
+   (bottom inset 100% -> 0) so the new image unrolls over the paper
+   from top to bottom. */
+@keyframes events-photo-reveal-down {
+  0%   { clip-path: inset(0% 0% 100% 0%); filter: brightness(0.35); }
+  100% { clip-path: inset(0% 0% 0%   0%); filter: brightness(1);    }
+}
+
+/* ── Paper + polythin layering ─────────────────────────────────────
+   • Settled "paper" base (.is-revealed): every set at/below the
+     current category stays fully shown underneath - static, no anim.
+   • Entering (scroll DOWN): the new top set peels IN over the paper
+     with the reveal-down curtain (back first, then front). It has NO
+     .is-revealed so its pre-animation state is the hidden default
+     (matches the keyframe 0%) - no flash. `forwards` holds it full.
+   • Exiting (scroll UP, Option A): the set just left is on top and
+     peels OFF, exposing the previous (still-revealed) set below. It
+     KEEPS .is-revealed so the pre-animation state is full (matches
+     peel-off 0%) - no flash; the animation `forwards` ends hidden. */
+.events__photo-set.is-revealed .events__photo {
+  clip-path: inset(0% 0% 0% 0%);
+  filter: brightness(1);
+}
+
+.events__photo-set.is-entering .events__photo--back {
+  animation: events-photo-reveal-down 1.05s cubic-bezier(0.65, 0.05, 0.36, 1) 0.1s forwards;
+}
+.events__photo-set.is-entering .events__photo--front {
+  animation: events-photo-reveal-down 1.05s cubic-bezier(0.65, 0.05, 0.36, 1) 0.32s forwards;
+}
+
+/* Scroll UP -> peel OFF bottom->top (used by .is-exiting, which JS
+   only sets on scroll-up). The bottom edge slides UP (bottom inset
+   0 -> 100%), dimming as it lifts off, so the leaving image vanishes
+   bottom-to-top and the paper beneath is exposed niche-se-uper. End
+   state inset(0 0 100% 0) === the hidden default, so the post-peel
+   collapse is perfectly continuous (no flash). */
+@keyframes events-photo-peeloff-up {
+  0%   { clip-path: inset(0% 0% 0%   0%); filter: brightness(1);    }
+  100% { clip-path: inset(0% 0% 100% 0%); filter: brightness(0.35); }
+}
+.events__photo-set.is-exiting .events__photo--front {
+  animation: events-photo-peeloff-up 0.95s cubic-bezier(0.65, 0.05, 0.36, 1) 0s forwards;
+}
+.events__photo-set.is-exiting .events__photo--back {
+  animation: events-photo-peeloff-up 0.95s cubic-bezier(0.65, 0.05, 0.36, 1) 0.18s forwards;
+}
+
+/* Client tweak (Option A): cursor-follow parallax on the active
+   photo pair. The active photos pick up the --cursor-x / --cursor-y
+   offset (set per-frame by JS rAF in initEventsScroll) via the
+   individual `translate` CSS property - separate from `transform`
+   so it composes with the existing clip-path / box-shadow without
+   conflict. Front photo drifts at 1.0x (foreground = more parallax),
+   back photo drifts at 0.55x for depth illusion. The transition on
+   `translate` smooths sub-frame cursor jitter into a fluid drift. */
+.events__photo-set.is-current .events__photo--front {
+  translate: calc(var(--cursor-x) * 1.0) calc(var(--cursor-y) * 1.0);
+  transition: translate 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.events__photo-set.is-current .events__photo--back {
+  translate: calc(var(--cursor-x) * 0.55) calc(var(--cursor-y) * 0.55);
+  transition: translate 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Decorative horizontal stripes block removed per client - five thin
+   lines used to draw in from right to left behind the photo stack on
+   each category change, but the client found them distracting and
+   serving no real purpose. All related selectors, the keyframe, and
+   the JS class toggle (is-stripes-active) have been stripped too. */
+
+/* On the negative (dark) variant, soften the shadow so it doesn't
+   clip awkwardly against the black bg. */
+.events__sticky.is-negative .events__photo {
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45),
+              0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+/* ── RESPONSIVE ──
+   Responsive (Phase 2): extended 900 -> 1024 so the 400vh pinned
+   Events choreography also collapses to a clean static stack on
+   tablets/iPads, not just phones (per client: simplify <=1024). */
+@media (max-width: 1024px) {
+  .events {
+    height: auto;
+  }
+  .events__sticky {
+    position: relative;
+    height: auto;
+    padding: 3rem 1.25rem;
+  }
+  .events__layout {
+    grid-template-columns: 1fr;
+  }
+  .events__cat-stack {
+    height: 240px;
+  }
+  .events__photo-stack {
+    height: 60vh;
+    margin-top: 1.5rem;
+  }
+  .events__progress-line {
+    display: none;
+  }
+}
+
+/* === OUR STANDARDS - CLIP-REVEAL ZIGZAG GRID =====================
+   Per client v2: NO IMAGES, just typography + soft scroll-driven
+   reveals. Six items in a 3-column grid; the middle column is offset
+   downward to create the "brick" / zigzag rhythm visible in the
+   mockup. As each item enters the viewport, IntersectionObserver in
+   main.js adds `.is-revealed` and the title + description "uncover"
+   themselves rightward via animated clip-path - the thin vertical
+   line on the left stays put and reads as the curtain edge the text
+   is sliding out from. */
+.standards {
+  background: #2A2A2A;
+  color: #ffffff;
+  /* Client tweak (round 2): a touch more breathing room than the
+     first compact pass - section still fits the viewport but feels
+     less tight at the edges. Range now 2.5-5rem (was 2.5-4rem). */
+  padding-block: clamp(2.5rem, 5vw, 5rem);
+}
+
+.standards__inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  /* Client tweak: left/right padding +50%, then LEFT only +30% more
+     (1.5 * 1.3 = 1.95). */
+  padding: 0 calc(var(--container-padding) * 1.5) 0 calc(var(--container-padding) * 1.95);
+}
+
+.standards__title {
+  font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
+  /* Compact-mode (round 2): title size unchanged from prior compact
+     pass, bottom margin nudged from 1.75-3.5rem to 2-4rem so the
+     title→grid gap reads a bit more deliberate. */
+  font-size: clamp(2.25rem, 5vw, 4.5rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 0 0 clamp(2rem, 4vw, 4rem);
+}
+
+/* Revision round 2 S1: pull "OUR" closer to "STANDARDS" (was 0.4ch,
+   now 0.1ch) so the two words read as a tight phrase, not separated. */
+.standards__title--light { font-weight: 300; margin-right: 0.1ch; }
+.standards__title--bold  { font-weight: 800; }
+
+/* 3-COLUMN ZIGZAG GRID - middle column nudged down.
+   Compact-mode (round 2): row-gap and zigzag offset both slightly
+   relaxed from the tightest compact pass. */
+.standards__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: clamp(2rem, 5vw, 5rem);
+  row-gap: clamp(1.75rem, 4vw, 4rem);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Middle column zigzag offset - 2-4rem range for a slightly more
+   noticeable brick stagger while still keeping the grid within view. */
+.standards__grid > .standard:nth-child(3n+2) {
+  margin-top: clamp(2rem, 4vw, 4rem);
+}
+
+/* ── Single standard ──────────────────────────────────────────────
+   Layout: thin vertical line on the left, then reveal column with
+   title + description. The line is always visible; the reveal column
+   has an animated clip-path that uncovers the text rightward.
+   Client tweak: `align-self: start` so each standard cell sizes to
+   its OWN content height (not stretched to match the tallest sibling
+   in the row). With this, .standard__line's align-self:stretch fills
+   only this standard's actual title+desc height - lines no longer
+   over-extend past short paragraphs to match a taller neighbour. */
+.standard {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: clamp(0.75rem, 1.5vw, 1.25rem);
+  margin: 0;
+  align-self: start;
+}
+
+/* Revision round 2 S2 + follow-up: the vertical accent line stretches
+   to fill the standard cell's height. Combined with .standard's
+   `align-self: start` above, the cell is now exactly as tall as its
+   title + description block - so the line matches that height
+   precisely. No more lines hanging past the end of short paragraphs. */
+.standard__line {
+  display: block;
+  width: 1px;
+  align-self: stretch;
+  background: rgba(255, 255, 255, 0.55);
+  margin-top: 0.4em;
+  flex-shrink: 0;
+}
+
+/* Reveal wrapper - clip-path animates from "fully clipped from right"
+   (text hidden behind the line) to "fully visible". The clip starts
+   at the LEFT (where the line is) and uncovers rightward. */
+.standard__reveal {
+  display: block;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.95s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: clip-path;
+}
+
+.standard.is-revealed .standard__reveal {
+  clip-path: inset(0 0 0 0);
+}
+
+/* Standards card title - revision round 2 S4 spirit: thinner weight
+   (700 -> 300) to match the rest of the typography pass. */
+.standard__title {
+  font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
+  font-size: clamp(1.5rem, 2.4vw, 2.25rem);
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  text-transform: uppercase;
+  margin: 0 0 clamp(0.65rem, 1vw, 1rem);
+  color: #ffffff;
+}
+
+/* Standards card subtitle - revision round 2 S4: thinner type
+   (was 400 default -> 300 Light). */
+.standard__desc {
+  font-family: var(--font-body);
+  font-size: clamp(0.875rem, 1vw, 1rem);
+  font-weight: 300;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.78);
+  margin: 0;
+  max-width: 28ch;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 900px) {
+  .standards__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  /* Reset the zigzag - every other item drops instead of every 3rd. */
+  .standards__grid > .standard:nth-child(3n+2) {
+    margin-top: 0;
+  }
+  .standards__grid > .standard:nth-child(2n) {
+    margin-top: clamp(2rem, 5vw, 3.5rem);
+  }
+}
+
+@media (max-width: 600px) {
+  .standards__grid {
+    grid-template-columns: 1fr;
+  }
+  .standards__grid > .standard:nth-child(2n),
+  .standards__grid > .standard:nth-child(3n+2) {
+    margin-top: 0;
+  }
+  .standard__desc { max-width: none; }
+}
+
+/* Reduced motion: skip the slide; just show the text. */
+@media (prefers-reduced-motion: reduce) {
+  .standard__reveal {
+    clip-path: none !important;
+    transition: none !important;
+  }
+}
+
+/* Legacy aliases - keep these selectors validating in case any other
+   stylesheet still references them. The actual section now lives on
+   .standards__* and .standard__*. */
+.standard-card,
+.standard-card__title,
+.standard-card__desc,
+.standards-scroll,
+.standards-scroll__bg,
+.standards-scroll__track,
+.standards-scroll__card,
+.standards-scroll__card-img,
+.standards-scroll__card-body,
+.standards-scroll__card-title,
+.standards-scroll__card-desc,
+.standards-scroll__header,
+.standards-scroll__bg-img,
+.standards-scroll__bg-overlay {
+  display: revert;
+}
+
+/* === TESTIMONIALS - 2-COL split + iOS-style cards =================
+   Per client v2: gold ONLY on the small "Testimonials" eyebrow label;
+   heading is bold black, body text grey, "See all reviews" link is
+   Google-blue. Section bg #f0f0f0 (the locked light panel from the
+   palette). Cards look like iOS modal sheets - small grey pill
+   handle at top, white bg, rounded corners, soft shadow. */
+.testimonials {
+  background: #f0f0f0;
+  color: #2A2A2A;
+  padding-block: clamp(4rem, 8vw, 7rem);
+  overflow: hidden;
+}
+
+.testimonials__layout {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  /* 3rd draft: +100% horizontal padding on BOTH sides (was a single
+     --container-padding). */
+  padding-inline: calc(var(--container-padding) * 2);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
+  /* 3rd draft: cards pulled further left - minimal column gap. */
+  gap: clamp(0rem, 0.5vw, 0.5rem);
+  align-items: center;
+}
+
+/* ── LEFT COLUMN - gold eyebrow + bold black heading ──────────── */
+.testimonials__intro {
+  max-width: 28ch;
+}
+
+.testimonials__eyebrow {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.9rem; /* 3rd draft: eyebrow a touch bigger (was 0.75rem) */
+  /* 3rd draft: gold text Semibold, spacing closer, sits nearer the title. */
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #c8a560;            /* the gold accent */
+  /* Client tweak: nudge the "Testimonials" eyebrow a touch down. */
+  margin-top: clamp(0.5rem, 1vw, 1rem);
+  margin-bottom: clamp(0.6rem, 1.2vw, 1rem);
+}
+
+.testimonials__title {
+  font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
+  /* Capped at 3.25rem (52px) so the longest line "THE ROAMING" fits
+     within the left grid column without breaking. Verified at the
+     standard 1fr / 1.6fr split. */
+  font-size: clamp(1.9rem, 3.6vw, 3.25rem);
+  font-weight: var(--fw-medium); /* 3rd draft: "They Chose" title = Medium */
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  margin: 0;
+  color: #2A2A2A;
+}
+
+/* Each line on its own row, kept on a single line of text so the
+   heading reads as exactly 3 lines: THEY CHOSE / THE ROAMING / AGENCY. */
+.testimonials__title-line {
+  display: block;
+  white-space: nowrap;
+}
+
+/* ── RIGHT COLUMN - viewport with horizontal-scroll cards ─────── */
+.testimonials__viewport {
+  position: relative;
+  /* viewport extends to viewport edge so cards bleed off the right
+     and the next card peeks in - feels like a real carousel. */
+  min-width: 0;
+  /* 3rd draft: nudge the whole cards block a bit further left. */
+  margin-left: clamp(-2.5rem, -3vw, -1.25rem);
+}
+
+.testimonials__track {
+  display: flex;
+  gap: clamp(1rem, 2vw, 1.5rem);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  /* 3rd draft / G2: no extra right bleed - the layout gutter now
+     contains the carousel on both sides like every other section. */
+  padding: 1.5rem 0;
+}
+.testimonials__track::-webkit-scrollbar { display: none; }
+
+/* ── Card ────────────────────────────────────────────────────── */
+.testimonial-card {
+  /* 3rd draft: width +5% again (was 189-241px); height trimmed
+     another ~5% via tighter vertical padding (22/18 -> 18/14). */
+  flex: 0 0 clamp(198px, 16.5vw, 253px);
+  scroll-snap-align: start;
+  position: relative;
+  background: #ffffff;
+  border-radius: 28px;
+  padding: 18px 24px 14px;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    0 14px 40px rgba(0, 0, 0, 0.10),
+    0 2px 6px rgba(0, 0, 0, 0.06);
+  /* Subtle handle pill at the top - the iOS modal-sheet drag
+     indicator. Implemented as ::before so we don't need extra DOM. */
+}
+.testimonial-card::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 64px;
+  height: 5px;
+  background: #d8d8d8;
+  border-radius: 999px;
+}
+
+.testimonial-card__inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 18px;
+  min-height: 280px;
+  padding-top: 12px;
+}
+
+.testimonial-card__stars {
+  color: #f5a623;
+  font-size: 1.05rem;
+  letter-spacing: 0.18em;
+  margin-bottom: 0.85rem;
+  /* Use mono-ish for clean star alignment. */
+  font-family: var(--font-body);
+  line-height: 1;
+}
+
+.testimonial-card__text {
+  font-family: var(--font-body);
+  /* Client tweak: card text a touch smaller (0.95 -> 0.85rem, ~10%). */
+  font-size: 0.85rem;
+  /* Client tweak: review quote weight up a notch (inherits Light 300
+     from body -> Regular 400 here). Only the quote text, not the
+     author/source/star rows. */
+  font-weight: var(--fw-regular);
+  font-style: normal;
+  color: #2a2a2a;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.testimonial-card__author {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 6px;
+}
+
+.testimonial-card__source {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: #888;
+  font-weight: 400;
+}
+
+/* The colourful Google G icon. SVG inline in HTML - this rule sizes
+   it consistently. */
+.testimonial-card__g-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+.testimonial-card__g-icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.testimonial-card__gmb-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #1a73e8;          /* Google blue */
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-top: 12px;
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+.testimonial-card__gmb-link:hover {
+  color: #1557b0;
+  transform: translateX(2px);
+}
+
+/* ── Chevron nav buttons ──────────────────────────────────────── */
+.testimonials__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 0;
+  background: #ffffff;
+  color: #2A2A2A;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.12),
+    0 0 0 1px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+  z-index: 5;
+}
+.testimonials__nav:hover {
+  transform: translateY(-50%) scale(1.08);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+}
+.testimonials__nav:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.testimonials__nav svg { width: 18px; height: 18px; }
+.testimonials__nav--prev { left: -22px; }
+/* Client tweak: shift the NEXT arrow further right again (-22 -> -48). */
+.testimonials__nav--next { right: -48px; }
+
+/* On smaller viewports the prev arrow can collide with the heading,
+   so collapse to a simpler bottom-aligned pair. */
+@media (max-width: 900px) {
+  .testimonials__layout {
+    grid-template-columns: 1fr;
+    padding-right: var(--container-padding);
+  }
+  .testimonials__nav--prev { left: auto; right: 64px; top: auto; bottom: -56px; transform: none; }
+  .testimonials__nav--next { right: 12px; top: auto; bottom: -56px; transform: none; }
+  .testimonials__nav--prev:hover,
+  .testimonials__nav--next:hover { transform: scale(1.08); }
+}
+
+/* === PHOTO GALLERY === */
+/* Per client revision: title removed; section background goes dark
+   so the photos pop. Photos are visual-only - cursor stays default
+   (not pointer) so users know they aren't clickable. */
+/* Client tweak (Option D): panel-reveal with internal gallery scroll.
+   • .gallery-pin-stack is the OUTER wrapper. JS sets its height to
+     (galleryContentHeight + 1 viewport) so the sticky has enough
+     scroll runway for BOTH phases:
+       Phase 1: gallery content translates upward inside the sticky
+                frame - user sees all 12 photos scroll past inside.
+       Phase 2: gallery holds at its "last frame", contact + footer
+                (z-index:2 below) rise over the pinned gallery from
+                the bottom of the viewport.
+   • .gallery-section is sticky 100vh tall with overflow:hidden so
+     only one viewport of the gallery content shows at a time and
+     the rest is masked.
+   • .gallery-track is the element JS translates each frame. */
+.gallery-pin-stack {
+  position: relative;
+  /* Height set by JS in initGalleryReveal() based on actual content. */
+}
+
+/* 3rd draft: +50% horizontal padding for the gallery (scoped to its
+   own .container so other sections' container is unchanged). */
+.gallery-section .container {
+  padding-inline: calc(var(--container-padding) * 1.5);
+}
+
+.gallery-section {
+  background: #2A2A2A;
+  /* 5th draft: gallery is now a normal in-flow slider section (was a
+     pinned sticky 100vh). Removed sticky/height/overflow. */
+  padding-block: clamp(2.5rem, 5vw, 4rem);
+}
+
+/* 5th draft slider: all slides stack in the SAME grid cell so the
+   container sizes to the collage and only the active slide shows
+   (opacity crossfade). Arrows sit just outside the collage edges. */
+.gallery-slider {
+  position: relative;
+  display: grid;
+}
+.gallery-slide {
+  grid-area: 1 / 1;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.7s var(--ease-smooth), visibility 0.7s;
+  pointer-events: none;
+}
+.gallery-slide.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.gallery-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 4;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 0;
+  background: rgba(255, 255, 255, 0.92);
+  color: #2A2A2A;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.gallery-nav:hover {
+  transform: translateY(-50%) scale(1.08);
+  background: #ffffff;
+}
+.gallery-nav--prev { left: clamp(-22px, -1.5vw, -8px); }
+.gallery-nav--next { right: clamp(-22px, -1.5vw, -8px); }
+
+.gallery {
+  display: grid;
+  gap: var(--space-sm);
+}
+
+/* 3rd draft: client-reference collage - LEFT (2 stacked) · CENTER
+   (1 big tall + 2 small) · RIGHT (2 stacked). 6 cols x 4 rows = 24
+   tracks, 7 areas that perfectly tile (zero gaps). Row height kept
+   compact so all 7 are visible at once on desktop (no scroll). */
+.gallery--masonry {
+  grid-template-columns: repeat(6, 1fr);
+  /* 5th draft: smaller rows so the whole collage reads more compact. */
+  grid-auto-rows: clamp(88px, 9.2vw, 145px);
+  grid-template-areas:
+    "l1 l1 c  c  r1 r1"
+    "l1 l1 c  c  r1 r1"
+    "l2 l2 c  c  r2 r2"
+    "l2 l2 s1 s2 r2 r2";
+}
+/* center hero (tall portrait) */
+.gallery--masonry .gallery__item:nth-child(1) { grid-area: c; }
+/* left stacked */
+.gallery--masonry .gallery__item:nth-child(2) { grid-area: l2; }
+/* right stacked */
+.gallery--masonry .gallery__item:nth-child(3) { grid-area: r1; }
+.gallery--masonry .gallery__item:nth-child(4) { grid-area: r2; }
+/* center small pair */
+.gallery--masonry .gallery__item:nth-child(5) { grid-area: s1; }
+/* left top - the landscape photo fits the wide stacked cell */
+.gallery--masonry .gallery__item:nth-child(6) { grid-area: l1; }
+.gallery--masonry .gallery__item:nth-child(7) { grid-area: s2; }
+
+.gallery__item {
+  position: relative;
+  overflow: hidden;
+  /* 5th draft: rounder picture corners per client. */
+  border-radius: clamp(12px, 1.4vw, 20px);
+  cursor: default;  /* explicitly not clickable */
+}
+
+.gallery__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Keep the upper-middle (faces) when a cell still has to crop a
+     little - heads don't get chopped off. */
+  object-position: center 32%;
+  transition: transform 0.6s var(--ease-smooth);
+}
+
+.gallery__item:hover img {
+  transform: scale(1.05);
+}
+
+.gallery__item--tall {
+  grid-row: span 2;
+}
+
+/* === 3D GLOBE SECTION (amra.com style) ===
+   Per client v2: bg flipped from dark to light grey (#f0f0f0). Sphere
+   internals (solid white inner mesh + black grid lines) UNCHANGED per
+   user's explicit instruction - only the surrounding chrome adapts to
+   the new light panel. */
+.globe-section {
+  background: #f0f0f0;
+  color: #2A2A2A;
+  overflow: hidden;
+  /* Client tweak: was min-height 150vh which left ~60vh of dead space
+     above + below the globe (content/layout is only ~90vh). Sized to
+     the content now. Also trim this section's top/bottom padding so it
+     doesn't feel airy. */
+  min-height: auto;
+  padding-block: clamp(2rem, 4vw, 3.5rem);
+}
+
+.globe-layout {
+  display: grid;
+  /* Client mockup match: widen the text column so the 4-line title
+     fits without breaking each span into a second line (was 0.33/0.67). */
+  grid-template-columns: 0.42fr 0.58fr;
+  gap: var(--space-2xl);
+  align-items: center;
+  min-height: 90vh;
+}
+
+.globe-text {
+  text-align: left;
+  /* 3rd draft: +100% horizontal space on the LEFT side only - push
+     the title/subtitle/CTA block in by an extra container gutter. */
+  padding-left: var(--container-padding);
+}
+
+/* Heading + subtitle on light bg - flipped from white-on-dark. The
+   gold .section__label (eyebrow "Available Worldwide") stays gold.
+   Client tweak: vertical compactness for the long heading. Was
+   line-height:1.15 + text-4xl which wrapped to 5 spacey lines covering
+   nearly the full viewport. Tightened: smaller font, line-height 1.0,
+   shorter bottom margin so the heading block doesn't dominate. */
+.globe-section .section__title {
+  color: #2A2A2A;
+  /* Client tweak: title a bit bigger; forced 4-line stack below. */
+  font-size: clamp(2.4rem, 4.2vw, 3.6rem);
+  line-height: 1.05;
+  /* Client tweak: title-to-subtitle gap -40%. */
+  margin-bottom: clamp(0.45rem, 0.9vw, 0.75rem);
+}
+/* Force the 4-line break - each <span> is a block-level line that
+   never wraps internally, so "Across Europe's" / "Most Beautiful"
+   stay on a single line each (client mockup match). */
+.globe-section .globe-title__line {
+  display: block;
+  white-space: nowrap;
+}
+.globe-section .section__subtitle {
+  color: #414141;
+  /* Client tweak: subtitle a touch smaller (text-lg -> text-body). */
+  font-size: var(--text-body);
+  /* Client tweak: Light weight (Nohemi 300) - lighter than Regular but
+     NOT the super-thin Thin/Extra-Light weights. */
+  font-weight: var(--fw-light);
+  /* Tighter line-height for the subtitle too so its 2-3 lines stack
+     closer instead of feeling airy. */
+  line-height: 1.45;
+}
+
+/* Globe container - Client tweak history:
+   • Was width:160% + max-width:1080px (intentionally overflowed right
+     column, relied on section's overflow:hidden to clip).
+   • Switched to width:100% + max-width:864 (-20%) so globe fully
+     visible (no right-edge clipping).
+   • Bumped max-width 864 -> 950 (+10%) per latest client tweak -
+     slightly larger sphere while still fitting inside the column. */
+.globe-container {
+  position: relative;
+  width: 100%;
+  /* Client mockup match: globe back to a large size (was 727 after
+     -15% trim; client mockup shows a much larger globe filling the
+     right column). 920 ≈ original 950 minus a hair. */
+  max-width: 920px;
+  margin-left: 0;
+  perspective: 1200px;
+  /* Client mockup match: globe sits roughly centred in its column,
+     not shifted right (translateX removed). Client tweak: right-tilt
+     rotation 10deg -> 20deg. */
+  transform: rotate(20deg);
+  transform-origin: center center;
+}
+
+/* Globe canvas (Three.js 3D render) */
+.globe-canvas {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Cards wrapper overlays the SVG */
+.globe-cards {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Floating city cards - pill shape, soft shadow per client revision.
+   Cards no longer cycle in/out via JS - they stay visible permanently.
+   Front-of-globe cities show; back-of-globe cities are masked to opacity 0
+   based on the dot product between camera-forward and the city's lat/lon
+   vector (computed each frame in initGlobeAnimation). Smooth opacity
+   transition keeps the front/back swap from feeling jittery. */
+.globe-card {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 10px 20px 10px 14px;
+  border-radius: 40px;
+  /* Client tweak: dark border matching the globe grid lines (#333333),
+     made a bit thicker (1.5 -> 2.5px). */
+  border: 2.5px solid #333333;
+  /* Reduced from 0 6px 30px rgba(0,0,0,0.2) - client said "reduce the
+     shadows… these type of shadows" in the transcript. */
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  z-index: 10;
+  pointer-events: auto;
+  cursor: pointer;
+  opacity: 0;
+  transform: scale(1) translateY(0) translateX(0);
+  transition: opacity 0.4s ease,
+              filter 0.3s ease;
+}
+
+/* Card visibility + transform handled by JS */
+
+.globe-card__icon {
+  /* Per client revision - every card now wears the SAME black map-pin
+     SVG (no per-city emoji). Sized to read crisp next to the bold city
+     label inside the white pill. */
+  /* Client tweak: pin icon a bit bigger (18 -> 22px). */
+  width: 22px;
+  height: 22px;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  /* Client tweak: pin icon was too dark (#333333) - lightened a bit
+     to #5a5a5a. SVG uses fill="currentColor" so this drives the fill. */
+  color: #5a5a5a;
+  line-height: 1;
+}
+
+.globe-card__icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.globe-card__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  flex-shrink: 0;
+}
+
+.globe-card__info {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+}
+
+.globe-card__city {
+  /* Client spec (inspector): Nohemi Regular, 18px / 20px, -0.3px.
+     Colour shown as #393939 - using the brand-standard #2A2A2A
+     (Phase A1 replaced all #393939 site-wide). */
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 20px;
+  letter-spacing: -0.3px;
+  font-weight: var(--fw-regular);
+  color: #2A2A2A;
+  white-space: nowrap;
+}
+
+/* Country subtitle dropped per client revision - rule kept (display:none)
+   so any leftover .globe-card__country in cached HTML / future re-adds
+   doesn't blow out the card layout. */
+.globe-card__country {
+  display: none;
+}
+
+/* Hover photo reveal */
+.globe-card__photo {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) scale(0.9);
+  width: 200px;
+  height: 140px;
+  border-radius: 12px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+.globe-card__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.globe-card:hover .globe-card__photo {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+  pointer-events: auto;
+}
+
+/* Card positions handled by JS - no fixed CSS positions needed */
+
+/* All globe animations handled by JS */
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .globe-section {
+    min-height: auto;
+  }
+
+  .globe-layout {
+    grid-template-columns: 1fr;
+    text-align: center;
+    min-height: auto;
+  }
+
+  .globe-text {
+    text-align: center;
+  }
+
+  .globe-text .section__subtitle {
+    margin: 0 auto;
+  }
+
+  /* Phase 4: Three.js is not loaded on <=1024 (perf), so the canvas
+     would be an empty box - hide it; the section stands cleanly on
+     its "Available Worldwide" text alone. */
+  .globe-container {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .globe-container {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .globe-card {
+    padding: 7px 14px 7px 10px;
+    gap: 8px;
+  }
+
+  .globe-card__icon {
+    width: 24px;
+    height: 24px;
+    font-size: 11px;
+  }
+
+  .globe-card__city {
+    font-size: 0.8rem;
+  }
+
+  .globe-card__country {
+    font-size: 0.55rem;
+  }
+}
+
+/* === FAQ === */
+.faq__list {
+  max-width: var(--container-narrow);
+  margin: 0 auto;
+}
+
+.faq__item {
+  border-bottom: 1px solid var(--color-gray-800);
+}
+
+.faq__question {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-md) 0;
+  font-family: var(--font-heading);
+  font-size: var(--text-base);
+  font-weight: 500;
+  color: var(--color-white);
+  text-align: left;
+  cursor: pointer;
+  transition: color var(--duration-fast);
+}
+
+.faq__question:hover {
+  color: var(--color-gold);
+}
+
+.faq__icon {
+  font-size: var(--text-xl);
+  transition: transform var(--duration-base) var(--ease-smooth);
+  color: var(--color-gold);
+  flex-shrink: 0;
+  margin-left: var(--space-md);
+}
+
+.faq__item.open .faq__icon {
+  transform: rotate(45deg);
+}
+
+.faq__answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height var(--duration-base) var(--ease-smooth),
+              padding var(--duration-base) var(--ease-smooth);
+}
+
+.faq__item.open .faq__answer {
+  max-height: 300px;
+  padding-bottom: var(--space-md);
+}
+
+.faq__answer p {
+  font-size: var(--text-sm);
+  color: var(--color-gray-400);
+  line-height: 1.6;
+}
+
+/* === CONTACT - INFINITE-MARQUEE HEADING + 2-COL FORM ===============
+   Per client v2 brief + transcript:
+   "Let's create something extraordinary - I thought maybe this can
+    work well as an infinite loop, like this go to there and keeps
+    keeps rolling."
+   The heading is now a full-width horizontal marquee scrolling
+   right→left forever (pure CSS, no scroll dependency). Form below
+   uses a 2-column inner grid matching the mockup. */
+.contact {
+  position: relative;
+  /* 3rd draft: "take out the gradient of the final part of the page". */
+  background: #2A2A2A;
+  color: #ffffff;
+  padding: 0 0 clamp(4rem, 7vw, 6rem);
+  overflow: hidden;
+  /* Scroll-reveal Option D: rise OVER the pinned Gallery's final
+     viewport-worth of scroll. The negative margin-top of -100vh
+     shifts contact's natural document position UP by one viewport
+     so it overlaps the LAST viewport of gallery-pin-stack - that's
+     phase 2 of the reveal (gallery already showed all photos via
+     internal scroll, now holds at last frame while contact rises). */
+  z-index: 2;
+  /* 5th draft: gallery no longer pins, so the -100vh rise-over is removed. */
+}
+
+/* ── INFINITE MARQUEE HEADING ──────────────────────────────────── */
+.contact__marquee {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  /* Client tweak: marquee block halved - vertical padding cut from
+     2-3rem to 1-1.5rem so the row hugs the heading more tightly. */
+  padding: clamp(1rem, 2vw, 1.5rem) 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  /* Soft edge fade so the heading blurs in/out at viewport edges
+     instead of clipping mid-letter. */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%, #000 6%, #000 94%, transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%, #000 6%, #000 94%, transparent 100%
+  );
+}
+
+.contact__marquee-track {
+  display: flex;
+  align-items: center;
+  gap: clamp(2rem, 4vw, 4rem);
+  width: max-content;
+  /* 38s gives a slow, cinematic roll. Linear ease keeps the speed
+     constant - feels like a real news ticker, not a snap-and-pause. */
+  animation: contact-marquee-roll 38s linear infinite;
+  will-change: transform;
+}
+
+/* Contact marquee - CT3 lighter weight (was 800 -> 300). Client
+   follow-up: font-size halved (was 3-8.5rem) so the marquee row reads
+   as a refined editorial banner rather than dominating the viewport. */
+.contact__marquee-item {
+  font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
+  font-size: clamp(1.5rem, 4.5vw, 4.25rem);
+  font-weight: var(--fw-medium); /* client tweak: less bold than fw-bold */
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
+/* 3rd draft: gold separator dot removed per client. */
+.contact__marquee-bullet {
+  display: none;
+}
+
+@keyframes contact-marquee-roll {
+  0%   { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+
+/* Honour reduced-motion - freeze the heading. */
+@media (prefers-reduced-motion: reduce) {
+  .contact__marquee-track { animation: none; }
+}
+
+/* ── LAYOUT: intro + form ──────────────────────────────────────── */
+/* 5th draft: contact form redesigned to the weddings-new reference -
+   a clean WHITE card with light bordered fields, a static (non-animated)
+   header above it, smaller + Nohemi typography. The section background
+   stays dark; only the form card is white. */
+.contact__inner {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+.contact__header {
+  text-align: center;
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.contact__eyebrow {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #c8a560;
+  margin-bottom: clamp(0.5rem, 1vw, 0.85rem);
+}
+
+/* "Keep it large but without animation" - static heading. */
+.contact__heading {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 4vw, 3.25rem);
+  font-weight: var(--fw-medium);
+  line-height: 1.1;
+  color: #ffffff;
+  margin: 0 0 clamp(0.6rem, 1.2vw, 1rem);
+}
+
+.contact__sub {
+  font-family: var(--font-body);
+  font-size: clamp(0.95rem, 1.05vw, 1.1rem);
+  font-weight: var(--fw-light);
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+}
+
+/* White card form */
+.contact__form {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: clamp(1.5rem, 3.5vw, 2.5rem);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.contact__form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: clamp(0.85rem, 1.6vw, 1.25rem);
+  row-gap: clamp(0.85rem, 1.5vw, 1.15rem);
+}
+
+.form-group--full {
+  grid-column: 1 / -1;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.form-group label {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #888888;
+}
+
+.contact__form .form-group input,
+.contact__form .form-group select,
+.contact__form .form-group textarea {
+  background: #fafafa;
+  border: 1px solid #dddddd;
+  border-radius: 8px;
+  padding: 0.72rem 0.9rem;
+  color: #2A2A2A;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.contact__form .form-group textarea {
+  resize: vertical;
+  min-height: 6.5rem;
+}
+
+.contact__form .form-group input:focus,
+.contact__form .form-group select:focus,
+.contact__form .form-group textarea:focus {
+  outline: none;
+  border-color: var(--color-gold-dark);
+  background: #ffffff;
+}
+
+.contact__form .form-group select {
+  appearance: none;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path fill='none' stroke='%23999999' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' d='M3 5l3 3 3-3'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 0.9rem center;
+  padding-right: 2.4rem;
+}
+
+.contact__submit {
+  display: block;
+  margin: clamp(1.25rem, 2.5vw, 1.75rem) auto 0;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.02em;
+  padding: 0.8rem 2.4rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--color-gold-dark);
+  color: #FCFCFC;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.contact__submit:hover {
+  background: var(--color-gold);
+  transform: translateY(-1px);
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .contact__form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* === BUTTONS === */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: var(--space-md) var(--space-2xl);
+  border-radius: var(--radius-sm);
+  transition: all var(--duration-base) var(--ease-smooth);
+  cursor: pointer;
+}
+
+.btn--primary {
+  background: var(--color-gold);
+  color: var(--color-black);
+}
+
+.btn--primary:hover {
+  background: var(--color-gold-light);
+  transform: translateY(-2px);
+  /* Removed `box-shadow: var(--shadow-gold)` per brief - no gold glows. */
+}
+
+/* 3rd draft: spacing for the extra in-section "Get in Touch" CTAs
+   (Who We Are, Globe, end-of-contact). */
+.section-cta {
+  align-self: flex-start;
+  margin-top: clamp(1.25rem, 2.5vw, 2rem);
+  /* 3rd draft client spec (Canva inspector): Nohemi Regular, 20px /
+     22px line-height, -0.3px tracking, near-white #FCFCFC label on a
+     deeper gold so the light text stays readable (matches the mock).
+     SHAPE: a fully-rounded pill/capsule (was a 4px rectangle) with
+     the mock's roomier padding - that's the structure in the mock. */
+  background: var(--color-gold-dark);
+  color: #FCFCFC;
+  font-weight: var(--fw-regular);
+  font-size: 20px;
+  line-height: 22px;
+  letter-spacing: -0.3px;
+  border-radius: var(--radius-full);
+  padding: 0.95rem 2.4rem;
+}
+.section-cta:hover {
+  background: var(--color-gold);
+  color: #FCFCFC;
+}
+
+/* Client tweak: smaller font size for the "Book Your Band" CTA only
+   (Choose Your Band section). Other section CTAs keep the 20/22 spec. */
+.band-selector .section-cta {
+  font-size: 18px;
+  line-height: 20px;
+  padding: 0.85rem 2.2rem;
+}
+
+/* ── GET-IN-TOUCH POPUP FORM (opened by section CTAs) ───────────── */
+.cta-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1rem, 4vw, 2rem);
+}
+.cta-modal.is-open { display: flex; }
+.cta-modal__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 10, 0.7);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+.cta-modal__dialog {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  /* 3rd draft tweak: popup ~20% smaller (560 → 448, padding scaled too). */
+  max-width: 448px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #ffffff;
+  color: #2A2A2A;
+  border-radius: 14px;
+  padding: clamp(1.2rem, 3.2vw, 2.2rem);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+  animation: cta-modal-in 0.3s var(--ease-out-expo) both;
+}
+@keyframes cta-modal-in {
+  from { opacity: 0; transform: translateY(20px) scale(0.98); }
+  to   { opacity: 1; transform: none; }
+}
+.cta-modal__close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.9rem;
+  background: none;
+  border: 0;
+  font-size: 1.9rem;
+  line-height: 1;
+  color: #999;
+  cursor: pointer;
+}
+.cta-modal__close:hover { color: #2A2A2A; }
+.cta-modal__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.15rem, 2.4vw, 1.6rem);
+  font-weight: var(--fw-medium);
+  margin: 0 0 0.4rem;
+}
+.cta-modal__lead {
+  font-size: var(--text-body);
+  font-weight: var(--fw-light);
+  color: #555555;
+  margin: 0 0 1.2rem;
+}
+.cta-modal__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+}
+.cta-modal__full { grid-column: 1 / -1; }
+.cta-modal__form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.cta-modal__form label {
+  font-size: 0.78rem;
+  font-weight: var(--fw-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #666666;
+}
+.cta-modal__form input,
+.cta-modal__form select,
+.cta-modal__form textarea {
+  width: 100%;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid #dddddd;
+  border-radius: 8px;
+  font: inherit;
+  font-size: 0.95rem;
+  color: #2A2A2A;
+  background: #fafafa;
+}
+.cta-modal__form input:focus,
+.cta-modal__form select:focus,
+.cta-modal__form textarea:focus {
+  outline: none;
+  border-color: var(--color-gold-dark);
+}
+.cta-modal__submit { margin-top: 1rem; width: 100%; }
+body.cta-modal-open { overflow: hidden; }
+@media (max-width: 560px) {
+  .cta-modal__grid { grid-template-columns: 1fr; }
+}
+
+.btn--outline {
+  background: transparent;
+  color: var(--color-gold);
+  border: 1px solid var(--color-gold);
+}
+
+.btn--outline:hover {
+  background: var(--color-gold);
+  color: var(--color-black);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--color-white);
+  border: 1px solid var(--color-gray-800);
+}
+
+.btn--ghost:hover {
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+}
+
+/* === WHATSAPP BUTTON ====================================================
+   Per client v2 brief: subtle, monochrome, NO green. The icon stays a
+   simple fixed circle - no shape morphing. On HOVER, a separate small
+   tooltip pill appears to the LEFT of the icon saying "Let's chat."
+   ========================================================================== */
+.whatsapp-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.22);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-whatsapp);
+  transition: background-color 0.25s ease,
+              border-color 0.25s ease,
+              box-shadow 0.25s ease,
+              transform 0.25s ease;
+  animation: fadeInUp 0.6s var(--ease-out-expo) 2s both;
+}
+
+.whatsapp-btn:hover {
+  background: rgba(0, 0, 0, 0.42);
+  border-color: rgba(255, 255, 255, 0.28);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.32);
+  transform: scale(1.05);
+}
+
+.whatsapp-btn svg {
+  width: 22px;
+  height: 22px;
+  fill: #ffffff;
+}
+
+/* Hover tooltip - separate pill to the LEFT of the button. Shows
+   "Let's chat." with a tiny right-pointing arrow tip. */
+.whatsapp-btn__label {
+  position: absolute;
+  /* Anchor to the right edge of the button area, then offset LEFT by
+     the tooltip's own width via translateX(-100%). 14px gap. */
+  right: calc(100% + 14px);
+  top: 50%;
+  transform: translateY(-50%) translateX(8px);
+  padding: 8px 14px;
+  background: rgba(0, 0, 0, 0.85);
+  color: #ffffff;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  border-radius: 8px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.22s ease, transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Tiny arrow pointing right (toward the WhatsApp button). */
+.whatsapp-btn__label::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -5px;
+  transform: translateY(-50%) rotate(45deg);
+  width: 8px;
+  height: 8px;
+  background: rgba(0, 0, 0, 0.85);
+}
+
+.whatsapp-btn:hover .whatsapp-btn__label {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* === FOOTER === */
+/* 3rd draft: +100% horizontal padding for the footer (scoped to the
+   footer's own .container so other sections' container is unchanged). */
+.footer .container {
+  padding-inline: calc(var(--container-padding) * 2);
+}
+
+.footer {
+  background: var(--color-black);
+  border-top: 1px solid var(--color-gray-800);
+  padding: var(--space-4xl) 0 var(--space-2xl);
+  /* Scroll-reveal: same overlay layer as .contact so the pinned
+     Gallery stays beneath as the footer scrolls past. */
+  position: relative;
+  z-index: 2;
+}
+
+.footer__grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: var(--space-3xl);
+  margin-bottom: var(--space-3xl);
+}
+
+.footer__brand {
+  max-width: 300px;
+}
+
+.footer__brand-name {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  color: var(--color-gold);
+  margin-bottom: var(--space-md);
+}
+
+.footer__brand-tagline {
+  font-family: var(--font-accent);
+  font-size: var(--text-base);
+  color: var(--color-gray-400);
+  font-style: italic;
+}
+
+.footer__heading {
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--color-gray-400);
+  margin-bottom: var(--space-lg);
+}
+
+.footer__links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.footer__link {
+  font-size: var(--text-base);
+  color: var(--color-gray-400);
+  transition: color var(--duration-fast);
+}
+
+.footer__link:hover {
+  color: var(--color-gold);
+}
+
+.footer__social {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.footer__social-link {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--color-gray-800);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-gray-400);
+  transition: all var(--duration-fast);
+}
+
+.footer__social-link:hover {
+  color: var(--color-gold);
+  border-color: var(--color-gold);
+}
+
+.footer__bottom {
+  border-top: 1px solid var(--color-gray-800);
+  padding-top: var(--space-xl);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--text-xs);
+  color: var(--color-gray-600);
+}
+
+/* Designed-by credit - sits INLINE in the same .footer__bottom row as
+   the copyright and the "Based in Nice…" line (centred between them
+   thanks to the row's flex space-between). Same muted text size as the
+   copyright; the link picks up a subtle gold accent on hover. */
+.footer__credit {
+  font-size: var(--text-xs);
+  color: var(--color-gray-600);
+}
+.footer__credit a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.footer__credit a:hover {
+  color: var(--color-gold);
+  border-color: var(--color-gold);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 1024px) {
+  .band-selector__inner {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .band-selector__desc {
+    margin: 0 auto var(--space-2xl);
+  }
+
+  .contact__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2xl);
+  }
+}
+
+/* ── RESPONSIVE Phase 2: collapse heavy scroll choreography <=1024 ────
+   Per client: phones + tablets get a clean normal-scroll experience
+   instead of the desktop pin/zoom. The matching JS inits (Gallery,
+   Choose-Your-Band) early-return on <=1024 so they don't set the
+   inline pin heights / transforms that would fight these rules.
+   Desktop (>1024) is completely untouched. */
+@media (max-width: 1024px) {
+
+  /* Gallery: kill the JS pin-stack. Becomes a normal scrolling
+     masonry (its own 768/480 grid rules still apply below). */
+  .gallery-pin-stack {
+    height: auto !important;
+  }
+  .gallery-section {
+    position: relative;
+    height: auto;
+    overflow: visible;
+  }
+  .gallery-track {
+    transform: none !important;
+  }
+
+  /* Choose Your Band: drop the 500vh runway + the single-row mask so
+     every band shows as a normal centred list. JS no longer drives
+     the bg crossfade, so hide the B&W stack and let the section's
+     own black background read cleanly behind the names. */
+  .band-selector {
+    height: auto;
+  }
+  .band-selector__sticky {
+    position: relative;
+    height: auto;
+  }
+  .band-selector__content {
+    height: auto;
+  }
+  .band-selector__viewport {
+    height: auto;
+    overflow: visible;
+    -webkit-mask: none;
+    mask: none;
+  }
+  .band-selector__list {
+    transform: none !important;
+  }
+  .band-selector__bg-image {
+    display: none;
+  }
+
+  /* Safety net: never let scroll-reveal content stay hidden on a
+     collapsed mobile layout, and kill any horizontal overflow. */
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  html,
+  body {
+    overflow-x: hidden;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 280px;
+    height: 100vh;
+    background: rgba(10, 10, 10, 0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 80px var(--space-xl) var(--space-xl);
+    transition: right var(--duration-base) var(--ease-out-expo);
+    z-index: calc(var(--z-header) + 2);
+    overflow-y: auto;
+    flex-direction: column;
+  }
+
+  .nav--visible {
+    right: 0;
+  }
+
+  .nav__band-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    overflow-x: visible;
+    padding: 0;
+  }
+
+  .nav__band-link {
+    font-size: var(--text-base);
+    padding: var(--space-md) 0;
+    border-bottom: 1px solid var(--color-gray-800);
+    border-left: none;
+  }
+
+  .nav__hamburger {
+    display: flex;
+    z-index: calc(var(--z-header) + 3);
+  }
+
+  .nav__hamburger.open span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .nav__hamburger.open span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .nav__hamburger.open span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+
+  .band-selector__item {
+    font-size: var(--text-xl);
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  .testimonial-card {
+    flex: 0 0 280px;
+  }
+
+  .gallery--masonry {
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 200px;
+    /* Drop the collage areas on mobile - plain 2-col grid. */
+    grid-template-areas: none;
+  }
+  .gallery--masonry .gallery__item { grid-area: auto !important; }
+
+  .footer__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer__bottom {
+    flex-direction: column;
+    gap: var(--space-md);
+    text-align: center;
+  }
+
+  .standards {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery--masonry {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 250px;
+    grid-template-areas: none;
+  }
+
+  .band-selector__heading {
+    font-size: var(--text-3xl);
+  }
+
+  .logo--hero .logo__text {
+    font-size: var(--text-3xl);
+  }
+
+  .logo--hero .logo__tagline {
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+  }
+}

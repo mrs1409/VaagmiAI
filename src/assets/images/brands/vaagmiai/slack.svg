@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 80" fill="none">
+  <!-- Slack hash mark -->
+  <rect x="14" y="38" width="22" height="8" rx="4" fill="#2A2A2A"/>
+  <rect x="38" y="30" width="22" height="8" rx="4" fill="#2A2A2A" transform="rotate(90 49 34)"/>
+  <rect x="38" y="38" width="22" height="8" rx="4" fill="#2A2A2A"/>
+  <rect x="14" y="30" width="22" height="8" rx="4" fill="#2A2A2A" transform="rotate(90 25 34)"/>
+  <!-- Wordmark -->
+  <text x="72" y="52" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif" font-size="28" font-weight="700" fill="#2A2A2A" letter-spacing="-0.5">Slack</text>
+</svg>

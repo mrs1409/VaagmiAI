@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 80" fill="none">
+  <!-- ElevenLabs stylised 11 bars -->
+  <rect x="10" y="18" width="12" height="44" rx="3" fill="#2A2A2A"/>
+  <rect x="28" y="28" width="12" height="34" rx="3" fill="#2A2A2A"/>
+  <rect x="46" y="22" width="12" height="40" rx="3" fill="#2A2A2A"/>
+  <!-- Wordmark -->
+  <text x="72" y="52" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="700" fill="#2A2A2A" letter-spacing="0.2">ElevenLabs</text>
+</svg>

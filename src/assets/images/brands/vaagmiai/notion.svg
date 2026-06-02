@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 80" fill="none">
+  <!-- Notion N mark -->
+  <path d="M14 18 L50 18 L14 62 L50 62 L50 52 L28 52 L64 8 L64 18 L50 18" fill="#2A2A2A"/>
+  <!-- Wordmark -->
+  <text x="76" y="52" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif" font-size="28" font-weight="700" fill="#2A2A2A" letter-spacing="-0.5">Notion</text>
+</svg>

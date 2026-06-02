@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 80" fill="none">
+  <!-- Deepgram sonic circle mark -->
+  <circle cx="36" cy="40" r="22" stroke="#2A2A2A" stroke-width="6" fill="none"/>
+  <path d="M26 32 Q36 40 26 48" stroke="#2A2A2A" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <path d="M36 26 Q50 40 36 54" stroke="#2A2A2A" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <!-- Wordmark -->
+  <text x="68" y="52" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="600" fill="#2A2A2A" letter-spacing="0">Deepgram</text>
+</svg>

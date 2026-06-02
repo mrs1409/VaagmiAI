@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 80" fill="none">
+  <!-- Klaviyo K mark -->
+  <rect x="12" y="16" width="8" height="48" rx="3" fill="#2A2A2A"/>
+  <path d="M20 40 L50 16 L62 16 L32 40 L62 64 L50 64Z" fill="#2A2A2A"/>
+  <!-- Wordmark -->
+  <text x="74" y="52" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="700" fill="#2A2A2A" letter-spacing="0">Klaviyo</text>
+</svg>

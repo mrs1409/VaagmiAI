@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 80" fill="none">
+  <!-- Stripe S mark -->
+  <path d="M38 22 Q22 22 22 32 Q22 40 38 42 Q54 44 54 54 Q54 62 36 62 Q24 62 16 58 L18 66 Q26 70 36 70 Q56 70 56 54 Q56 44 40 42 Q24 40 24 32 Q24 24 38 24 Q48 24 56 28 L54 20 Q46 16 38 22Z" fill="#2A2A2A"/>
+  <!-- Wordmark -->
+  <text x="72" y="52" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif" font-size="28" font-weight="700" fill="#2A2A2A" letter-spacing="-0.5">Stripe</text>
+</svg>

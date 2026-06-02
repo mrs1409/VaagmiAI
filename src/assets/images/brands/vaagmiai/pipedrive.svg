@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 80" fill="none">
+  <!-- Pipedrive pipeline funnel mark -->
+  <path d="M14 18 L58 18 L46 36 L46 58 L26 58 L26 36Z" fill="#2A2A2A"/>
+  <!-- Wordmark -->
+  <text x="72" y="52" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif" font-size="22" font-weight="700" fill="#2A2A2A" letter-spacing="0">Pipedrive</text>
+</svg>

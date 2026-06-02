@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 80" fill="none">
+  <!-- Calendly calendar mark -->
+  <rect x="10" y="18" width="52" height="46" rx="6" stroke="#2A2A2A" stroke-width="5" fill="none"/>
+  <line x1="10" y1="34" x2="62" y2="34" stroke="#2A2A2A" stroke-width="4"/>
+  <line x1="26" y1="12" x2="26" y2="26" stroke="#2A2A2A" stroke-width="4" stroke-linecap="round"/>
+  <line x1="46" y1="12" x2="46" y2="26" stroke="#2A2A2A" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="22" cy="50" r="4" fill="#2A2A2A"/>
+  <circle cx="36" cy="50" r="4" fill="#2A2A2A"/>
+  <circle cx="50" cy="50" r="4" fill="#2A2A2A"/>
+  <!-- Wordmark -->
+  <text x="76" y="52" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif" font-size="22" font-weight="600" fill="#2A2A2A" letter-spacing="0">Calendly</text>
+</svg>

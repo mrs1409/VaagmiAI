@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 80" fill="none">
+  <!-- Twilio signal dot mark -->
+  <circle cx="22" cy="24" r="10" fill="#2A2A2A"/>
+  <circle cx="50" cy="24" r="10" fill="#2A2A2A"/>
+  <circle cx="22" cy="52" r="10" fill="#2A2A2A"/>
+  <circle cx="50" cy="52" r="10" fill="#2A2A2A"/>
+  <!-- Wordmark -->
+  <text x="74" y="52" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif" font-size="26" font-weight="700" fill="#2A2A2A" letter-spacing="0">Twilio</text>
+</svg>
