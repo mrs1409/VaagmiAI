@@ -1447,29 +1447,58 @@ function initMobileMenu() {
   const nav = document.getElementById('mainNav');
   if (!hamburger || !nav) return;
 
-  hamburger.addEventListener('click', () => {
-    const isOpen = nav.classList.contains('nav--visible');
+  // Use a SEPARATE class for mobile drawer so the desktop scroll-driven
+  // `nav--visible` class never accidentally opens the mobile drawer.
+  const MOBILE_OPEN_CLASS = 'nav--mobile-open';
 
-    if (isOpen) {
-      nav.classList.remove('nav--visible');
-      hamburger.classList.remove('open');
-      hamburger.setAttribute('aria-label', 'Open menu');
-      document.body.style.overflow = '';
-    } else {
-      nav.classList.add('nav--visible');
-      hamburger.classList.add('open');
-      hamburger.setAttribute('aria-label', 'Close menu');
-      document.body.style.overflow = 'hidden';
-    }
+  // Create backdrop overlay for click-outside-to-close
+  let backdrop = document.getElementById('navBackdrop');
+  if (!backdrop) {
+    backdrop = document.createElement('div');
+    backdrop.id = 'navBackdrop';
+    backdrop.style.cssText = [
+      'position:fixed', 'inset:0', 'background:rgba(0,0,0,0.55)',
+      'z-index:199',
+      'display:none', 'opacity:0', 'transition:opacity 0.3s ease'
+    ].join(';');
+    document.body.appendChild(backdrop);
+  }
+
+  function closeMenu() {
+    nav.classList.remove(MOBILE_OPEN_CLASS);
+    hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-label', 'Open menu');
+    document.body.style.overflow = '';
+    backdrop.style.opacity = '0';
+    setTimeout(() => { backdrop.style.display = 'none'; }, 320);
+  }
+
+  function openMenu() {
+    nav.classList.add(MOBILE_OPEN_CLASS);
+    hamburger.classList.add('open');
+    hamburger.setAttribute('aria-label', 'Close menu');
+    document.body.style.overflow = 'hidden';
+    backdrop.style.display = 'block';
+    requestAnimationFrame(() => { backdrop.style.opacity = '1'; });
+  }
+
+  hamburger.addEventListener('click', () => {
+    nav.classList.contains(MOBILE_OPEN_CLASS) ? closeMenu() : openMenu();
   });
 
-  // Close menu when clicking a link
-  nav.querySelectorAll('.nav__band-link').forEach(link => {
+  backdrop.addEventListener('click', closeMenu);
+
+  // Close menu when clicking any nav link (main nav + band nav + dropdown links)
+  nav.querySelectorAll('.nav__link, .nav__band-link, .nav__dropdown a').forEach(link => {
     link.addEventListener('click', () => {
-      nav.classList.remove('nav--visible');
-      hamburger.classList.remove('open');
-      document.body.style.overflow = '';
+      // Small delay so anchor navigation fires before drawer closes
+      setTimeout(closeMenu, 120);
     });
+  });
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && nav.classList.contains(MOBILE_OPEN_CLASS)) closeMenu();
   });
 }
 
@@ -1622,12 +1651,22 @@ function initHeroIntro() {
     }
 
     // ── Nav reveal + push-right (room for docking logo) ───────────
+    // On mobile (≤768px), the nav is a hamburger-only drawer — skip
+    // the scroll-driven nav--visible + paddingLeft push entirely so
+    // the desktop intro animation doesn't force the mobile drawer open.
     const nav = document.getElementById('mainNav');
     if (nav) {
-      if (currentRaw > 0.5) nav.classList.add('nav--visible');
-      else nav.classList.remove('nav--visible');
-      const pushPx = travelEase * (logoTarget.dockedWidth + 32);
-      nav.style.paddingLeft = pushPx + 'px';
+      const isMobile = window.innerWidth <= 768;
+      if (!isMobile) {
+        if (currentRaw > 0.5) nav.classList.add('nav--visible');
+        else nav.classList.remove('nav--visible');
+        const pushPx = travelEase * (logoTarget.dockedWidth + 32);
+        nav.style.paddingLeft = pushPx + 'px';
+      } else {
+        // Always ensure nav is NOT visible via scroll-driven class on mobile
+        nav.classList.remove('nav--visible');
+        nav.style.paddingLeft = '';
+      }
     }
 
     requestAnimationFrame(animate);

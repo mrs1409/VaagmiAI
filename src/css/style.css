@@ -4061,10 +4061,16 @@ body.cta-modal-open { overflow: hidden; }
     z-index: calc(var(--z-header) + 2);
     overflow-y: auto;
     flex-direction: column;
+    /* Always hidden regardless of nav--visible (desktop class) */
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: none;
   }
 
-  .nav--visible {
+  /* Only open when hamburger is tapped — uses nav--mobile-open, NOT nav--visible */
+  .nav--mobile-open {
     right: 0;
+    pointer-events: auto;
   }
 
   .nav__band-list {
@@ -4149,5 +4155,439 @@ body.cta-modal-open { overflow: hidden; }
   .logo--hero .logo__tagline {
     font-size: 0.65rem;
     letter-spacing: 0.1em;
+  }
+}
+
+/* ============================================================
+   MOBILE / RESPONSIVE — Comprehensive pass
+   Covers all major sections for phones (≤ 480px) and
+   small tablets (≤ 768px). Desktop (> 768px) is untouched.
+   ============================================================ */
+
+/* ── Global touch UX ──────────────────────────────────────── */
+html {
+  -webkit-text-size-adjust: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* ── Header / Nav mobile overlay ─────────────────────────── */
+@media (max-width: 768px) {
+  .header {
+    padding: 0.85rem var(--container-padding);
+  }
+
+  .header__inner {
+    gap: 0;
+    justify-content: space-between;
+  }
+
+  /* Nav slides in from the right as a full-height drawer */
+  .nav {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: min(300px, 85vw);
+    height: 100vh;
+    background: #1a1a1a;
+    border-left: 1px solid rgba(255,255,255,0.08);
+    padding: 5rem 1.5rem 2rem;
+    transition: right 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: calc(var(--z-header) + 2);
+    overflow-y: auto;
+    flex-direction: column;
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: none;
+  }
+
+  /* Drawer opens ONLY via hamburger (nav--mobile-open class) */
+  .nav--mobile-open {
+    right: 0;
+    pointer-events: auto;
+  }
+
+  .nav__list {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .nav__item {
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .nav__link {
+    width: 100%;
+    padding: 1rem 0;
+    font-size: 0.95rem;
+    justify-content: space-between;
+  }
+
+  .nav__dropdown {
+    position: static;
+    transform: none;
+    min-width: 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition: max-height 0.32s ease;
+    padding: 0;
+  }
+  .nav__dropdown::before { display: none; }
+  .nav__item.is-open > .nav__dropdown {
+    max-height: 600px;
+    transform: none;
+  }
+  .nav__dropdown a {
+    padding: 0.65rem 0 0.65rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .nav__hamburger {
+    display: flex;
+    z-index: calc(var(--z-header) + 3);
+  }
+
+  .nav__hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .nav__hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav__hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+}
+
+/* ── Hero intro tagline ───────────────────────────────────── */
+@media (max-width: 480px) {
+  .hero-intro__tagline {
+    font-size: clamp(1.1rem, 5.5vw, 1.8rem);
+    max-width: 88vw;
+  }
+  .hero-center-title {
+    font-size: clamp(1.4rem, 6vw, 2.5rem);
+  }
+}
+
+/* ── Who We Are ──────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .who-we-are {
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
+  }
+  .who-we-are__copy {
+    max-width: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .who-we-are__stats {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem 1rem;
+  }
+  .stat--top-right { margin-left: 0; }
+  .stat--bottom-left { margin-left: 0; }
+  .stat--top-right .stat__label { transform: none; }
+}
+
+@media (max-width: 380px) {
+  .who-we-are__stats {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+  .stat--top-right, .stat--mid-left,
+  .stat--mid-right, .stat--bottom-left {
+    grid-column: 1;
+    grid-row: auto;
+    margin-left: 0;
+  }
+}
+
+/* ── Events / Industries ─────────────────────────────────── */
+@media (max-width: 768px) {
+  .events__photo-stack {
+    height: 55vw;
+    min-height: 220px;
+    max-height: 380px;
+  }
+  .events__photo--front {
+    height: 65%;
+    width: 42%;
+  }
+  .events__photo--back {
+    height: 95%;
+    width: 60%;
+    right: 10%;
+  }
+  .events__title {
+    font-size: clamp(1.75rem, 7vw, 3rem);
+  }
+  .events__cat-title {
+    font-size: clamp(1.5rem, 6vw, 2.5rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .events__sticky {
+    padding: 2rem 1rem;
+  }
+  .events__photo-stack {
+    height: 60vw;
+    min-height: 200px;
+  }
+  .events__cat-desc {
+    max-width: none;
+  }
+  .events__title, .events__layout {
+    padding-inline: var(--container-padding);
+  }
+}
+
+/* ── Band selector / Industries sticky ──────────────────── */
+@media (max-width: 768px) {
+  .band-selector__inner {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
+    gap: var(--space-2xl);
+  }
+  .band-selector__intro {
+    padding-top: clamp(4rem, 8vw, 6rem);
+  }
+  .band-selector__viewport {
+    padding-left: 0;
+    justify-content: center;
+  }
+  .band-selector__item {
+    font-size: clamp(1.75rem, 7vw, 3rem);
+    white-space: normal;
+    text-align: center;
+  }
+  .band-selector__desc {
+    margin: 0 auto;
+    min-height: auto;
+  }
+}
+
+/* ── Brands marquee ──────────────────────────────────────── */
+@media (max-width: 480px) {
+  .brands-marquee__item {
+    width: clamp(130px, 32vw, 180px);
+    height: clamp(48px, 12vw, 60px);
+  }
+}
+
+/* ── Standards / Why VaagmiAi ────────────────────────────── */
+@media (max-width: 768px) {
+  .standards__inner {
+    padding: 0 var(--container-padding);
+  }
+  .standards__title {
+    font-size: clamp(1.75rem, 7vw, 3rem);
+  }
+}
+
+@media (max-width: 600px) {
+  .standards__grid {
+    grid-template-columns: 1fr;
+  }
+  .standards__grid > .standard:nth-child(2n),
+  .standards__grid > .standard:nth-child(3n+2) {
+    margin-top: 0;
+  }
+  .standard__desc {
+    max-width: none;
+  }
+  .standard__reveal {
+    clip-path: none !important;
+  }
+}
+
+/* ── Testimonials ────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .testimonials__layout {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding-inline: var(--container-padding);
+  }
+  .testimonials__intro {
+    max-width: none;
+    text-align: center;
+  }
+  .testimonials__viewport {
+    margin-left: 0;
+  }
+  .testimonials__title {
+    font-size: clamp(1.6rem, 6vw, 2.5rem);
+  }
+  .testimonials__nav--prev { left: auto; right: 64px; top: auto; bottom: -56px; transform: none; }
+  .testimonials__nav--next { right: 8px; top: auto; bottom: -56px; transform: none; }
+  .testimonials__nav--prev:hover,
+  .testimonials__nav--next:hover { transform: scale(1.08); }
+  .testimonials__track {
+    padding-bottom: 4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .testimonial-card {
+    flex: 0 0 min(280px, 80vw);
+  }
+}
+
+/* ── Gallery ─────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .gallery-section .container {
+    padding-inline: var(--container-padding);
+  }
+  .gallery--masonry {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: clamp(130px, 28vw, 200px);
+    grid-template-areas: none;
+  }
+  .gallery--masonry .gallery__item { grid-area: auto !important; }
+  .gallery-nav--prev { left: 4px; }
+  .gallery-nav--next { right: 4px; }
+}
+
+@media (max-width: 480px) {
+  .gallery--masonry {
+    grid-template-columns: 1fr;
+    grid-auto-rows: clamp(200px, 55vw, 280px);
+  }
+}
+
+/* ── Globe section ───────────────────────────────────────── */
+@media (max-width: 768px) {
+  .globe-text {
+    padding-left: 0;
+    padding-inline: var(--container-padding);
+  }
+  .globe-section .section__title {
+    font-size: clamp(1.8rem, 6vw, 3rem);
+  }
+  .globe-section .globe-title__line {
+    white-space: normal;
+  }
+}
+
+/* ── Contact form ────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .contact__inner {
+    padding: 0 var(--container-padding);
+  }
+  .contact__heading {
+    font-size: clamp(1.5rem, 5.5vw, 2.5rem);
+  }
+  .contact__form {
+    padding: 1.25rem 1rem;
+  }
+  .contact__form-grid {
+    grid-template-columns: 1fr;
+    row-gap: 0.85rem;
+  }
+  .form-group--full {
+    grid-column: 1;
+  }
+}
+
+/* ── Contact marquee ─────────────────────────────────────── */
+@media (max-width: 480px) {
+  .contact__marquee-item {
+    font-size: clamp(1.25rem, 7vw, 2.5rem);
+  }
+}
+
+/* ── CTA modal - sheet on mobile ─────────────────────────── */
+@media (max-width: 560px) {
+  .cta-modal {
+    padding: 0;
+    align-items: flex-end;
+  }
+  .cta-modal__dialog {
+    max-width: 100%;
+    border-radius: 20px 20px 0 0;
+    max-height: 92vh;
+  }
+  .cta-modal__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Footer ──────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .footer .container {
+    padding-inline: var(--container-padding);
+  }
+  .footer__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+  }
+  .footer__brand {
+    max-width: none;
+  }
+  .footer__bottom {
+    flex-direction: column;
+    gap: var(--space-sm);
+    text-align: center;
+  }
+}
+
+/* ── WhatsApp button ─────────────────────────────────────── */
+@media (max-width: 480px) {
+  .whatsapp-btn {
+    bottom: 1.25rem;
+    right: 1.25rem;
+    width: 48px;
+    height: 48px;
+  }
+  .whatsapp-btn__label {
+    display: none;
+  }
+}
+
+/* ── General section padding on mobile ───────────────────── */
+@media (max-width: 768px) {
+  .section {
+    padding: clamp(3rem, 8vw, 5rem) 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .section {
+    padding: clamp(2.5rem, 7vw, 4rem) 0;
+  }
+  .section-cta {
+    font-size: 1rem;
+    padding: 0.85rem 1.75rem;
+  }
+}
+
+/* ── Touch-friendly minimum tap targets ──────────────────── */
+@media (max-width: 768px) {
+  .nav__link,
+  .footer__link,
+  .btn,
+  .section-cta,
+  .contact__submit {
+    min-height: 44px;
+  }
+  .footer__social-link {
+    width: 44px;
+    height: 44px;
+  }
+  .gallery-nav {
+    width: 40px;
+    height: 40px;
   }
 }
