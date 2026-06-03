@@ -4174,9 +4174,15 @@ html {
   -webkit-tap-highlight-color: transparent;
 }
 
-html, body {
-  max-width: 100%;
-  overflow-x: hidden;
+/* NOTE: overflow-x:hidden is intentionally scoped to mobile only.
+   Setting it globally on html/body BREAKS position:sticky on desktop
+   (the browser creates a new scroll container, killing the 400vh + 350vh
+   sticky runway sections). Only apply on screens where those sections
+   collapse to height:auto anyway. */
+@media (max-width: 1024px) {
+  html, body {
+    overflow-x: hidden;
+  }
 }
 
 /* ── Header / Nav mobile overlay ─────────────────────────── */
