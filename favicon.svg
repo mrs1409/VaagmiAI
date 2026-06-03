@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 82" fill="none">
+  <!-- Dark background circle -->
+  <rect width="90" height="82" rx="16" fill="#2A2A2A"/>
+  <!-- Bold left leg of V -->
+  <path d="M3,6 L20,6 Q23,11 44,77 Q42,83 36,81 Q30,78 3,16 Z" fill="#F2DCA3"/>
+  <!-- Centre rise: V-bottom to A-peak -->
+  <path d="M44,77 Q42,83 36,81 Q47,57 56,14 L66,16 Q54,54 44,77 Z" fill="#F2DCA3"/>
+  <!-- Bold right leg of A -->
+  <path d="M56,14 L66,16 L88,81 L73,81 Q63,47 56,14 Z" fill="#F2DCA3"/>
+  <!-- Dot inside A -->
+  <circle cx="41" cy="73" r="5.5" fill="#F2DCA3"/>
+</svg>
